@@ -1,0 +1,295 @@
+/* Sign up */
+.signup {
+  display: flex;
+  padding: 5rem 15rem;
+}
+
+.writeup h1 {
+  font-size: 5rem;
+  font-weight: bolder;
+}
+
+.writeup p {
+  font-size: 2rem;
+}
+
+.writeup b {
+  color: var(--text);
+}
+
+.writeup_black {
+  color: var(--text);
+}
+
+.signup_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.sign_form {
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
+  width: 80%;
+  padding: 0rem 1rem 1rem;
+  text-align: center;
+}
+
+.sign_form a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.sign_form p {
+  width: 100%;
+}
+
+.other_input {
+  margin: 2rem 0rem 0rem;
+}
+
+.other_input input {
+  margin: 0.3rem 0rem;
+  width: 100%;
+  border: none;
+  border-bottom: #004d40 solid 1px;
+}
+
+.other_input input:focus {
+  outline: none;
+  background-color: #e0f2f1;
+  color: var(--text);
+}
+
+.sign_form button {
+  align-items: center;
+  appearance: none;
+  background-color: var(--text);
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-size: larger;
+  font-weight: bolder;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: normal;
+  margin: 0.5rem 0rem 1rem;
+  max-width: 100%;
+  overflow: visible;
+  padding: 2px 24px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 40%;
+  will-change: transform, opacity;
+  z-index: 0;
+}
+
+.sign_form button:hover {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border-radius: 24px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+  box-sizing: border-box;
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-size: larger;
+  font-weight: bolder;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: normal;
+  margin: 0.5rem 0rem 1rem;
+  max-width: 100%;
+  overflow: visible;
+  padding: 2px 24px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 40%;
+  will-change: transform, opacity;
+  z-index: 0;
+}
+
+.signup_text{
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.error_message{
+  font-size: x-small;
+  font-style: italic;
+  color: red;
+  margin-top: 0px;
+  text-align: start;
+}
+
+@media screen and (max-width:1000px) {
+  .signup {
+    display: flex;
+    padding: 5rem 1rem;
+  }
+
+  .writeup {
+    display: none;
+  }
+
+  .writeup h1 {
+    font-size: 2rem;
+    font-weight: bolder;
+  }
+
+  .writeup p {
+    font-size: 1rem;
+  }
+
+  .writeup b {
+    color: var(--text);
+  }
+
+  .writeup_black {
+    color: var(--text);
+  }
+
+  .signup_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .sign_form {
+    box-shadow: none;
+    width: 100%;
+    padding: 0rem 1rem 1rem;
+    text-align: center;
+  }
+
+  .sign_form a {
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .sign_form p {
+    width: 100%;
+  }
+
+  .other_inputs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .other_input input {
+    margin: 0.3rem 0rem;
+    width: 100%;
+    border: none;
+    border-bottom: #004d40 solid 1px;
+  }
+
+  .other_input input:focus {
+    outline: none;
+    background-color: #e0f2f1;
+    color: var(--text);
+  }
+
+  .sign_form button {
+    align-items: center;
+    appearance: none;
+    background-color: var(--text);
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+      rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-size: larger;
+    font-weight: bolder;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: 0.25px;
+    line-height: normal;
+    margin: 0.5rem;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 40%;
+    will-change: transform, opacity;
+    z-index: 0;
+  }
+
+  .sign_form button:hover {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
+      rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: var(--text);
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-size: larger;
+    font-weight: bolder;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: 0.25px;
+    line-height: normal;
+    margin: 0.5rem;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 40%;
+    will-change: transform, opacity;
+    z-index: 0;
+  }
+}
