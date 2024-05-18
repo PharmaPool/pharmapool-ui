@@ -1,0 +1,35 @@
+.notifications {
+  padding: 6rem 15rem 1rem;
+}
+
+.notification_list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.notification {
+  padding: 0.5rem;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  margin: 0.2rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .notifications {
+    padding: 4rem 1rem 1rem;
+  }
+
+  .notification_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .notification {
+    padding: 0.5rem;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    margin: 0.2rem;
+  }
+}
