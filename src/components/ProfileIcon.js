@@ -8,6 +8,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
+import MedicationIcon from "@mui/icons-material/Medication";
 
 import { useNavigate } from "react-router-dom";
 
@@ -77,6 +78,13 @@ export default function AccountMenu() {
       >
         <MenuItem onClick={() => navigate("/profile")}>
           <Avatar /> Profile
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={() => navigate("/product-gallery")}>
+          <ListItemIcon>
+            <MedicationIcon  />
+          </ListItemIcon>{" "}
+          Product Gallery
         </MenuItem>
         <Divider />
         <MenuItem

@@ -15,7 +15,7 @@ function MediaHeader() {
   return (
     <div className="media_header">
       <div className="media_header_image">
-        <img src={Logo} alt="" width={40} />
+        <img src={Logo} alt="" width={25} />
       </div>
       <div className="media_navs">
         <a href="/posts">
