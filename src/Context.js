@@ -20,6 +20,8 @@ export class Context extends Component {
     add: false,
     remove: false,
     product: false,
+    friends: [],
+    pharmacy: {},
   };
 
   componentDidMount() {
@@ -39,6 +41,11 @@ export class Context extends Component {
     });
 
     socket.on("biz", (result) => this.setState({ business: result.biz }));
+
+    fetch(`http://127.0.0.1:8000/api/user/friends/${_id}`)
+      .then((res) => res.json())
+      .then((json) => this.setState({ friends: json.friends }))
+      .catch((err) => console.log(err));
   }
 
   setUser = (user) => {
@@ -71,6 +78,8 @@ export class Context extends Component {
 
   setProduct = () => this.setState({ product: !this.state.product });
 
+  setPharmacy = (e) => this.setState({ pharmacy: e });
+
   render() {
     return (
       <ValueContext.Provider
@@ -91,6 +100,7 @@ export class Context extends Component {
           setAdd: this.setAdd,
           setRemove: this.setRemove,
           setProduct: this.setProduct,
+          setPharmacy: this.setPharmacy
         }}
       >
         {this.props.children}

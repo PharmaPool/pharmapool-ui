@@ -19,8 +19,12 @@ import SinglePost from "./pages/Post/SinglePost";
 import Request from "./pages/Request";
 import Notification from "./pages/Notification/";
 import Pharmacy from "./pages/Pharmacy";
-import Inventory from "./pages/Pharmacy/components/Inventory"
-import PharmacyLogin from "./pages/Pharmacy/PharmacyLogin"
+import Inventory from "./pages/Pharmacy/components/Inventory";
+import PharmacyLogin from "./pages/Pharmacy/PharmacyLogin";
+import VerifyAccount from "./pages/VerifyAccount";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ForgotPassword/ResetPassword";
+import ProductGallery from "./pages/ProductGallery";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -34,6 +38,13 @@ function App() {
           <Route exact path="/about" element={<About />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/verify/:email" element={<VerifyAccount />} />
+          <Route exact path="/forgot-password" element={<ForgotPassword />} />
+          <Route
+            exact
+            path="/reset-password/:email"
+            element={<ResetPassword />}
+          />
           <Route exact path="/signin" element={<Login />} />
           <Route exact path="/posts" element={<Posts />} />
           <Route exact path="/chatrooms" element={<ChatRoom />} />
@@ -49,11 +60,8 @@ function App() {
           <Route exact path="/notifications" element={<Notification />} />
           <Route exact path="/pharmacy" element={<PharmacyLogin />} />
           <Route exact path="/pharmacy/:id" element={<Pharmacy />} />
-          <Route
-            exact
-            path="/pharmacy/:id/inventory"
-            element={<Inventory />}
-          />
+          <Route exact path="/pharmacy/:id/inventory" element={<Inventory />} />
+          <Route exact path="/product-gallery" element={<ProductGallery />} />
         </Routes>
       </Router>
     </div>
