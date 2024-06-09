@@ -2,19 +2,16 @@ import React from "react";
 
 import Notification from "./Notification";
 
-function NotificationList() {
+function NotificationList({ notifications }) {
   return (
     <div className="notification_list">
-      <Notification />
-      <Notification />
-      <Notification />
-      <Notification />
-      <Notification />
-      <Notification />
-      <Notification />
-      <Notification />
-      <Notification />
-      <Notification />
+      {notifications.length < 1 ? (
+        <h3>No notifications yet</h3>
+      ) : (
+        notifications.map((notification, i) => (
+          <Notification key={i} notification={notification} />
+        ))
+      )}
     </div>
   );
 }

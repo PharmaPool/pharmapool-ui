@@ -164,8 +164,14 @@
   margin-bottom: 1rem;
 }
 
-.me input{
+.me {
   cursor: pointer;
+  display: flex;
+}
+
+.me p {
+  margin: 0px;
+  width: max-content;
 }
 
 .login_button_select img {

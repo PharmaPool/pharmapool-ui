@@ -26,14 +26,10 @@ function SingleChat() {
   socket.on("chat", (result) => {
     setChat(result.chatMade.messages);
     setMessage("");
-    setTimeout(
-      () => divReff.current.scrollIntoView({ behavior: "instant" }),
-      1
-    );
   });
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/user/singlechat/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/user/singlechat/${id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
@@ -50,10 +46,6 @@ function SingleChat() {
         setChat(json.chat.messages);
       })
       .catch((err) => console.log(err));
-    setTimeout(
-      () => divReff.current.scrollIntoView({ behavior: "instant" }),
-      10
-    );
   }, []);
 
   const handleMessage = () => {

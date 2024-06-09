@@ -16,7 +16,6 @@ function Business() {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
 
-  console.log(business.interestedPartners);
 
   const handleGroup = () => {
     fetch(`http://127.0.0.1:8000/api/business/group/${business._id}`, {

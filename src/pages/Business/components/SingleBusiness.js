@@ -25,7 +25,7 @@ function SingleBusiness({ business }) {
       },
     })
       .then((response) => response.json())
-      .then((json) => console.log(json))
+      .then((json) => json)
       .catch((err) => console.log(err));
   };
   return (

@@ -117,6 +117,32 @@
   z-index: 0;
 }
 
+.friend_image img {
+  width: 100%;
+  height: 100%;
+}
+
+.friend_image {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-right: 0.3rem;
+}
+
+.friend h5 {
+  text-transform: capitalize;
+  margin: 0px;
+}
+
+.friend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1rem;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1000px) {
   .chats {
     padding: 5rem 1rem 0rem;

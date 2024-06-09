@@ -35,25 +35,33 @@ function InventoryItem() {
             <th>expiry date</th>
             <th>quantity</th>
           </tr>
-          {invent.map((invent, i) => (
-            <tr>
-              <td>{invent.brand}</td>
-              <td>{invent.strength}mg</td>
-              <td>{invent.manufacturer}</td>
-              <td>{invent.dateIn}</td>
-              <td>{invent.expiryDate}</td>
-              <td>{invent.quantity} cartons</td>
-            </tr>
-          ))}
+          {invent.map((invent, i) => {
+            return (
+              <tr>
+                <td>{invent.brand}</td>
+                <td>{invent.strength}mg</td>
+                <td>{invent.manufacturer}</td>
+                <td>
+                  {new Date(invent.dateIn).toUTCString().substring(0, 16)}
+                </td>
+                <td>
+                  {new Date(invent.expiryDate).toUTCString().substring(0, 16)}
+                </td>
+                <td>{invent.quantity}</td>
+              </tr>
+            );
+          })}
           <tr>
             <th></th>
             <th></th>
             <th></th>
             <th></th>
             <th style={{ textAlign: "end" }}>total =</th>
-            <th style={{ textAlign: "center" }}>{inventory.total} cartons</th>
+            <th style={{ textAlign: "center" }}>{inventory.total}</th>
           </tr>
         </table>
+        {add && <AddForm id={inventory._id} />}
+        {remove && <RemoveForm id={inventory._id} invent={invent} />}
         <div className="add_product">
           <button className="clicked_interest" onClick={() => setAdd()}>
             <AddIcon /> Add Stock
@@ -63,8 +71,6 @@ function InventoryItem() {
           </button>
         </div>
       </div>
-      {add && <AddForm id={inventory._id} />}
-      {remove && <RemoveForm id={inventory._id} />}
     </div>
   );
 }

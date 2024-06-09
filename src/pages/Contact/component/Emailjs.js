@@ -20,7 +20,6 @@ export default function Emailjs() {
       )
       .then(
         (result) => {
-          console.log(result);
           setShow(!show);
           setEmail("");
           setName("");

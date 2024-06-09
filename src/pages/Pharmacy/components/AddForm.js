@@ -9,7 +9,7 @@ function AddForm({ id }) {
   const [brand, setBrand] = useState("");
   const [strength, setStrength] = useState("");
   const [manufacturer, setManufacturer] = useState("");
-  const [dateIn, setDateIn] = useState("");
+  const [dateIn, setDateIn] = useState(Date);
   const [expiryDate, setExpiryDate] = useState("");
   const [quantity, setQuantity] = useState("");
 
@@ -29,7 +29,7 @@ function AddForm({ id }) {
       },
     })
       .then((response) => response.json())
-      .then((json) => console.log(json))
+      .then((json) => window.location.reload())
       .catch((err) => console.log(err));
   };
 

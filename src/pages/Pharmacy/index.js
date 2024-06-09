@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./index.css";
 import InventoryList from "./components/InventoryList";
 
 import { useParams } from "react-router-dom";
+import { formLabelClasses } from "@mui/material";
+import PharmacyHeading from "./components/PharmacyHeading";
+
+import { ValueContext } from "../../Context";
 
 function Pharmacy() {
   const { id } = useParams();
-  const [pharmacy, setPharmacy] = useState({});
+  const { setPharmacy } = useContext(ValueContext);
   const [inventory, setInventory] = useState([]);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
+  const [change, setChange] = useState(formLabelClasses);
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/api/business/pharmacy/${id}`)
       .then((response) => response.json())
@@ -22,25 +27,7 @@ function Pharmacy() {
   return (
     <div className="pharmacy">
       <div className="pharmacy_banner">
-        <div className="pharmacy_title">
-          <h1 style={{ textTransform: "capitalize" }}>
-            {pharmacy.businessName}
-          </h1>
-          <p>{pharmacy.about}</p>
-        </div>
-        <div className="pharmacy_logo">
-          {pharmacy.logo && (
-            <img src={pharmacy.logo.imageUrl} alt="pharmacy_logo" />
-          )}
-        </div>
-        <div className="pharmacy_menu">
-          <div>
-            <button>Home</button>
-          </div>
-          <div>
-            <button>Product Gallery</button>
-          </div>
-        </div>
+        <PharmacyHeading title={"LOG OUT"} url={"/pharmacy"} />
         <InventoryList inventories={inventory} id={id} />
       </div>
     </div>

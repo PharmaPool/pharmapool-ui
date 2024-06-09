@@ -21,7 +21,6 @@ function PrivateBusiness() {
       .then((response) => response.json())
       .then((json) => {
         setBusinesses(json.businesses);
-        console.log(json.businesses);
       })
       .catch((err) => console.log(err));
   }, []);

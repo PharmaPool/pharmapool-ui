@@ -1,10 +1,10 @@
 import React from "react";
 
-function Notification() {
+function Notification({ notification }) {
   return (
     <div className="notification">
-      <h6>Request</h6>
-      <p>Wilson Zimthamaha accepted your request</p>
+      <h6>{notification.payload.alertType}</h6>
+      <p>{notification.message}</p>
     </div>
   );
 }

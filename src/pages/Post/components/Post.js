@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 function Post({ post }) {
   const navigate = useNavigate();
-  console.log(post)
   return (
     <div className="business">
       <div className="business_head">

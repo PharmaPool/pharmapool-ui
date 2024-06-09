@@ -42,7 +42,6 @@ function SingleChatRoom() {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         setChatroom(json.chat.messages);
         setTitle(json.chat.title);
       })

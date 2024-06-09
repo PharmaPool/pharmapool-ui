@@ -318,13 +318,13 @@ ul {
 }
 
 .interested_partners table {
-  width: fit-content;
+  width: max-content;
 }
 
 .interested_partners td,
 th {
   text-transform: uppercase;
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 0.5rem;
 }
 
 .interested_partners tr:nth-child(even) {
@@ -580,7 +580,7 @@ th {
   }
 
   .interested_partners {
-    padding: 3rem 0rem 1rem;
+    padding: 1rem 0rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -594,12 +594,12 @@ th {
   .interested_partners td,
   th {
     text-transform: uppercase;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
   }
 
   .interested_partners tr:nth-child(even) {
     background-color: #e0f2f1;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .interested_partners button {

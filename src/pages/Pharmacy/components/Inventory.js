@@ -1,29 +1,22 @@
 import React from "react";
 
-import Logo from "../../../data/logo.png";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import InventoryItem from "./InventoryItem";
+import { useNavigate } from "react-router-dom";
 
 function Inventory() {
+  const navigate = useNavigate();
   return (
     <div className="pharmacy">
-      <div className="pharmacy_banner">
-        <div className="pharmacy_title">
-          <h1>HealthWise GLobal Connect Pharmaceutical Limited</h1>
-          <p>with pharmapool, your pharmacy is connected</p>
+      <div className="invent_menu">
+        <div>
+          <button onClick={() => navigate(-1)}>
+            <ArrowCircleLeftIcon />
+            BACK
+          </button>
         </div>
-        <div className="pharmacy_logo">
-          <img src={Logo} alt="pharmacy_logo" />
-        </div>
-        <div className="pharmacy_menu">
-          <div>
-            <button>Home</button>
-          </div>
-          <div>
-            <button>Product Gallery</button>
-          </div>
-        </div>
-        <InventoryItem />
       </div>
+      <InventoryItem />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import AddIcon from "@mui/icons-material/Add";
 
 import AddProduct from "./AddProduct";
@@ -24,18 +24,28 @@ function InventoryList({ inventories, id }) {
               <td>{invent.product}</td>
               <td>{invent.total} cartons</td>
               <td>
-                <button className="interest" onClick={()=>navigate(`/pharmacy/${invent._id}/inventory`)}>Inventory</button>
+                <button
+                  className="interest"
+                  onClick={() => navigate(`/pharmacy/${invent._id}/inventory`)}
+                >
+                  Inventory
+                </button>
               </td>
             </tr>
           ))}
         </table>
+        {product && <AddProduct id={id} />}
         <div className="add_product">
-          <button className="interest" onClick={() => setProduct()}>
+          <button
+            className="interest"
+            onClick={() => {
+              setProduct();
+            }}
+          >
             <AddIcon /> Add Product
           </button>
         </div>
       </div>
-        {product && <AddProduct id={id} />}
     </div>
   );
 }

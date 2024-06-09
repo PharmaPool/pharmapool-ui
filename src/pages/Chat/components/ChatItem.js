@@ -9,12 +9,21 @@ function ChatItem({ chat }) {
       <div className="chat_image">
         <img src={chat.users[0].userId.profileImage.imageUrl} alt="" />
       </div>
-      <div className="chat_title">
-        <h5>
-          {chat.users[0].userId.firstName} {chat.users[0].userId.lastName}
-        </h5>
-        <p>{chat.messages[chat.messages.length - 1].message}</p>
-      </div>
+      {chat.messages.length > 0 ? (
+        <div className="chat_title">
+          <h5>
+            {chat.users[0].userId.firstName} {chat.users[0].userId.lastName}
+          </h5>
+          <p>{chat.messages[chat.messages.length - 1].message}</p>
+        </div>
+      ) : (
+        <div>
+          {" "}
+          <h5>
+            {chat.users[0].userId.firstName} {chat.users[0].userId.lastName}
+          </h5>
+        </div>
+      )}
     </div>
   );
 }

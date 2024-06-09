@@ -15,6 +15,10 @@
   margin: 0.2rem;
 }
 
+.notification h6{
+  text-transform: capitalize;
+}
+
 @media screen and (max-width: 1000px) {
   .notifications {
     padding: 4rem 1rem 1rem;

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 function ChatRoomItem({ chatroom }) {
   const navigate = useNavigate();
-  console.log(chatroom);
   return (
     <div
       className="chat_item"

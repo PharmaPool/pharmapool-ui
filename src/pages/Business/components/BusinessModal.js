@@ -89,7 +89,6 @@ export default function PostModal() {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         setOpen(false);
       })
       .catch((err) => console.log(err));

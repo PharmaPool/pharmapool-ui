@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -9,9 +9,11 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 // import EditIcon from "@mui/icons-material/Edit";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import InsertCommentIcon from "@mui/icons-material/InsertComment";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
+import { ValueContext } from "../../../Context";
+import { useNavigate } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -27,9 +29,8 @@ export default function NewChatRoomModal() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = useState("");
   const { width } = useWindowDimensions();
-
-  let url;
-  url = `http://127.0.0.1:8000/api/user/chatroom/create`;
+  const { friends } = useContext(ValueContext);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,12 +40,12 @@ export default function NewChatRoomModal() {
     setOpen(false);
   };
 
-  const handleSubmit = () => {
-    fetch(url, {
+  const handleChat = (friendId) => {
+    fetch("http://127.0.0.1:8000/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
         userId,
-        title,
+        friendId,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -52,8 +53,7 @@ export default function NewChatRoomModal() {
     })
       .then((response) => response.json())
       .then((json) => {
-        setOpen(false);
-        window.location.reload();
+        navigate(`/chat/${json.chat._id}`)
       })
       .catch((err) => console.log(err));
   };
@@ -61,16 +61,16 @@ export default function NewChatRoomModal() {
   return (
     <React.Fragment>
       <button className="new_chatroom_button" onClick={handleClickOpen}>
-        <GroupAddIcon />
+        <InsertCommentIcon />
       </button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        fullScreen={width < 1000 ? true : false}
+        fullScreen
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          create chatroom
+          Start Chat
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -85,22 +85,22 @@ export default function NewChatRoomModal() {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <div className="chatroom_form">
-            <div>
-              <input
-                type="text"
-                placeholder="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
+          <div className="friends">
+            {friends.map((friend, i) => (
+              <div className="friend" onClick={() => handleChat(friend._id)}>
+                <div className="friend_image">
+                  <img src={friend.profileImage.imageUrl} alt="friend_logo" />
+                </div>
+                <h5>{friend.fullName}</h5>
+              </div>
+            ))}
           </div>
         </DialogContent>
-        <DialogActions>
+        {/* <DialogActions>
           <Button color="success" autoFocus onClick={handleSubmit}>
             create
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </BootstrapDialog>
     </React.Fragment>
   );

@@ -24,7 +24,7 @@ function ChatRoom() {
       {width > 900 ? <PrivateHeader /> : <MediaHeader />}
       <div className="chatrooms">
         <div className="chatroom_title">
-          <h4>Chatrooms</h4>{" "}
+          <h4>Chatrooms</h4>
           <div>
             <NewChatRoomModal />
           </div>

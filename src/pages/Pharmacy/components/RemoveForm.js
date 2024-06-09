@@ -1,11 +1,26 @@
-import React, {useContext} from 'react'
+import React, { useContext, useState } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-import { ValueContext } from '../../../Context';
+import { ValueContext } from "../../../Context";
 
-function RemoveForm() {
-  const {setRemove} = useContext(ValueContext)
+function RemoveForm({ id, invent }) {
+  const { setRemove } = useContext(ValueContext);
+  const [quantity, setQuantity] = useState(0);
+  const handleRemove = () => {
+    fetch(`http://127.0.0.1:8000/api/business/inventory/removestock/${id}`, {
+      method: "DELETE",
+      body: JSON.stringify({
+        quantity,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => window.location.reload())
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="interested_partners">
       <table className="addform">
@@ -18,31 +33,27 @@ function RemoveForm() {
           <th>quantity</th>
         </tr>
         <tr>
-          <td>M & B</td>
-          <td>500mg</td>
-          <td>m & b</td>
-          <td>may, 2024</td>
-          <td>november, 2026</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
           <td>
-            <input type="number" />
-          </td>
-        </tr>
-        <tr>
-          <td>M & B</td>
-          <td>500mg</td>
-          <td>m & b</td>
-          <td>may, 2024</td>
-          <td>november, 2026</td>
-          <td>
-            <input type="number" />
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => {
+                setQuantity(e.target.value);
+              }}
+            />
           </td>
         </tr>
       </table>
       <div className="add_product">
-        <button className="interest">
+        <button className="interest" onClick={handleRemove}>
           <RemoveIcon /> Remove
         </button>
-        <button className="clicked_interest" onClick={()=>setRemove()}>
+        <button className="clicked_interest" onClick={() => setRemove()}>
           <CancelIcon /> Cancel
         </button>
       </div>
@@ -50,4 +61,4 @@ function RemoveForm() {
   );
 }
 
-export default RemoveForm
+export default RemoveForm;

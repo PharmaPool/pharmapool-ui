@@ -7,11 +7,11 @@ import Loading from "../../data/loader.gif";
 
 import { ValueContext } from "../../Context";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Login() {
   const { setUser, setName, setShow } = useContext(ValueContext);
-  const [email, setEmail] = useState("");
+  const { email } = useParams();
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(false);
@@ -47,7 +47,7 @@ function Login() {
   };
 
   const handleRemember = () => {
-    setChecked(true);
+    setChecked(!checked);
     if (email !== "") {
       window.localStorage.setItem("email", email);
     }
@@ -55,13 +55,6 @@ function Login() {
       window.localStorage.setItem("password", password);
     }
   };
-
-  useEffect(() => {
-    const rememberedEmail = localStorage.getItem("email");
-    const rememberedPassword = localStorage.getItem("password");
-    setEmail(rememberedEmail);
-    setPassword(rememberedPassword);
-  }, []);
 
   return (
     <div className="login">
@@ -79,12 +72,7 @@ function Login() {
                 <p>Invalid email or password</p>
               </div>
             )}
-            <input
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <input type="text" placeholder="Email" value={email} />
             <input
               type="password"
               placeholder="Password"
