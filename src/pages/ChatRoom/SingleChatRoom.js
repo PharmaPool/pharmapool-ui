@@ -6,6 +6,7 @@ import useWindowDimensions from "../../components/useWindowDimensions";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { ValueContext } from "../../Context";
+import ChatProfile from "./components/ChatProfile";
 
 function SingleChatRoom() {
   const { height } = useWindowDimensions();
@@ -16,6 +17,7 @@ function SingleChatRoom() {
   const [message, setMessage] = useState("");
   const divRef = useRef(null);
   const history = useNavigate();
+  const [users, setUsers] = useState([])
 
   socket.on("connect", () => {
     console.log("connected");
@@ -44,6 +46,7 @@ function SingleChatRoom() {
       .then((json) => {
         setChatroom(json.chat.messages);
         setTitle(json.chat.title);
+        setUsers(json.chat.users)
       })
       .catch((err) => console.log(err));
   }, []);
@@ -70,13 +73,35 @@ function SingleChatRoom() {
           <div className="back" onClick={() => history(-1)}>
             <ArrowBackIosIcon />
           </div>
-          <div className="chat_user_image">
-            <img
-              src="https://res.cloudinary.com/dex0mkckw/image/upload/v1713481897/92325970043_hzkfkj.png"
-              alt=""
-            />
+          <div>
+            <div className="chat_user_image">
+              <img
+                src="https://res.cloudinary.com/dex0mkckw/image/upload/v1713481897/92325970043_hzkfkj.png"
+                alt=""
+              />
+            </div>
           </div>
-          <h3>{title}</h3>
+          <div
+            className="chat_titl"
+            style={{
+              overflow: "hidden",
+            }}
+          >
+            <h6
+              style={{
+                wordBreak: "break-word",
+                lineClamp: "1",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {title}
+            </h6>
+          </div>
+          <div className="chat_profile">
+            <ChatProfile title={title} users={users} />
+          </div>
         </div>
         <RoomChat chatroom={chatroom} title={title} />
         {/* <div ref={divRef}></div> */}

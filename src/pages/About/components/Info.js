@@ -1,7 +1,5 @@
 import React from "react";
-import Demand from "../../../data/demand.png"
-import JointPurchase from "../../../data/joint purchase.png"
-import Sale from "../../../data/sale.png"
+import images from "../../../data/images";
 
 function Info() {
   const services = [
@@ -27,7 +25,7 @@ function Info() {
       <div className="home_services">
         <div className="home_service">
           <div className="service_img">
-            <img src={Demand} alt="demand_image" />
+            <img src={images.demand} alt="demand_image" />
           </div>
           <div className="service_details">
             <h3>{services[0].type}</h3>
@@ -40,12 +38,12 @@ function Info() {
             <p>{services[1].details}</p>
           </div>
           <div className="service_img">
-            <img src={JointPurchase} alt="demand_image" />
+            <img src={images.jointPurchase} alt="demand_image" />
           </div>
         </div>
         <div className="home_service">
           <div className="service_img">
-            <img src={Sale} alt="demand_image" />
+            <img src={images.sale} alt="demand_image" />
           </div>
           <div className="service_details">
             <h3>{services[2].type}</h3>

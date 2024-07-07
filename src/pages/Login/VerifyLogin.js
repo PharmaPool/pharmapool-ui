@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import "./index.css";
 import { jwtDecode } from "jwt-decode";
 
@@ -7,7 +7,7 @@ import Loading from "../../data/loader.gif";
 
 import { ValueContext } from "../../Context";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Login() {
   const { setUser, setName, setShow } = useContext(ValueContext);
@@ -34,7 +34,7 @@ function Login() {
       .then((res) => {
         if (res.type === "email" || res.type === "password") {
           setError(true);
-          setOpen(false)
+          setOpen(false);
         }
         const user = jwtDecode(res.token);
         setUser(user.user);
@@ -57,13 +57,6 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    const rememberedEmail = localStorage.getItem("email");
-    const rememberedPassword = localStorage.getItem("password");
-    setEmail(rememberedEmail);
-    setPassword(rememberedPassword);
-  }, []);
-
   return (
     <div className="login">
       <div className="signin_form">
@@ -84,13 +77,19 @@ function Login() {
               type="text"
               placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setError(false);
+                setEmail(e.target.value);
+              }}
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setError(false);
+                setPassword(e.target.value);
+              }}
             />
           </div>
           <button

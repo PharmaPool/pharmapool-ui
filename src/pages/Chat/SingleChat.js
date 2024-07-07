@@ -6,6 +6,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import useWindowDimensions from "../../components/useWindowDimensions";
 import { useParams, useNavigate } from "react-router-dom";
 import { ValueContext } from "../../Context";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 function SingleChat() {
   const { height } = useWindowDimensions();
@@ -58,10 +59,32 @@ function SingleChat() {
           <div className="back" onClick={() => history(-1)}>
             <ArrowBackIosIcon />
           </div>
-          <div className="chat_user_image">
-            <img src={profileImage} alt="" />
+          <div>
+            <div className="chat_user_image">
+              <img src={profileImage} alt="" />
+            </div>
           </div>
-          <h3>{title}</h3>
+          <div
+            className="chat_titl"
+            style={{
+              overflow: "hidden",
+            }}
+          >
+            <h6
+              style={{
+                wordBreak: "break-word",
+                lineClamp: "1",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {title}
+            </h6>
+          </div>
+          <div className="chat_profile">
+            <MoreVertIcon />
+          </div>
         </div>
         <Chat chat={chat} />
         <div ref={divReff}></div>

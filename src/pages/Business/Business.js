@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import BackHandIcon from "@mui/icons-material/BackHand";
+import PersonIcon from "@mui/icons-material/Person";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { ValueContext } from "../../Context";
+import useWindowDimensions from "../../components/useWindowDimensions";
 
 function Business() {
   const [clicked, setClicked] = useState(false);
@@ -15,7 +17,7 @@ function Business() {
   const [showTitle, setShowTitle] = useState(false);
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
-
+  const { width } = useWindowDimensions();
 
   const handleGroup = () => {
     fetch(`http://127.0.0.1:8000/api/business/group/${business._id}`, {
@@ -76,7 +78,7 @@ function Business() {
             </div>
             <div className="username">
               <h5>{business.creator.fullName}</h5>
-              <p>4 months ago</p>
+              {/* <p>4 months ago</p> */}
             </div>
           </div>
           <div className="business_content">
@@ -85,6 +87,9 @@ function Business() {
             </h5>
             <div className="business_description">
               <p>{business.content}</p>
+            </div>
+            <div>
+              <h5>Deadline: {business.deadline}</h5>
             </div>
             <div className="product">
               <div className="product_discription">
@@ -243,37 +248,52 @@ function Business() {
                       className="interest"
                       onClick={() => navigate(`/profile/${partner.user._id}`)}
                     >
-                      View Profile
+                      {width > 1000 ? "View Profile" : <PersonIcon />}
                     </button>
                   </td>
                 </tr>
               ))}
             </table>
             <br />
-            {!showTitle && (
-              <button className="interest" onClick={() => setShowTitle(true)}>
-                Create Business Group
-              </button>
-            )}
-            {showTitle && (
-              <div className="group_form">
-                <input
-                  type="text"
-                  placeholder="Group title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                <div className="group_button">
-                  <button className="interest" onClick={handleGroup}>
-                    create
-                  </button>
-                  <button
-                    className="not_interest"
-                    onClick={() => setShowTitle(false)}
-                  >
-                    cancel
-                  </button>
-                </div>
+            {business.creator._id !== _id && (
+              <div>
+                {!showTitle && (
+                  <div className="interestedPartners_button">
+                    <button
+                      className="interest"
+                      onClick={() => setShowTitle(true)}
+                    >
+                      Create Business Group
+                    </button>
+                    {/* <button
+                      className="interest"
+                      onClick={() => setShowTitle(true)}
+                    >
+                      <MapIcon /> View Map
+                    </button> */}
+                  </div>
+                )}
+                {showTitle && (
+                  <div className="group_form">
+                    <input
+                      type="text"
+                      placeholder="Group title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <div className="group_button">
+                      <button className="interest" onClick={handleGroup}>
+                        create
+                      </button>
+                      <button
+                        className="not_interest"
+                        onClick={() => setShowTitle(false)}
+                      >
+                        cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

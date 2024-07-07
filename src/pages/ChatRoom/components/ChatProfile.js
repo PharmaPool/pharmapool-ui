@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -9,11 +9,11 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 // import EditIcon from "@mui/icons-material/Edit";
-import InsertCommentIcon from "@mui/icons-material/InsertComment";
+// import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
-import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import ChatRoomAccount from "./ChatRoomAccount";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -24,13 +24,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function NewChatRoomModal() {
+export default function ChatProfile({ title, users }) {
   const userId = localStorage.getItem("userId");
   const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = useState("");
   const { width } = useWindowDimensions();
-  const { friends } = useContext(ValueContext);
-  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,29 +36,10 @@ export default function NewChatRoomModal() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const handleChat = (friendId) => {
-    fetch("http://127.0.0.1:8000/api/user/chat", {
-      method: "POST",
-      body: JSON.stringify({
-        userId,
-        friendId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        navigate(`/chat/${json.chat._id}`);
-      })
-      .catch((err) => console.log(err));
-  };
-
   return (
     <React.Fragment>
       <button className="new_chatroom_button" onClick={handleClickOpen}>
-        <InsertCommentIcon />
+        <MoreVertIcon />
       </button>
       <BootstrapDialog
         onClose={handleClose}
@@ -69,8 +47,12 @@ export default function NewChatRoomModal() {
         open={open}
         fullScreen
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Start Chat
+        <DialogTitle
+          sx={{ m: 0, p: 2 }}
+          id="customized-dialog-title"
+          style={{ textTransform: "capitalize" }}
+        >
+          {title}
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -85,22 +67,27 @@ export default function NewChatRoomModal() {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <div className="friends">
-            {friends.map((friend, i) => (
-              <div className="friend" onClick={() => handleChat(friend._id)}>
-                <div className="friend_image">
-                  <img src={friend.profileImage.imageUrl} alt="friend_logo" />
-                </div>
-                <h5>{friend.fullName}</h5>
-              </div>
-            ))}
+          <div className="account_body">
+            <ChatRoomAccount />
+            <div className="interested_partners">
+              <table className="account_table">
+                <tr>
+                  <th>Partners</th>
+                </tr>
+                {users.map((user, i) => (
+                  <tr key={i}>
+                    <td>{user.fullName}</td>
+                  </tr>
+                ))}
+              </table>
+            </div>
           </div>
         </DialogContent>
-        {/* <DialogActions>
-          <Button color="success" autoFocus onClick={handleSubmit}>
-            create
+        <DialogActions>
+          <Button color="success" autoFocus onClick={handleClose}>
+            done
           </Button>
-        </DialogActions> */}
+        </DialogActions>
       </BootstrapDialog>
     </React.Fragment>
   );

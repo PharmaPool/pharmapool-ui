@@ -8,6 +8,8 @@ import Reason from "./component/Reason";
 import QuickLinks from "../../components/QuickLinks";
 import Header from "../../components/Header";
 import MoreInfo from "./component/MoreInfo";
+import images from "../../data/images";
+import ExtraInfo from "./component/ExtraInfo";
 
 function Homepage() {
   const [navBg, setNavSize] = useState(false);
@@ -36,8 +38,12 @@ function Homepage() {
           revolutionizing the way pharmacists and pharmacies do business. Our
           platform serves as a dynamic marketplace, connecting professionals in
           the pharmaceutical industry and facilitating collaborative ventures
-          that drive growth and efficiency.
+          that drive growth and efficiency. We provide connections for our
+          esteemed customers nationwide.
         </h5>
+        <div className="intro_image">
+          <img src={images.map} alt="map" />
+        </div>
       </div>
       <Info />
       <div className="home_footer">
@@ -64,6 +70,11 @@ function Homepage() {
           </div>
         </div>
       </div>
+      <div className="certified">
+        <img src={images.certified} alt="certified" width={100} />
+        <h1>CAC CERTIFIED</h1>
+      </div>
+      <ExtraInfo />
       <QuickLinks />
       <Footer />
     </div>

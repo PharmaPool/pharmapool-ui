@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./index.css";
 import { jwtDecode } from "jwt-decode";
 
-import Logo from "../../data/logo.png";
+import images from "../../data/images";
 import Loading from "../../data/loader.gif";
 
 import { ValueContext } from "../../Context";
@@ -67,7 +67,7 @@ function Login() {
         <div className="signin_form">
           <div className="sig_form">
             <img
-              src={Logo}
+              src={images.logo}
               alt="pharmapool logo"
               width={80}
               onClick={() => navigate("/")}
@@ -87,7 +87,7 @@ function Login() {
         <div className="signin_form">
           <div className="sig_form">
             <img
-              src={Logo}
+              src={images.logo}
               alt="pharmapool logo"
               width={80}
               onClick={() => navigate("/")}

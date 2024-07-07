@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 
-import Logo from "../../data/logo.png";
+import images from "../../data/images";
 import Loading from "../../data/loader.gif";
 
 import { useNavigate } from "react-router-dom";
@@ -45,12 +45,12 @@ function Login() {
         <div className="signin_form">
           <div className="sig_form">
             <img
-              src={Logo}
+              src={images.logo}
               alt="pharmapool logo"
               width={80}
               onClick={() => navigate("/")}
             />
-            <p style={{marginTop:"1rem"}}>
+            <p style={{ marginTop: "1rem" }}>
               An email with the password reset link has been sent to{" "}
               {email.substring(0, 3)}*********
               {email.substring(email.length - 10, email.length)}
@@ -62,7 +62,7 @@ function Login() {
         <div className="signin_form">
           <div className="sig_form">
             <img
-              src={Logo}
+              src={images.logo}
               alt="pharmapool logo"
               width={80}
               onClick={() => navigate("/")}

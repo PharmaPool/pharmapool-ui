@@ -4,7 +4,7 @@ import "./index.css";
 import MediaHeader from "../../components/MediaHeader";
 import PrivateHeader from "../../components/PrivateHeader";
 import ChatList from "./components/ChatList";
-import NewChatModal from "./components/NewChatModal"
+import NewChatModal from "./components/NewChatModal";
 
 import useWindowDimensions from "../../components/useWindowDimensions";
 

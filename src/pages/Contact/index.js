@@ -16,12 +16,11 @@ const Contact = () => {
   return (
     <>
       <Header />
-
       <section className="contact">
         <h1>Contact Us</h1>
         <p style={{ fontSize: "1.3rem", color: "grey" }}>
-          Do not hesitate to reach out. Just fill in the contact form here and
-          we’ll be sure to reply as fast as possible.
+          Drop us a message anytime! Our dedicated team is ready to ensure your
+          experience is top-notch with swift responses.
         </p>
 
         <div className="con-con">
@@ -40,23 +39,23 @@ const Contact = () => {
               </a>
               <br />
               <a
-                href="mailto:Support@britishfx.net"
+                href="mailto:Support@pharmapoolng.com"
                 style={{ color: "#0d47a1" }}
               >
                 support@pharmapoolng.com
               </a>
             </div>
             <div className="socials">
-              <a href="#">
+              <a href="https://x.com/pharmapoolng">
                 <XIcon />
               </a>
-              <a href="#">
+              <a href="https://www.linkedin.com/in/pharmapool-pharmapool-521656317/">
                 <LinkedInIcon />
               </a>
               <a href="#">
                 <InstagramIcon />
               </a>
-              <a href="#">
+              <a href="https://web.facebook.com/profile.php?id=61561532954556">
                 <FacebookIcon />
               </a>
             </div>

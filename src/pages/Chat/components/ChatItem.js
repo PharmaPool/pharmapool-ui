@@ -14,7 +14,17 @@ function ChatItem({ chat }) {
           <h5>
             {chat.users[0].userId.firstName} {chat.users[0].userId.lastName}
           </h5>
-          <p>{chat.messages[chat.messages.length - 1].message}</p>
+          <p
+            style={{
+              wordBreak: "break-word",
+              lineClamp: "1",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {chat.messages[chat.messages.length - 1].message}
+          </p>
         </div>
       ) : (
         <div>

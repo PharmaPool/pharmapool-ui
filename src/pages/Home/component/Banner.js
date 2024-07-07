@@ -1,6 +1,6 @@
 import React from "react";
 
-import Logo from "../../../data/logo.png";
+import images from "../../../data/images";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -15,36 +15,43 @@ function Banner() {
           {/* <img src={Logo} alt="pharmapool logo" width={60}/> */}
         </div>
         <div className="home_social">
-          <a href="#">
+          <a href="https://x.com/pharmapoolng">
             <XIcon />
           </a>
-          <a href="#">
+          <a href="https://www.linkedin.com/in/pharmapool-pharmapool-521656317/">
             <LinkedInIcon />
           </a>
           <a href="#">
             <InstagramIcon />
           </a>
-          <a href="#">
+          <a href="https://web.facebook.com/profile.php?id=61561532954556">
             <FacebookIcon />
           </a>
         </div>
       </div>
-      <div className="title">
-        <div className="title_image">
-          <img src={Logo} alt="pharmapool logo" width={100} />
+      <div className="home_banner">
+        <div className="title">
+          <div className="title_image">
+            <img src={images.logo} alt="pharmapool logo" width={100} />
+          </div>
+          <p>Welcome to</p>
+          <h1>Pharmapool Synergy Solutions Nigeria Limited.</h1>
+          <small>with pharmapool, your pharmacy is connected.</small>
+          <a href="/signup">
+            <button className="business_button">Register Now!</button>
+          </a>
         </div>
-        <p>welcome to</p>
-        <h1>Pharmapool Synergy Solutions Nigeria Limited.</h1>
-        <small>with pharmapool, your pharmacy is connected.</small>
-        <a href="/signup">
-          <button className="business_button">Register Now!</button>
-        </a>
+        <div className="banner_display">
+          <div className="banner_display_image">
+            <img src={images.homepage} alt="pharmapool_logo" />
+          </div>
+        </div>
       </div>
       <div className="banner_footer">
         <div className="links">
           <a href="/">Home</a>
           <a href="/business">Business</a>
-          <a href="/about">About us</a>
+          <a href="/about">About</a>
           <a href="/contact">Contact</a>
           <a href="/signin">Login</a>
         </div>

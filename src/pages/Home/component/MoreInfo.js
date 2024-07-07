@@ -1,47 +1,59 @@
 import React from "react";
+import images from "../../../data/images";
+import VerifiedIcon from "@mui/icons-material/Verified";
 
-function MoreInfo() {
-  const moreInfo = [
+function Info() {
+  const services = [
     {
-      title: "Beyond Transactions",
-      details:
-        "Pharmapool isn't just about transactions; it's about fostering connections and empowering businesses to thrive. Our platform features robust communication tools, including chatrooms and business posts, allowing users to network and share insights within the community.",
+      type: "Our Team",
+      details: "24/7 Availability",
     },
     {
-      title: "Seamless Transactions, Secure Payments",
-      details:
-        "We prioritize security and convenience in every transaction. Pharmapool facilitates secure monetary transactions through dedicated wallets, ensuring peace of mind for all parties involved. With our streamlined logistics network, we manage the transfer of products from our warehouses to your doorstep, seamlessly bridging the gap between supply and demand.",
+      type: "Our Process",
+      details: "Verified",
     },
     {
-      title: "Expert Drug Information at Your Fingertips",
-      details:
-        "Navigate the complexities of pharmaceuticals with ease. Pharmapool provides comprehensive drug information, including a catalog of available medications and their respective brands. Have questions about a particular medication? Our community-driven platform allows users to share experiences and receive insightful answers.",
-    },
-    {
-      title: "Join the Pharmapool Community Today",
-      details:
-        "Pharmapool is more than just a platform; it's a community of like-minded professionals dedicated to driving innovation in the pharmaceutical industry. Join us in shaping the future of pharmacy and unlock new opportunities for growth and success.",
-    },
-    {
-      title: "Why Pharmapool?",
-      details:
-        "We're not just another marketplace. Pharmapool is the first of its kind, providing a tailored solution for pharmacists and pharmacies to expand their reach and enhance their businesses. With our user-friendly interface, comprehensive services, and commitment to excellence, Pharmapool is your ultimate partner in success.",
+      type: "Our Transactions",
+      details: "100% Secured",
     },
   ];
   return (
-    <div className="more_infos">
-      {moreInfo.map((info, i) => (
-        <div className="more_info" key={i}>
-          <div>
+    <div className="info">
+      <div className="home_services">
+        <div className="home_serv">
+          <div className="service_details">
+            <h3>{services[0].type}</h3>
+            <h1>{services[0].details}</h1>
           </div>
-          <div>
-            <h3>{info.title}</h3>
-            <p>{info.details}</p>
+          <div className="servic_img">
+            <img src={images[247]} alt="demand_image" />
           </div>
         </div>
-      ))}
+
+        <div className="home_servic">
+          <div className="servic_img">
+            <img src={images.transparency} alt="demand_image" />
+          </div>
+          <div className="service_details">
+            <h3>{services[2].type}</h3>
+            <h1>{services[2].details}</h1>
+          </div>
+        </div>
+        <div className="home_serv">
+          <div className="service_details">
+            <h3>{services[1].type}</h3>
+            <h1>
+              <VerifiedIcon fontSize="2rem" />
+              {services[1].details}
+            </h1>
+          </div>
+          <div className="servic_img">
+            <img src={images.verified} alt="demand_image" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default MoreInfo;
+export default Info;

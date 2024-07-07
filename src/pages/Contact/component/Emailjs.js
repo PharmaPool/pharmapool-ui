@@ -13,7 +13,7 @@ export default function Emailjs() {
 
     emailjs
       .sendForm(
-        "service_nic4u6a",
+        "service_1x9z7nc",
         "template_u65v8ys",
         e.target,
         "T5W0HSzgWecgPLGmi"
@@ -74,7 +74,7 @@ export default function Emailjs() {
             placeholder="Phone"
           />
           <textarea
-            rows={5}
+            rows={2}
             cols={5}
             name="message"
             value={message}

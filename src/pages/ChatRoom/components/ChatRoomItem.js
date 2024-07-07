@@ -15,10 +15,33 @@ function ChatRoomItem({ chatroom }) {
           alt=""
         />
       </div>
-      <div className="chat_title">
-        <h5>{chatroom.title}</h5>
+      <div
+        className="chat_title"
+        style={{
+          overflow: "hidden",
+        }}
+      >
+        <h5
+          style={{
+            wordBreak: "break-word",
+            lineClamp: "1",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {chatroom.title}
+        </h5>
         {chatroom.messages.length > 0 ? (
-          <p style={{ wordBreak: "break-word", lineClamp: "1" }}>
+          <p
+            style={{
+              wordBreak: "break-word",
+              lineClamp: "1",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
             <b>
               {chatroom.messages[chatroom.messages.length - 1].user.firstName}:
               {"  "}

@@ -3,7 +3,7 @@
   padding: 6rem 12rem 0rem;
 }
 
-.chat p{
+.chat p {
   font-size: small;
 }
 
@@ -12,9 +12,9 @@
 }
 
 .chat_image {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 1rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
   margin-right: 0.5rem;
   overflow: hidden;
 }
@@ -25,12 +25,14 @@
 }
 
 .chat_item {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+}
+
+.chat_title {
+  overflow: hidden;
 }
 
 .chat_title h5,
@@ -142,25 +144,54 @@ p {
   z-index: 0;
 }
 
-.chatroom_title{
+.chatroom_title {
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* width: 100%; */
 }
 
-.chatroom_form input{
+.chatroom_form input {
   border: none;
   outline: none;
   border-bottom: #004d40 1px solid;
 }
 
-.chatroom_form input:focus{
+.chatroom_form input:focus {
   background-color: #e0f2f1;
+}
+
+.account_button {
+  text-align: end;
+  width: 45%;
+  display: none;
+  align-items: center;
+  justify-content: end;
+}
+
+.account_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.account_body h1 {
+  font-weight: bold;
+}
+
+.account_body p {
+  display: flex;
+  align-items: center;
+}
+
+.account_table td,
+th {
+  padding: 1rem 4rem;
 }
 
 @media screen and (max-width: 1000px) {
   .chatrooms {
-    padding: 6rem 1rem 0rem;
+    padding: 4rem 0.5rem 0rem;
   }
 
   .chat_list {
@@ -168,33 +199,32 @@ p {
   }
 
   .chat_image {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1.5rem;
     margin-right: 0.5rem;
     overflow: hidden;
   }
 
   .chat_item {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-      rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    padding: 0.5rem 0.5rem 0.5rem 0rem;
     cursor: pointer;
   }
 
   .chat_title h5,
   p {
     margin: 0rem;
+    overflow: hidden;
   }
 
   .chat_title p {
-    font-size: small;
+    font-size: medium;
   }
 
   .single_chat {
-    padding: 0.5rem 1rem 1rem;
+    padding: 0.5rem 0rem 1rem;
     overflow-y: auto;
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none;
@@ -207,17 +237,15 @@ p {
   .other_room_user {
     display: grid;
     grid-template-columns: 9% 1fr;
-    width: 90%;
-    margin: 1rem 0rem;
+    margin: 0.5rem;
     font-size: small;
   }
 
   .current_room_user {
-    display: grid;
-    grid-template-columns: 1fr 10%;
-    margin: 1rem 0rem;
-    padding-left: 10%;
+    display: flex;
+    margin: 0.5rem;
     font-size: small;
+    padding: 0rem 0.5rem;
   }
 
   .room_user_image {
@@ -232,9 +260,10 @@ p {
     color: #fff;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
       rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    padding: 0.5rem;
+    padding: 0.4rem 1rem;
     border-radius: 0rem 1rem 1rem 1rem;
     margin-top: 0.5rem;
+    width: max-content;
   }
 
   .room_user_body {
@@ -245,5 +274,12 @@ p {
     padding: 0.5rem;
     border-radius: 1rem 0rem 1rem 1rem;
     margin-top: 0.5rem;
+  }
+
+  .room_chat_body h6 {
+    padding-right: 0rem;
+    width: max-content;
+    font-size: medium;
+    font-weight: normal;
   }
 }
