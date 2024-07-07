@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import MedicationIcon from "@mui/icons-material/Medication";
+import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
 
 import { useNavigate } from "react-router-dom";
 
@@ -34,6 +35,7 @@ export default function AccountMenu() {
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
+            style={{ margin: "0px" }}
           >
             <Avatar sx={{ width: 32, height: 32, textTransform: "uppercase" }}>
               {firstName}
@@ -64,7 +66,7 @@ export default function AccountMenu() {
               display: "block",
               position: "absolute",
               top: 0,
-              right: 14,
+              right: 0,
               width: 10,
               height: 10,
               bgcolor: "background.paper",
@@ -80,9 +82,16 @@ export default function AccountMenu() {
           <Avatar /> Profile
         </MenuItem>
         <Divider />
+        <MenuItem onClick={() => navigate("/pharmacy")}>
+          <ListItemIcon>
+            <LocalPharmacyIcon />
+          </ListItemIcon>{" "}
+          Visit Pharmacy
+        </MenuItem>
+        <Divider />
         <MenuItem onClick={() => navigate("/product-gallery")}>
           <ListItemIcon>
-            <MedicationIcon  />
+            <MedicationIcon />
           </ListItemIcon>{" "}
           Product Gallery
         </MenuItem>

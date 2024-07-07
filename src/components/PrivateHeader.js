@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Logo from "../data/logo.png";
+import images from "../data/images";
 
 import AccountMenu from "./ProfileIcon";
 import HomeIcon from "@mui/icons-material/Home";
@@ -38,8 +38,8 @@ function PrivateHeader() {
         <div class="container">
           <a class="navbar-brand" href="/">
             <img
-              src={Logo}
-              alt="britishfx.org"
+              src={images.logo}
+              alt="pharmapool_logo"
               width={50}
               style={{ margin: "0px" }}
               className="logoss"
@@ -62,7 +62,7 @@ function PrivateHeader() {
             id="navbarSupportedContent"
             style={{ backgroundColor: "white" }}
           >
-            <div style={{ width: "3rem" }}></div>
+            <div style={{ width: "7rem" }}></div>
             <ul class="navbar-nav me-auto">
               <li class="nav-item me-3 me-lg-0">
                 <a
@@ -72,11 +72,10 @@ function PrivateHeader() {
                     color: "#004d40",
                     margin: "0px 0.5rem",
                     textShadow: navBg ? "none" : "0.5px 1px 0px white",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
-                  <HomeIcon />
+                  <HomeIcon fontSize="1rem" />
                   Posts
                 </a>
               </li>
@@ -88,7 +87,6 @@ function PrivateHeader() {
                     color: "#004d40",
                     margin: "0px 0.5rem",
                     textShadow: navBg ? "none" : "0.5px 1px 0px white",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -104,7 +102,6 @@ function PrivateHeader() {
                     color: "#004d40",
                     margin: "0px 0.5rem",
                     textShadow: navBg ? "none" : "0.5px 1px 0px white",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -120,7 +117,6 @@ function PrivateHeader() {
                     color: "#004d40",
                     margin: "0px 0.5rem",
                     textShadow: navBg ? "none" : "0.5px 1px 0px white",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -136,7 +132,6 @@ function PrivateHeader() {
                     color: "#004d40",
                     margin: "0px 0.5rem",
                     textShadow: navBg ? "none" : "0.5px 1px 0px white",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -152,7 +147,6 @@ function PrivateHeader() {
                     color: "#004d40",
                     margin: "0px 0.5rem",
                     textShadow: navBg ? "none" : "0.5px 1px 0px white",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -160,6 +154,7 @@ function PrivateHeader() {
                   Notifications
                 </a>
               </li>
+              <div style={{ width: "3rem" }}></div>
               <li class="nav-item me-3 me-lg-0">
                 <AccountMenu />
               </li>

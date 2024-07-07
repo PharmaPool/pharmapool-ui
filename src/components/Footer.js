@@ -1,15 +1,18 @@
 import React from "react";
-// import PDF from "../data/britishfx privacy policy.pdf";
+
+import TermsAndPrivacyPolicy from "../data/PHARMAPOOL TERMS OF SERVICE.pdf"
 
 const Footer = () => {
   return (
     <div className="footer">
-      <div >
+      <div>
         <small>© 2024 Pharmapool | All Rights Reserved</small>
       </div>
       <div className="privacy">
         <small>
-          <a href="">Terms & Privacy Policy</a>
+          <a href={TermsAndPrivacyPolicy}>
+            Terms & Privacy Policy
+          </a>
         </small>
       </div>
     </div>

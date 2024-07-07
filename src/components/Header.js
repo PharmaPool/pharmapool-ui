@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMessage, faPhone } from "@fortawesome/free-solid-svg-icons";
 
-import Logo from "../data/logo.png";
+import images from "../data/images";
 // import GoogleTrans from "./GoogleTrans";
 
 const Header = () => {
@@ -32,8 +32,8 @@ const Header = () => {
         <div class="container">
           <a class="navbar-brand" href="/">
             <img
-              src={Logo}
-              alt="britishfx.org"
+              src={images.logo}
+              alt="pharmapool_logo"
               width={50}
               style={{ margin: "0px" }}
               className="logoss"
@@ -56,16 +56,15 @@ const Header = () => {
             id="navbarSupportedContent"
             style={{ backgroundColor: navBg && "white" }}
           >
-            <div style={{ width: "5rem" }}></div>
+            <div style={{ width: "28vw" }}></div>
             <ul class="navbar-nav me-auto">
               <li class="nav-item me-3 me-lg-0">
                 <a
                   class="nav-link"
                   href="/"
                   style={{
-                    color: "#00695c",
+                    color: "#004d40",
                     margin: "0px 1rem",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -77,9 +76,8 @@ const Header = () => {
                   class="nav-link"
                   href="/business"
                   style={{
-                    color: "#00695c",
+                    color: "#004d40",
                     margin: "0px 1rem",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -91,13 +89,12 @@ const Header = () => {
                   class="nav-link"
                   href="/about"
                   style={{
-                    color: "#00695c",
+                    color: "#004d40",
                     margin: "0px 1rem",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
-                  About us
+                  About
                 </a>
               </li>
               <li class="nav-item me-3 me-lg-0">
@@ -105,36 +102,25 @@ const Header = () => {
                   class="nav-link"
                   href="/contact"
                   style={{
-                    color: "#00695c",
+                    color: "#004d40",
                     margin: "0px 1rem",
-                    fontSize: "1.2rem",
                     fontWeight: "bold",
                   }}
                 >
                   Contact
                 </a>
               </li>
-              <div className="liner"></div>
               <li class="nav-item me-3 me-lg-0">
                 <a
                   class="nav-link"
                   href="/signin"
                   style={{
-                    color: "#00695c",
-                    margin: "0px 0.5rem",
-                    background: "none",
-                    border: "none",
-                    width: "7rem",
-                    height: "2.5rem",
-                    borderRadius: "2rem",
-                    fontWeight: "bolder",
+                    color: "#004d40",
+                    margin: "0px 1rem",
+                    fontWeight: "bold",
                   }}
                 >
-                  <i
-                    class="fa-solid fa-circle-user"
-                    style={{ marginRight: "0.7rem" }}
-                  ></i>
-                  Log in
+                  Signin
                 </a>
               </li>
               <li class="nav-item me-3 me-lg-0">
@@ -142,18 +128,12 @@ const Header = () => {
                   class="nav-link"
                   href="/signup"
                   style={{
-                    color: "#00695c",
-                    margin: "0px 0.5rem",
-                    background: "rgba(0,0,0,0.1)",
-                    border: "0.8px solid grey",
-                    width: "7rem",
-                    height: "2.5rem",
-                    borderRadius: "2rem",
-                    textAlign: "center",
-                    fontWeight: "bolder",
+                    color: "#004d40",
+                    margin: "0px 1rem",
+                    fontWeight: "bold",
                   }}
                 >
-                  Register
+                  Signup
                 </a>
               </li>
               <li></li>

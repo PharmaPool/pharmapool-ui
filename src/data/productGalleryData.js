@@ -1,5 +1,34 @@
 const productGalleryData = [
   {
+    classOfDrug: "antimalaria",
+    drugs: [
+      {
+        drug: "Sulfadoxine + Pyrimethamine",
+        brands: ["Fansidar®", "Amalar®"],
+      },
+      {
+        drug: "Chloroquine phosphate",
+        brands: ["Quimal®", "Dawaquin®"],
+      },
+      {
+        drug: "Artemether + Lumenfantrine",
+        brands: ["Lonart®", "Coartem®"],
+      },
+      {
+        drug: "Clindamycin",
+        brands: ["Cleocin®", "Clindesse®", "Clindagel®"],
+      },
+      {
+        drug: "Primaquine",
+        brands: ["Jasoprim®", "Malirid®", "Remaquin®"],
+      },
+      {
+        drug: "Quinine sulphate",
+        brands: ["Qualaquin®"],
+      },
+    ],
+  },
+  {
     classOfDrug: "Nsaids/anti-pyretic/non-opiods",
     drugs: [
       {

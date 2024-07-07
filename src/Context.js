@@ -22,6 +22,9 @@ export class Context extends Component {
     product: false,
     friends: [],
     pharmacy: {},
+    singlePost: {},
+    allPosts: [],
+    advertControl: false,
   };
 
   componentDidMount() {
@@ -36,17 +39,33 @@ export class Context extends Component {
       console.log("socket connected");
     });
 
+    fetch("http://127.0.0.1:8000/api/feed/posts").catch((err) =>
+      console.log(err)
+    );
+
+    socket.on("posts", (result) => this.setState({ allPosts: result.posts }));
+
     socket.on("business", (result) => {
       this.setState({ businesses: result.businesses });
     });
 
     socket.on("biz", (result) => this.setState({ business: result.biz }));
 
+    socket.on("post", (result) => this.setState({ posts: result.post }));
+
     fetch(`http://127.0.0.1:8000/api/user/friends/${_id}`)
       .then((res) => res.json())
       .then((json) => this.setState({ friends: json.friends }))
       .catch((err) => console.log(err));
   }
+
+  openAdvert = () => this.setState({ advertControl: true });
+
+  closeAdvert = () => this.setState({ advertControl: false });
+
+  setPosts = (post) => {
+    this.setState({ posts: post });
+  };
 
   setUser = (user) => {
     this.setState({ user: user });
@@ -80,6 +99,11 @@ export class Context extends Component {
 
   setPharmacy = (e) => this.setState({ pharmacy: e });
 
+  setAllPosts = () =>
+    fetch("http://127.0.0.1:8000/api/feed/posts").catch((err) =>
+      console.log(err)
+    );
+
   render() {
     return (
       <ValueContext.Provider
@@ -100,7 +124,11 @@ export class Context extends Component {
           setAdd: this.setAdd,
           setRemove: this.setRemove,
           setProduct: this.setProduct,
-          setPharmacy: this.setPharmacy
+          setPharmacy: this.setPharmacy,
+          setPosts: this.setPosts,
+          setAllPosts: this.setAllPosts,
+          openAdvert: this.openAdvert,
+          closeAdvert: this.closeAdvert,
         }}
       >
         {this.props.children}

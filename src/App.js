@@ -25,12 +25,24 @@ import VerifyAccount from "./pages/VerifyAccount";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ForgotPassword/ResetPassword";
 import ProductGallery from "./pages/ProductGallery";
+import VerifyLogin from "./pages/Login/VerifyLogin";
+
+import Adverts from "./components/Adverts";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import { ValueContext } from "./Context";
 
 function App() {
+  const { openAdvert } = useContext(ValueContext);
+  useEffect(() => {
+    setInterval(() => {
+      openAdvert();
+    }, 2000000);
+  }, []);
   return (
     <div className="App">
+      <Adverts />
       <Router>
         <Routes>
           <Route exact path="/" element={<HomePage />} />
@@ -38,7 +50,7 @@ function App() {
           <Route exact path="/about" element={<About />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/signup" element={<Signup />} />
-          <Route exact path="/verify/:email" element={<VerifyAccount />} />
+          <Route exact path="/verify" element={<VerifyAccount />} />
           <Route exact path="/forgot-password" element={<ForgotPassword />} />
           <Route
             exact
@@ -46,6 +58,7 @@ function App() {
             element={<ResetPassword />}
           />
           <Route exact path="/signin" element={<Login />} />
+          <Route exact path="/verify/signin" element={<VerifyLogin />} />
           <Route exact path="/posts" element={<Posts />} />
           <Route exact path="/chatrooms" element={<ChatRoom />} />
           <Route exact path="/private_business" element={<PrivateBusiness />} />
