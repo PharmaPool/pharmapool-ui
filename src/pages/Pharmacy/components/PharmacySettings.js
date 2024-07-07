@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -9,10 +9,10 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
-
-// import { ValueContext } from "../Context";
+import SettingsIcon from "@mui/icons-material/Settings";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
+import { ValueContext } from "../../../Context";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -23,25 +23,31 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function PostModal() {
-  const [open, setOpen] = React.useState(false);
-  const [previewImage, setPreviewImage] = useState([]);
-  const { width } = useWindowDimensions();
-  const [content, setContent] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+export default function PharmacySettings({ pharmacyInfo }) {
   const _id = localStorage.getItem("userId");
-  let file;
+  const [open, setOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState([]);
+  const [businessName, setBusinessName] = useState("");
+  const [location, setLocation] = useState("");
+  const [motto, setMotto] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const { width } = useWindowDimensions();
+  const { pharmacy } = useContext(ValueContext);
+
+  let url, file;
+  url = `http://127.0.0.1:8000/api/business/pharmacy/${pharmacy._id}`;
 
   const handleClickOpen = () => {
     setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
+    setBusinessName(pharmacy.businessName);
+    setMotto(pharmacy.about);
+    setLocation(pharmacy.location);
+    setContactNumber(pharmacy.contactNumber);
   };
 
-  const handleImageUpload = () => {
-    const inp = document.getElementById("product_image");
-    inp.click();
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const imageChange = (e) => {
@@ -56,13 +62,17 @@ export default function PostModal() {
   };
 
   const handleSubmit = () => {
+    // console.log(businessName, motto, location, contactNumber);
     const formData = new FormData();
     formData.append("file", selectedFile);
-    formData.append("content", content);
+    formData.append("businessName", businessName);
+    formData.append("about", motto);
+    formData.append("location", location);
+    formData.append("contactNumber", contactNumber);
     formData.append("userId", _id);
 
-    fetch("http://127.0.0.1:8000/api/user/post", {
-      method: "POST",
+    fetch(url, {
+      method: "PATCH",
       body: formData,
     })
       .then((response) => response.json())
@@ -73,20 +83,24 @@ export default function PostModal() {
       .catch((err) => console.log(err));
   };
 
+  const handleImageUpload = () => {
+    const inp = document.getElementById("product_image");
+    inp.click();
+  };
+
   return (
     <React.Fragment>
-      <Button color="success" variant="outlined" onClick={handleClickOpen}>
-        create post
-      </Button>
+      <button color="success" variant="outlined" onClick={handleClickOpen}>
+        {width > 900 ? "Settings" : <SettingsIcon />}
+      </button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
         fullScreen={width < 1000 ? true : false}
-        fullWidth={width > 1000 ? true : false}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Create Post
+          Settings
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -101,15 +115,36 @@ export default function PostModal() {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <div className="post_form">
+          <div className="pharmacy_form">
             <textarea
               name=""
               id=""
-              placeholder="Whats on your mind?"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+              placeholder="Edit Name of Pharmacy"
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
             ></textarea>
-            <div className="post_form_body">
+            <div className="business_form_body">
+              <div>
+                <h6>Edit Pharmacy Info</h6>
+                <input
+                  type="text"
+                  placeholder="Motto"
+                  value={motto}
+                  onChange={(e) => setMotto(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Contact Number"
+                  value={contactNumber}
+                  onChange={(e) => setContactNumber(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Location"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+              </div>
               <div className="image_preview">
                 {previewImage.map((img, i) => (
                   <img src={img} alt="" width={100} height={100} key={i} />
@@ -126,14 +161,17 @@ export default function PostModal() {
                   onChange={imageChange}
                   hidden
                 />
-                <AddIcon /> Add an image
+                <AddIcon /> Edit Pharmacy Logo
               </div>
             </div>
           </div>
         </DialogContent>
         <DialogActions>
+          {/* <Button color="warning" autoFocus onClick={handleSubmit}>
+            delete pharmacy
+          </Button> */}
           <Button color="success" autoFocus onClick={handleSubmit}>
-            Post
+            save
           </Button>
         </DialogActions>
       </BootstrapDialog>

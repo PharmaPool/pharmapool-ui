@@ -41,9 +41,10 @@ function AddProduct({ id }) {
         <div className="product_name">
           <input
             type="text"
-            placeholder="Add Name of product"
+            placeholder="Name of product"
             value={products}
             onChange={(e) => setProducts(e.target.value)}
+            autoFocus={true}
           />
         </div>
         <table className="addform">
@@ -65,7 +66,7 @@ function AddProduct({ id }) {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 value={strength}
                 onChange={(e) => setStrength(e.target.value)}
               />

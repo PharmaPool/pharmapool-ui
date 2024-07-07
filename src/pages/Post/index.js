@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import "./index.css";
 
 import MediaHeader from "../../components/MediaHeader";
@@ -8,17 +8,16 @@ import Post from "./components/Post";
 import Loading from "../../data/loader.gif";
 
 import useWindowDimensions from "../../components/useWindowDimensions";
-import { useNavigate } from "react-router-dom";
+import { ValueContext } from "../../Context";
 
 function Posts() {
-  const navigate = useNavigate();
   const { width } = useWindowDimensions();
-  const [data, setData] = useState([]);
+  const { allPosts, setAllPosts } = useContext(ValueContext);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/feed/posts")
       .then((response) => response.json())
-      .then((data) => setData(data.posts))
+      .then((data) => setAllPosts(data.posts))
       .catch((err) => console.log(err));
   }, []);
   return (
@@ -29,9 +28,9 @@ function Posts() {
         <div className="create_business">
           <PostModal />
         </div>
-        {data ? (
+        {allPosts ? (
           <div className="post_body">
-            {data.map((post, i) => (
+            {allPosts.map((post, i) => (
               <Post key={i} post={post} />
             ))}
           </div>

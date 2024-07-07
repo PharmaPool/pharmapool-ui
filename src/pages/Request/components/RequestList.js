@@ -10,7 +10,7 @@ function RequestList({ content }) {
           <h3>No request yet</h3>
         </div>
       ) : (
-        <SingleRequest />
+        content.map((request, i) => <SingleRequest key={i} request={request} />)
       )}
     </div>
   );

@@ -39,7 +39,7 @@ function InventoryItem() {
             return (
               <tr>
                 <td>{invent.brand}</td>
-                <td>{invent.strength}mg</td>
+                <td>{invent.strength}</td>
                 <td>{invent.manufacturer}</td>
                 <td>
                   {new Date(invent.dateIn).toUTCString().substring(0, 16)}

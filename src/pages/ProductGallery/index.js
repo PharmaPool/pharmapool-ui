@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Data from "../../data/productGalleryData";
-import Logo from "../../data/logo.png";
+import images from "../../data/images";
 
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -23,7 +23,7 @@ function ProductGallery() {
       </div>
       <div className="gallery_heading">
         <div className="gallery_logo">
-          <img src={Logo} alt="" />
+          <img src={images.logo} alt="" />
         </div>
         <h1>Product Gallery</h1>
         <h5>List of available drug brands</h5>

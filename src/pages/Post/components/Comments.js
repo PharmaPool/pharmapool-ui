@@ -6,13 +6,13 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Reply from "./Reply";
 import Replies from "./Replies";
 
-function Comments({ comments }) {
+function Comments({ comments, postId }) {
   const [show, setShow] = useState(false);
   return (
     <div className="comments">
       {comments.map((comment, i) => (
         <div className="comment" key={i}>
-          <Reply comment={comment} />
+          <Reply comment={comment} postId={postId} />
           {comment.replies.length > 0 && (
             <div className="view_replies" onClick={() => setShow(!show)}>
               <p>

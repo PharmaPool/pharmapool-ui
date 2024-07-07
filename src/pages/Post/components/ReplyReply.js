@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -9,7 +9,7 @@ function Reply({ comment, postId }) {
   const [addReply, setAddReply] = useState("");
   const userId = localStorage.getItem("userId");
 
-  // console.log(comment);
+  console.log(comment);
 
   const handleReply = () => {
     fetch(`http://127.0.0.1:8000/api/feed/post/${postId}/comment/reply`, {
@@ -30,41 +30,9 @@ function Reply({ comment, postId }) {
       })
       .catch((err) => console.log(err));
   };
-
-  const handleLike = () => {
-    if (clicked === true) {
-      fetch(`http://127.0.0.1:8000/api/feed/post/${postId}/comment/like`, {
-        method: "DELETE",
-        body: JSON.stringify({
-          userId,
-          commentId: comment._id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((json) => json)
-        .catch((err) => console.log(err));
-    } else {
-      fetch(`http://127.0.0.1:8000/api/feed/post/${postId}/comment/like`, {
-        method: "POST",
-        body: JSON.stringify({
-          userId,
-          commentId: comment._id,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((json) => json)
-        .catch((err) => console.log(err));
-    }
-  };
   return (
     <div>
-      <div className="comment_shade">
+      {/* <div className="comment_shade">
         <div className="comment_user">
           <div className="comment_image">
             <img src={comment.user.profileImage.imageUrl} alt="" />
@@ -77,15 +45,13 @@ function Reply({ comment, postId }) {
       </div>
       <div className="comment_buttom">
         <div className="reply_comment">
-          <div onClick={handleLike}>
-            <p onClick={() => setClicked(!clicked)}>
-              <ThumbUpIcon
-                fontSize="small"
-                color={clicked ? "primary" : "inherit"}
-              />{" "}
-              like
-            </p>
-          </div>
+          <p onClick={() => setClicked(!clicked)}>
+            <ThumbUpIcon
+              fontSize="small"
+              color={clicked ? "primary" : "inherit"}
+            />{" "}
+            like
+          </p>
           <p onClick={() => setReply(true)}>
             <ChatBubbleOutlineIcon fontSize="small" /> reply
           </p>
@@ -106,7 +72,7 @@ function Reply({ comment, postId }) {
             x
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

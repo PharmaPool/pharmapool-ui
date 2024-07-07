@@ -6,6 +6,7 @@ function Banner({ fullname, profileImage }) {
       <div className="profile_image">
         <img src={profileImage} alt="" />
       </div>
+      <div className="space"></div>
       <div className="full_name">
         <h3>{fullname}</h3>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 
-import Logo from "../../data/logo.png";
+import images from "../../data/images";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -38,6 +38,7 @@ function Signup() {
           setMessage(res.error);
         } else {
           setShow(true);
+          localStorage.setItem("email", email);
         }
       })
       .catch((err) => console.log(err));
@@ -54,7 +55,7 @@ function Signup() {
       <div className="signup_form">
         <div className="sign_form">
           <img
-            src={Logo}
+            src={images.logo}
             alt="pharmapool logo"
             width={60}
             onClick={() => navigate("/")}
@@ -78,18 +79,17 @@ function Signup() {
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
               />
-
+              {message !== "" && (
+                <div className="error_message">
+                  <small>{message}</small>
+                </div>
+              )}
               <input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {message !== "" && (
-                <div className="error_message">
-                  <small>{message}</small>
-                </div>
-              )}
               <input
                 type="password"
                 placeholder="Password"
@@ -123,15 +123,17 @@ function Signup() {
             </div>
           )}
           {!show && <button onClick={handleSubmit}>Register</button>}
-          <p>
-            Already a user,{" "}
-            <i>
-              click to{" "}
-              <a href="/signin">
-                <b>Login</b>
-              </a>
-            </i>
-          </p>
+          {!show && (
+            <p>
+              Already a user,{" "}
+              <i>
+                click to{" "}
+                <a href="/signin">
+                  <b>Login</b>
+                </a>
+              </i>
+            </p>
+          )}
         </div>
       </div>
     </div>

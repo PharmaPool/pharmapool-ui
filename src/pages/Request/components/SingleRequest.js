@@ -1,17 +1,28 @@
 import React from "react";
 
-import Logo from "../../../data/logo.png";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 
-function SingleRequest() {
+import { useNavigate } from "react-router-dom";
+
+function SingleRequest({ request }) {
+  const navigate = useNavigate();
   return (
-    <div className="single_request">
+    <div
+      className="single_request"
+      onClick={() => navigate(`/profile/${request.user._id}`)}
+    >
       <div className="request_user">
         <div className="users_image">
-          <img src={Logo} alt="user_image" width={100} />
+          <img
+            src={request.user.profileImage.imageUrl}
+            alt="user_image"
+            width={100}
+          />
         </div>
-        <h5>wilson zimthamaha</h5>
+        <h5>
+          {request.user.firstName} {request.user.lastName}
+        </h5>
       </div>
       <div className="request_buttons">
         <button className="accept">

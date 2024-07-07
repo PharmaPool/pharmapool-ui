@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import moment from "moment";
 
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -7,8 +8,54 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 import { useNavigate } from "react-router-dom";
 
+import { ValueContext } from "../../../Context";
+
 function Post({ post }) {
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
+  const [clicked, setClicked] = useState(false);
+  const { setAllPosts } = useContext(ValueContext);
+
+  const handleLike = () => {
+    if (clicked === true) {
+      fetch(`http://127.0.0.1:8000/api/feed/post/${post._id}/like`, {
+        method: "DELETE",
+        body: JSON.stringify({
+          userId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          setAllPosts();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      fetch(`http://127.0.0.1:8000/api/feed/post/${post._id}/like`, {
+        method: "POST",
+        body: JSON.stringify({
+          userId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          setAllPosts();
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  useEffect(() => {
+    if (post.likes.find((user) => user._id === userId) !== undefined) {
+      setClicked(true);
+    }
+  }, []);
+
   return (
     <div className="business">
       <div className="business_head">
@@ -16,11 +63,18 @@ function Post({ post }) {
           className="user_image"
           onClick={() => navigate(`/profile/${post.creator._id}`)}
         >
-          <img src={post.creator.profileImage.imageUrl} alt="username" width={100} height={100} />
+          <img
+            src={post.creator.profileImage.imageUrl}
+            alt="username"
+            width={100}
+            height={100}
+          />
         </div>
         <div className="username">
           <h5>{post.creator.fullName}</h5>
-          {/* <p>4 months ago</p> */}
+          <p>
+            {moment.utc(post.createdAt).local().startOf("seconds").fromNow()}
+          </p>
         </div>
       </div>
       <div className="post" onClick={() => navigate(`/post/${post._id}`)}>
@@ -40,10 +94,12 @@ function Post({ post }) {
         <p className="end">{post.comments.length} comments</p>
       </div>
       <div className="post_interaction">
-        <p>
-          <ThumbUpIcon /> Like
-        </p>
-        <p className="end">
+        <div onClick={handleLike}>
+          <p onClick={() => setClicked(!clicked)}>
+            <ThumbUpIcon color={clicked ? "primary" : "inherit"} /> Like
+          </p>
+        </div>
+        <p className="end" onClick={() => navigate(`/post/${post._id}`)}>
           <ChatBubbleOutlineIcon /> Comment
         </p>
       </div>
