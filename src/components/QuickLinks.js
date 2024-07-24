@@ -19,8 +19,8 @@ function QuickLinks() {
           <a href="/business">Business</a>
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
-          <a href="/signup">Register</a>
-          <a href="/Signin">Login</a>
+          <a href="/signup">Signup</a>
+          <a href="/Signin">Signin</a>
         </div>
         <div className="quick_info">
           <h3>Sign up Now!</h3>
@@ -29,7 +29,7 @@ function QuickLinks() {
             and expand your business.
           </p>
           <a href="/signup">
-            <button className="button-1">Register Now!</button>
+            <button className="button-1">Sign up Now!</button>
           </a>
         </div>
         <div className="quick_links">

@@ -5,25 +5,33 @@ import MediaHeader from "../../components/MediaHeader";
 import PrivateHeader from "../../components/PrivateHeader";
 import PostModal from "./components/BusinessModal";
 import SingleBusiness from "./components/SingleBusiness";
-
-import Loading from "../../data/loader.gif";
+import BusinessLoader from "./components/BusinessLoader";
 
 import useWindowDimensions from "../../components/useWindowDimensions";
 import { ValueContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
 
 function PrivateBusiness() {
   const { width } = useWindowDimensions();
-  const { businesses, setBusinesses, setShow } = useContext(ValueContext);
-  const _id = localStorage.getItem("userId");
+  const navigate = useNavigate();
+  const { businesses, setBusinesses, tokenChecker } = useContext(ValueContext);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/business/")
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch("http://127.0.0.1:8000/api/business/", {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
         setBusinesses(json.businesses);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [navigate, setBusinesses, tokenChecker]);
   return (
     <>
       {width > 900 ? <PrivateHeader /> : <MediaHeader />}
@@ -37,9 +45,7 @@ function PrivateBusiness() {
               <SingleBusiness key={i} business={business} />
             ))
           ) : (
-            <div className="loader">
-              <img src={Loading} alt="" />
-            </div>
+            <BusinessLoader />
           )}
         </div>
       </div>

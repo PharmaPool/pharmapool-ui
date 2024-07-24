@@ -27,6 +27,7 @@ export default function NameModal() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const { width } = useWindowDimensions();
+  const token = localStorage.getItem("token");
 
   let url;
   url = `http://127.0.0.1:8000/profile/details/${_id}/fullname`;
@@ -47,6 +48,7 @@ export default function NameModal() {
         lastName,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })

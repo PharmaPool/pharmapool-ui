@@ -1,10 +1,11 @@
 /* Chats */
 .chats {
-  padding: 6rem 12rem 0rem;
+  padding: 4rem 12rem 0rem;
 }
 
 .chat {
   padding-top: 4rem;
+  padding-right: 2rem;
 }
 
 .other_user {
@@ -18,7 +19,7 @@
   color: #fff;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  padding: 1rem;
+  padding: 0.3rem 1rem 0.5rem;
   border-radius: 0rem 1rem 1rem 1rem;
 }
 
@@ -27,7 +28,7 @@
   color: #004d40;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  padding: 1rem;
+  padding: 0.3rem 1rem 0.5rem;
   border-radius: 1rem 0rem 1rem 1rem;
 }
 
@@ -153,7 +154,12 @@
 
 @media screen and (max-width: 1000px) {
   .chats {
-    padding: 4rem 1rem 0rem;
+    padding: 3rem 1rem 0rem;
+  }
+
+  .chat {
+    padding-top: 4rem;
+    padding-right: 0rem;
   }
 
   .other_user {
@@ -196,7 +202,7 @@
   }
 
   .chat_header {
-    padding: 0.5rem 0rem 0.5rem 0rem;
+    padding: 0rem 0rem 0.5rem 0rem;
     display: grid;
     grid-template-columns: 9% 10% 65% 1fr;
     width: 100%;
@@ -204,7 +210,7 @@
     background-color: #fff;
   }
 
-  .chat_header div{
+  .chat_header div {
     display: flex;
     align-items: center;
   }

@@ -12,9 +12,14 @@ function InventoryItem() {
   const [inventory, setInventory] = useState({});
   const [invent, setInvent] = useState([]);
   const { id } = useParams();
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/business/inventory/${id}`)
+    fetch(`http://127.0.0.1:8000/api/business/inventory/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
         setInventory(json.inventory);

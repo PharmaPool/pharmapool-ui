@@ -3,14 +3,15 @@ import "./index.css";
 import { jwtDecode } from "jwt-decode";
 
 import images from "../../data/images";
-import Loading from "../../data/loader.gif";
+import Loader from "../../components/Loader";
 
 import { ValueContext } from "../../Context";
 
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const { setUser, setName, setShow } = useContext(ValueContext);
+  const { setUser, setName, setShow, tokenChecker, login } =
+    useContext(ValueContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
@@ -32,14 +33,17 @@ function Login() {
     })
       .then((response) => response.json())
       .then((res) => {
-        if (res.type === "email" || res.type === "password") {
+        if (res.error) {
           setError(true);
-          setOpen(false)
+          setOpen(false);
         }
+
+        setShow();
         const user = jwtDecode(res.token);
         setUser(user.user);
         setName(user.user.fullName.charAt(0));
         localStorage.setItem("userId", user.user._id);
+        localStorage.setItem("token", res.token);
 
         // setShow()
         navigate("/posts");
@@ -58,76 +62,81 @@ function Login() {
   };
 
   useEffect(() => {
+    const token = tokenChecker();
+    if (token !== null && login === true) {
+      navigate("/posts");
+    }
     const rememberedEmail = localStorage.getItem("email");
     const rememberedPassword = localStorage.getItem("password");
     setEmail(rememberedEmail);
     setPassword(rememberedPassword);
-  }, []);
+  }, [tokenChecker, navigate, login]);
 
   return (
     <div className="login">
-      <div className="signin_form">
-        <div className="sig_form">
-          <img
-            src={images.logo}
-            alt="pharmapool logo"
-            width={80}
-            onClick={() => navigate("/")}
-          />
-          <div className="other_inputs">
-            {error && (
-              <div className="error_message" style={{ textAlign: "center" }}>
-                <p>Invalid email or password</p>
-              </div>
-            )}
-            <input
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+      {open ? (
+        <Loader />
+      ) : (
+        <div className="signin_form">
+          <div className="sig_form">
+            <img
+              src={images.logo}
+              alt="pharmapool logo"
+              width={80}
+              onClick={() => navigate("/")}
             />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button
-            onClick={handleSubmit}
-            className={open ? "login_button_select" : "login_button"}
-          >
-            Log in
-            {open && (
-              <img src={Loading} alt="loading" width={100} height={100} />
-            )}
-          </button>
-
-          <div className="remember">
-            <div className="me" onClick={handleRemember}>
+            <div className="other_inputs">
+              {error && (
+                <div className="error_message" style={{ textAlign: "center" }}>
+                  <p>Invalid email or password</p>
+                </div>
+              )}
               <input
-                type="checkbox"
-                name="remember"
-                id="remember"
-                checked={checked}
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              <p>Remember me</p>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-            <div className="forgot">
-              <a href="/forgot-password">Forgot password</a>
+            <button
+              onClick={handleSubmit}
+              className={open ? "login_button_select" : "login_button"}
+            >
+              Log in
+            </button>
+
+            <div className="remember">
+              <div className="me" onClick={handleRemember}>
+                <input
+                  type="checkbox"
+                  name="remember"
+                  id="remember"
+                  checked={checked}
+                />
+                <p>Remember me</p>
+              </div>
+              <div className="forgot">
+                <a href="/forgot-password">Forgot password</a>
+              </div>
             </div>
+            <p>
+              Not a user,{" "}
+              <i>
+                click to{" "}
+                <a href="/signup">
+                  <b>Register</b>
+                </a>
+              </i>
+            </p>
           </div>
-          <p>
-            Not a user,{" "}
-            <i>
-              click to{" "}
-              <a href="/signup">
-                <b>Register</b>
-              </a>
-            </i>
-          </p>
         </div>
-      </div>
+      )}
     </div>
   );
 }

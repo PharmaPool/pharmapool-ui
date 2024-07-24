@@ -8,6 +8,7 @@ function Reply({ comment, postId }) {
   const [clicked, setClicked] = useState(false);
   const [addReply, setAddReply] = useState("");
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   console.log(comment);
 
@@ -20,6 +21,7 @@ function Reply({ comment, postId }) {
         commentId: comment._id,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })

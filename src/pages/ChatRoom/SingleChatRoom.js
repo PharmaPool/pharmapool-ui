@@ -1,77 +1,81 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import RoomChat from "./components/RoomChat";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useWindowDimensions from "../../components/useWindowDimensions";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { ValueContext } from "../../Context";
-import ChatProfile from "./components/ChatProfile";
+import ChatProfile from "./components/ChatroomProfile";
 
 function SingleChatRoom() {
   const { height } = useWindowDimensions();
   const { id } = useParams();
-  const { chatroom, setChatroom, socket } = useContext(ValueContext);
+  const { chatroom, setChatroom, socket, tokenChecker } =
+    useContext(ValueContext);
   const _id = localStorage.getItem("userId");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const divRef = useRef(null);
+  // const divRef = useRef(null);
   const history = useNavigate();
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
+  const [admin, setAdmin] = useState("");
+  let token;
 
   socket.on("connect", () => {
     console.log("connected");
   });
 
   socket.on("chatroom", (result) => {
+    token = tokenChecker();
+    if (!token) {
+      history("/signin");
+    }
     setChatroom(result.chatMade.messages);
     setMessage("");
   });
 
-  const setScroll = () => {
-    divRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
   useEffect(() => {
+    token = tokenChecker();
+    if (!token) {
+      history("/signin");
+    }
     fetch(`http://127.0.0.1:8000/api/user/singlechatroom/${id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
       .then((json) => {
+        setAdmin(json.chat.admin);
         setChatroom(json.chat.messages);
         setTitle(json.chat.title);
-        setUsers(json.chat.users)
+        setUsers(json.chat.users);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [_id, id, history, setChatroom, tokenChecker]);
 
   const handleMessage = () => {
-    fetch(`http://127.0.0.1:8000/api/user/chatroom/${id}`, {
-      method: "POST",
-      body: JSON.stringify({
-        userId: _id,
-        message,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      // .then((json) => setScroll())
-      .catch((err) => console.log(err));
+    socket.emit("chatroom", { userId: _id, message, _id: id });
   };
+
+  const handleKeydown = (e) => {
+    if (e.key === "Enter") {
+      handleMessage();
+    }
+  };
+
   return (
     <div className="single_chatroom">
       <div className="single_chat" style={{ height: `${height - 60}px` }}>
         <div className="chat_header">
           <div className="back" onClick={() => history(-1)}>
-            <ArrowBackIosIcon />
+            <ArrowBackIcon />
           </div>
           <div>
             <div className="chat_user_image">
@@ -100,7 +104,7 @@ function SingleChatRoom() {
             </h6>
           </div>
           <div className="chat_profile">
-            <ChatProfile title={title} users={users} />
+            <ChatProfile title={title} users={users} id={id} admin={admin} />
           </div>
         </div>
         <RoomChat chatroom={chatroom} title={title} />
@@ -112,6 +116,8 @@ function SingleChatRoom() {
           placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeydown}
+          autoFocus
         />
         <button onClick={handleMessage}>Send</button>
       </div>

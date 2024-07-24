@@ -31,9 +31,14 @@ function Profile() {
   const [alreadyRequested, setAlreadyRequested] = useState(false);
   const [requestAccepted, setRequestAccepted] = useState(false);
   const [requestId, setRequestId] = useState("");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/user/profile/${id}`)
+    fetch(`http://127.0.0.1:8000/api/user/profile/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((res) => {
         setDetails(res.user.details);
@@ -51,7 +56,11 @@ function Profile() {
       })
       .catch((err) => console.log(err));
 
-    fetch(`http://127.0.0.1:8000/api/user/profile/${currentUser}`)
+    fetch(`http://127.0.0.1:8000/api/user/profile/${currentUser}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((res) => {
         if (
@@ -59,14 +68,15 @@ function Profile() {
           undefined
         ) {
           setAlreadyRequested(true);
+
+          const request = res.user.requests.content.find(
+            (user) => user.user._id === id
+          );
+          setRequestId(request._id);
         }
-        const request = res.user.requests.content.find(
-          (user) => user.user._id === id
-        );
-        setRequestId(request._id);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id, navigate, currentUser, token]);
 
   const handleRequest = () => {
     fetch("http://127.0.0.1:8000/api/user/friend-request", {
@@ -76,6 +86,7 @@ function Profile() {
         friendId: id,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })
@@ -95,6 +106,7 @@ function Profile() {
         friendId: id,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })
@@ -114,6 +126,7 @@ function Profile() {
         requestId,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })

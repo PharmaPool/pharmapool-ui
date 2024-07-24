@@ -11,7 +11,7 @@
 
 .banner_display {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   justify-content: center;
   padding: 2rem;
 }
@@ -304,7 +304,7 @@
   padding: 2rem 3rem;
 }
 
-.join h3 {
+.join h1 {
   color: #004d40;
   font-weight: bold;
 }
@@ -341,6 +341,91 @@
   margin: 1rem;
 }
 
+/* emailjs */
+.home_form {
+  margin-bottom: 2rem;
+}
+
+.home_form fieldset {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  padding: 2rem;
+  font-weight: bold;
+}
+
+.home_form legend {
+  font-size: 3rem;
+  color: #004d40;
+}
+
+.home_form input {
+  border: none;
+  border-bottom: #004d40 solid 1px;
+  margin-bottom: 1rem;
+  height: 2rem;
+  padding: 0.1rem;
+  outline: none;
+}
+
+.home_form input:focus {
+  outline: none;
+  border: none;
+  border-bottom: #004d40 solid 1px;
+  background-color: #e0f2f1;
+  margin-bottom: 1rem;
+  height: 2rem;
+  padding: 0.1rem;
+}
+
+.home_form textarea {
+  border: none;
+  border-bottom: #004d40 solid 1px;
+  margin-bottom: 1rem;
+  padding: 0.1rem;
+}
+
+.home_form textarea:focus {
+  outline: none;
+  border: none;
+  border-bottom: #004d40 solid 1px;
+  background-color: #e0f2f1;
+  margin-bottom: 1rem;
+  padding: 0.1rem;
+}
+
+.form-but {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.form-but button {
+  background-color: var(--text);
+  color: white;
+  border: none;
+  width: 10rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+.message a {
+  text-decoration: none;
+  color: black;
+}
+
+.success {
+  background-color: #004d40;
+  color: white;
+  display: flex;
+  padding: 2rem;
+}
+
+.success p {
+  width: 100%;
+}
+
 @media screen and (max-width: 1000px) {
   /* LANDING PAGE */
   .home_banner {
@@ -360,7 +445,7 @@
 
   .banner_display {
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     justify-content: center;
     padding: 1rem;
     margin-top: 1rem;
@@ -656,7 +741,7 @@
     width: 100%;
   }
 
-  .reason{
+  .reason {
     margin: 1rem 0rem;
   }
 
@@ -712,5 +797,18 @@
   .how_it_works li {
     font-weight: bold;
     margin: 1rem;
+  }
+
+  .home_form fieldset {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+    padding: 2rem 1rem;
+  }
+
+  .home_form legend {
+    font-size: 2rem;
+    color: #004d40;
   }
 }

@@ -15,7 +15,7 @@ function Banner() {
           {/* <img src={Logo} alt="pharmapool logo" width={60}/> */}
         </div>
         <div className="home_social">
-          <a href="https://x.com/pharmapoolng">
+          <a href="#">
             <XIcon />
           </a>
           <a href="https://www.linkedin.com/in/pharmapool-pharmapool-521656317/">
@@ -38,7 +38,7 @@ function Banner() {
           <h1>Pharmapool Synergy Solutions Nigeria Limited.</h1>
           <small>with pharmapool, your pharmacy is connected.</small>
           <a href="/signup">
-            <button className="business_button">Register Now!</button>
+            <button className="business_button">Sign up Now!</button>
           </a>
         </div>
         <div className="banner_display">
@@ -53,7 +53,7 @@ function Banner() {
           <a href="/business">Business</a>
           <a href="/about">About</a>
           <a href="/contact">Contact</a>
-          <a href="/signin">Login</a>
+          <a href="/signin">Signin</a>
         </div>
       </div>
     </div>

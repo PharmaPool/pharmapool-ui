@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./index.css";
 
 import MediaHeader from "../../components/MediaHeader";
@@ -7,24 +7,36 @@ import ChatList from "./components/ChatList";
 import NewChatModal from "./components/NewChatModal";
 
 import useWindowDimensions from "../../components/useWindowDimensions";
+import { ValueContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
 
 function Chats() {
+  const navigate= useNavigate()
   const { width } = useWindowDimensions();
   const [chats, setChats] = useState([]);
   const _id = localStorage.getItem("userId");
+  const {tokenChecker} = useContext(ValueContext)
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/user/messages/${_id}`)
+    const token = tokenChecker()
+    if (!token) {
+      navigate("/signin")
+    }
+    fetch(`http://127.0.0.1:8000/api/user/messages/${_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((json) => setChats(json.messages.singlechatcontent))
       .catch((err) => console.log(err));
-  }, []);
+  }, [_id, navigate, tokenChecker]);
   return (
     <>
       {width > 900 ? <PrivateHeader /> : <MediaHeader />}
       <div className="chats">
         <div className="chatroom_title">
-          <h4>Chats</h4>
+          <h5>Chats</h5>
           <div>
             <NewChatModal />
           </div>

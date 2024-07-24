@@ -22,7 +22,6 @@ const Contact = () => {
           Drop us a message anytime! Our dedicated team is ready to ensure your
           experience is top-notch with swift responses.
         </p>
-
         <div className="con-con">
           <div className="visit">
             <div style={{ marginBottom: "3rem" }}>

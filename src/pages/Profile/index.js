@@ -9,6 +9,7 @@ import ProfileNavigation from "./components/ProfileNavigation";
 import UserProfileBody from "./components/UserProfileBody";
 import useWindowDimensions from "../../components/useWindowDimensions";
 import { ValueContext } from "../../Context";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const _id = localStorage.getItem("userId");
@@ -16,11 +17,20 @@ function Profile() {
   const [fullname, setFullname] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [posts, setPosts] = useState([]);
-  const { businesses } = useContext(ValueContext);
+  const { businesses, tokenChecker } = useContext(ValueContext);
   const { width } = useWindowDimensions();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/user/profile/${_id}`)
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch(`http://127.0.0.1:8000/api/user/profile/${_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((res) => {
         setDetails(res.user.details);
@@ -29,7 +39,7 @@ function Profile() {
         setPosts(res.user.posts);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [_id, navigate, tokenChecker]);
 
   return (
     <>

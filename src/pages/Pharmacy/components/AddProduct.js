@@ -13,6 +13,7 @@ function AddProduct({ id }) {
   const [dateIn, setDateIn] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [quantity, setQuantity] = useState("");
+  const token = localStorage.getItem("token")
 
   const handleSubmit = () => {
     fetch(`http://127.0.0.1:8000/api/business/inventory/addproduct/${id}`, {
@@ -26,9 +27,7 @@ function AddProduct({ id }) {
         expiryDate,
         quantity,
       }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { Authorization: token, "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((json) => window.location.reload())

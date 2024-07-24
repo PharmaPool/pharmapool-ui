@@ -27,6 +27,7 @@ export default function NewChatRoomModal() {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = useState("");
   const { width } = useWindowDimensions();
+  const token = localStorage.getItem("token");
 
   let url;
   url = `http://127.0.0.1:8000/api/user/chatroom/create`;
@@ -47,6 +48,7 @@ export default function NewChatRoomModal() {
         title,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })

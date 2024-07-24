@@ -8,7 +8,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-// import EditIcon from "@mui/icons-material/Edit";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
@@ -22,7 +21,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function ChatRoomAccount() {
+export default function ChatAccount() {
   const userId = localStorage.getItem("userId");
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = useState("");

@@ -388,6 +388,15 @@
   padding: 2rem 8rem;
 }
 
+.transaction_table table{
+  text-align: center;
+}
+
+.transaction_table tr:nth-child(even){
+  background-color: #e0f2f1;
+  text-transform: capitalize;
+}
+
 @media screen and (max-width: 1000px) {
   .pharmacy_banner {
     height: 16rem;

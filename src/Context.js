@@ -1,10 +1,13 @@
 import React, { Component, createContext } from "react";
 
+import { jwtDecode } from "jwt-decode";
+
 import io from "socket.io-client";
 
 const socket = io("http://127.0.0.1:8000");
 
 export const ValueContext = createContext();
+const token = localStorage.getItem("token");
 
 export class Context extends Component {
   state = {
@@ -25,12 +28,10 @@ export class Context extends Component {
     singlePost: {},
     allPosts: [],
     advertControl: false,
+    login: false,
   };
 
   componentDidMount() {
-    fetch("http://127.0.0.1:8000/api/business/")
-      .then((response) => response.json())
-      .then((json) => this.setState({ businesses: json.businesses }));
     const _id = localStorage.getItem("userId");
     if (!_id) {
       this.setState({ show: true });
@@ -38,10 +39,6 @@ export class Context extends Component {
     socket.on("connect", () => {
       console.log("socket connected");
     });
-
-    fetch("http://127.0.0.1:8000/api/feed/posts").catch((err) =>
-      console.log(err)
-    );
 
     socket.on("posts", (result) => this.setState({ allPosts: result.posts }));
 
@@ -52,12 +49,34 @@ export class Context extends Component {
     socket.on("biz", (result) => this.setState({ business: result.biz }));
 
     socket.on("post", (result) => this.setState({ posts: result.post }));
-
-    fetch(`http://127.0.0.1:8000/api/user/friends/${_id}`)
-      .then((res) => res.json())
-      .then((json) => this.setState({ friends: json.friends }))
-      .catch((err) => console.log(err));
   }
+
+  tokenChecker = () => {
+    if (!token) {
+      this.setState({ show: false });
+      return null;
+    }
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (
+        decodedToken.exp > currentTime &&
+        decodedToken.user.loggedIn === true
+      ) {
+        this.setState({ show: true, login: true });
+        return token;
+      } else if (decodedToken.user.loggedIn === false) {
+        this.setState({ show: false, login: false });
+        return null;
+      } else {
+        this.setState({ show: false, login: false });
+        return null;
+      }
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return false;
+    }
+  };
 
   openAdvert = () => this.setState({ advertControl: true });
 
@@ -89,7 +108,7 @@ export class Context extends Component {
 
   setBusiness = (e) => this.setState({ business: e });
 
-  setShow = () => this.setState({ show: false });
+  setShow = () => this.setState({ show: true });
 
   setAdd = () => this.setState({ add: !this.state.add });
 
@@ -100,9 +119,11 @@ export class Context extends Component {
   setPharmacy = (e) => this.setState({ pharmacy: e });
 
   setAllPosts = () =>
-    fetch("http://127.0.0.1:8000/api/feed/posts").catch((err) =>
-      console.log(err)
-    );
+    fetch("http://127.0.0.1:8000/api/feed/posts", {
+      headers: {
+        Authorization: token,
+      },
+    }).catch((err) => console.log(err));
 
   render() {
     return (
@@ -129,6 +150,7 @@ export class Context extends Component {
           setAllPosts: this.setAllPosts,
           openAdvert: this.openAdvert,
           closeAdvert: this.closeAdvert,
+          tokenChecker: this.tokenChecker,
         }}
       >
         {this.props.children}

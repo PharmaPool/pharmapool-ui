@@ -29,6 +29,7 @@ export default function DetailsModal() {
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
   const { width } = useWindowDimensions();
+  const token = localStorage.getItem("token");
 
   let url;
   url = `http://127.0.0.1:8000/profile/details/update/${_id}`;
@@ -51,6 +52,7 @@ export default function DetailsModal() {
         state,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })

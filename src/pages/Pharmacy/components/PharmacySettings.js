@@ -34,6 +34,7 @@ export default function PharmacySettings({ pharmacyInfo }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const { width } = useWindowDimensions();
   const { pharmacy } = useContext(ValueContext);
+  const token = localStorage.getItem("token");
 
   let url, file;
   url = `http://127.0.0.1:8000/api/business/pharmacy/${pharmacy._id}`;
@@ -74,6 +75,9 @@ export default function PharmacySettings({ pharmacyInfo }) {
     fetch(url, {
       method: "PATCH",
       body: formData,
+      headers: {
+        Authorization: token,
+      },
     })
       .then((response) => response.json())
       .then((json) => {

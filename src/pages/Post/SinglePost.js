@@ -24,9 +24,14 @@ function SinglePost() {
   const { posts, setPosts } = useContext(ValueContext);
   const userId = localStorage.getItem("userId");
   const [addComment, setAddComment] = useState("");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/feed/post/${_id}`)
+    fetch(`http://127.0.0.1:8000/api/feed/post/${_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setPosts(data.post);
@@ -35,7 +40,7 @@ function SinglePost() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [_id, navigate, userId, token, setPosts]);
 
   const handleLike = () => {
     if (clicked === true) {
@@ -44,9 +49,7 @@ function SinglePost() {
         body: JSON.stringify({
           userId,
         }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: token, "Content-Type": "application/json" },
       })
         .then((res) => res.json())
         .then((json) => json)
@@ -57,9 +60,7 @@ function SinglePost() {
         body: JSON.stringify({
           userId,
         }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: token, "Content-Type": "application/json" },
       })
         .then((res) => res.json())
         .then((json) => json)
@@ -74,9 +75,7 @@ function SinglePost() {
         content: addComment,
         userId,
       }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { Authorization: token, "Content-Type": "application/json" },
     })
       .then((res) => res.json())
       .then((json) => {

@@ -31,6 +31,7 @@ export default function Register() {
   const [contactNumber, setContactNumber] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const { width } = useWindowDimensions();
+  const token = localStorage.getItem("token")
 
   let url, file;
   url = `http://127.0.0.1:8000/api/business/pharmacy/${_id}`;
@@ -65,6 +66,7 @@ export default function Register() {
     fetch(url, {
       method: "POST",
       body: formData,
+      headers: { Authorization: token },
     })
       .then((response) => response.json())
       .then((json) => {

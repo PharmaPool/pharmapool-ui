@@ -39,6 +39,7 @@ function Signup() {
         } else {
           setShow(true);
           localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
         }
       })
       .catch((err) => console.log(err));
@@ -71,7 +72,8 @@ function Signup() {
                 type="text"
                 placeholder="First Name"
                 value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
+                  onChange={(e) => setFirstname(e.target.value)}
+                  autoFocus
               />
               <input
                 type="text"

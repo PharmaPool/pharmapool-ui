@@ -31,7 +31,6 @@ function SingleRequest({ request }) {
         <button className="decline">
           <ClearIcon />
         </button>
-        {/* <button className="view_profile">View Profile</button> */}
       </div>
     </div>
   );

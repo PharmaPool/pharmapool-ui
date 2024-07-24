@@ -39,6 +39,7 @@ export default function PostModal() {
   const [deadline, setDeadline] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const { width } = useWindowDimensions();
+  const token = localStorage.getItem("token");
 
   let url, file, business;
   url = `http://127.0.0.1:8000/api/business/${_id}`;
@@ -86,6 +87,9 @@ export default function PostModal() {
     fetch(url, {
       method: "POST",
       body: formData,
+      headers: {
+        Authorization: token,
+      },
     })
       .then((response) => response.json())
       .then((json) => {

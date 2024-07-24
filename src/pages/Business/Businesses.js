@@ -2,20 +2,23 @@ import React, { useContext, useEffect } from "react";
 
 import Header from "../../components/Header";
 import SingleBusiness from "./components/SingleBusiness";
-
-import Loading from "../../data/loader.gif";
+import BusinessLoader from "./components/BusinessLoader";
 
 import { ValueContext } from "../../Context";
 
 function Business() {
-  const { businesses, setBusinesses } = useContext(ValueContext);
+  const { businesses, setBusinesses, tokenChecker } = useContext(ValueContext);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/business/")
+    tokenChecker();
+    fetch("http://127.0.0.1:8000/api/auth/", {
+      Authorization: token,
+    })
       .then((response) => response.json())
       .then((json) => setBusinesses(json.businesses))
       .catch((err) => console.log(err));
-  }, []);
+  }, [setBusinesses, token, tokenChecker]);
   return (
     <>
       <Header />
@@ -26,9 +29,7 @@ function Business() {
               <SingleBusiness key={i} business={business} />
             ))
           ) : (
-            <div className="loader">
-              <img src={Loading} alt="" />
-            </div>
+            <BusinessLoader />
           )}
         </div>
       </div>

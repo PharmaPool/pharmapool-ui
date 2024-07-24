@@ -107,6 +107,7 @@ const Modal = styled(BaseModal)(`
   display: flex;
   align-items: center;
   justify-content: center;
+  border:none;
 
   &.base-Modal-hidden {
     visibility: hidden;
@@ -131,9 +132,10 @@ const ModalContent = styled("div")(
     flex-direction: column;
     gap: 8px;
     overflow: hidden;
+    border:none;
+    outline:none;
     background-color: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-    border-radius: 8px;
-    border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
+    border-radius: 30px;
     box-shadow: 0 4px 12px
       ${theme.palette.mode === "dark" ? "rgb(0 0 0 / 0.5)" : "rgb(0 0 0 / 0.2)"};
     padding: 24px;
@@ -166,7 +168,6 @@ const TriggerButton = styled("button")(
     transition: all 150ms ease;
     cursor: pointer;
     background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-    border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
     color: ${theme.palette.mode === "dark" ? grey[200] : grey[900]};
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 

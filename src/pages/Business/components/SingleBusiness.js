@@ -10,9 +10,13 @@ function SingleBusiness({ business }) {
   const [amount, setAmount] = useState("");
   const _id = localStorage.getItem("userId");
   const navigate = useNavigate();
-  const { show } = useContext(ValueContext);
+  const { show, setShow, tokenChecker } = useContext(ValueContext);
 
   const handleInterest = () => {
+    const token = tokenChecker();
+    if (!token) {
+      setShow();
+    }
     setClicked(!clicked);
     fetch(`http://127.0.0.1:8000/api/business/user/${business._id}`, {
       method: "POST",
@@ -21,6 +25,7 @@ function SingleBusiness({ business }) {
         amount,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })
@@ -63,7 +68,7 @@ function SingleBusiness({ business }) {
           className="product"
           onClick={() => navigate(`/business/${business._id}`)}
         >
-          <div className="product_discription">
+          <div className="product_description">
             <h6>Product details</h6>
             <ul>
               <li>
@@ -91,14 +96,14 @@ function SingleBusiness({ business }) {
           </div>
           {business.product.productImage && (
             <div className="product_image">
-              <h6>Product image</h6>
+              <h6 style={{ paddingLeft: "1rem" }}>Product image</h6>
               {business.product.productImage.map((img, i) => (
                 <img src={img.imageUrl} alt="product_image" key={i} />
               ))}
             </div>
           )}
         </div>
-        {show ? (
+        {!show ? (
           <div className="not_authorized">
             <h4>
               <a href="/signin">

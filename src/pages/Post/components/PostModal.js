@@ -30,6 +30,7 @@ export default function PostModal() {
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const _id = localStorage.getItem("userId");
+  const token = localStorage.getItem("token")
   let file;
 
   const handleClickOpen = () => {
@@ -64,6 +65,9 @@ export default function PostModal() {
     fetch("http://127.0.0.1:8000/api/user/post", {
       method: "POST",
       body: formData,
+      headers: {
+        Authorization: token
+      }
     })
       .then((response) => response.json())
       .then((json) => {

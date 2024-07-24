@@ -10,11 +10,14 @@ import Tooltip from "@mui/material/Tooltip";
 import Logout from "@mui/icons-material/Logout";
 import MedicationIcon from "@mui/icons-material/Medication";
 import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
+import { ValueContext } from "../Context";
 
 import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {
+  const { tokenChecker } = React.useContext(ValueContext);
   const firstName = localStorage.getItem("firstName");
+  const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -23,6 +26,23 @@ export default function AccountMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    fetch(`http://127.0.0.1:8000/api/auth/signout/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        localStorage.setItem("userId", "");
+        localStorage.setItem("token", json.token);
+
+        navigate("/signin")
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <React.Fragment>
@@ -96,12 +116,7 @@ export default function AccountMenu() {
           Product Gallery
         </MenuItem>
         <Divider />
-        <MenuItem
-          onClick={() => {
-            navigate("/signin");
-            localStorage.setItem("userId", "");
-          }}
-        >
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

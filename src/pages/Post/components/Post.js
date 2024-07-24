@@ -15,6 +15,7 @@ function Post({ post }) {
   const userId = localStorage.getItem("userId");
   const [clicked, setClicked] = useState(false);
   const { setAllPosts } = useContext(ValueContext);
+  const token = localStorage.getItem("token");
 
   const handleLike = () => {
     if (clicked === true) {
@@ -24,6 +25,7 @@ function Post({ post }) {
           userId,
         }),
         headers: {
+          Authorization: token,
           "Content-Type": "application/json",
         },
       })
@@ -38,9 +40,7 @@ function Post({ post }) {
         body: JSON.stringify({
           userId,
         }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { Authorization: token, "Content-Type": "application/json" },
       })
         .then((res) => res.json())
         .then((json) => {

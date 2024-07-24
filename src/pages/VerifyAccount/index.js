@@ -1,24 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./index.css";
 
 import images from "../../data/images";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const {_id} = useParams()
   const navigate = useNavigate();
   const [verified, setVerified] = useState(true);
+  const [code, setCode] = useState("");
+  const _id = localStorage.getItem("userId");
 
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/auth/verify/${_id}`)
+  const handleSubmit = () => {
+    fetch(`http://127.0.0.1:8000/api/auth/verify/${_id}`, {
+      method: "POST",
+      body: JSON.stringify({
+        code,
+      }),
+    })
       .then((res) => res.json())
       .then((json) => {
         if (json.success === true) {
           setVerified(true);
+          navigate("/posts")
         }
       });
-  }, []);
+  };
 
   return (
     <div className="login">
@@ -32,21 +39,17 @@ function Login() {
               onClick={() => navigate("/")}
             />
             <div className="other_inputs">
-              <p>Account verification successful!</p>
-              <p>
-                Click to{" "}
-                <b
-                  style={{
-                    fontSize: "larger",
-                    color: "#004d40",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => navigate(`/verify/signin`)}
-                >
-                  <i>Login</i>
-                </b>
-              </p>
+              <p>Enter verification code</p>
+              <input
+                type="text"
+                placeholder="Email"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+              />
             </div>
+            <button onClick={handleSubmit} className="login_button">
+              Submit
+            </button>
           </div>
         </div>
       )}

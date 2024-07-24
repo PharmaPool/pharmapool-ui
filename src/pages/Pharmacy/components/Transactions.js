@@ -11,6 +11,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
+import { ValueContext } from "../../../Context";
+import { useNavigate } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -25,6 +27,8 @@ export default function Transactions({ id }) {
   const [open, setOpen] = useState(false);
   const { width } = useWindowDimensions();
   const [transactions, setTransactions] = useState([]);
+  const { tokenChecker } = useContext(ValueContext);
+  const navigate = useNavigate()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,13 +39,19 @@ export default function Transactions({ id }) {
   };
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/business/pharmacy/${id}`)
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch(`http://127.0.0.1:8000/api/business/pharmacy/${id}`, {
+      headers: { Authorization: token },
+    })
       .then((response) => response.json())
       .then((json) => {
         setTransactions(json.pharmacy.allTransactions);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [tokenChecker, id, navigate]);
 
   return (
     <React.Fragment>
@@ -70,7 +80,7 @@ export default function Transactions({ id }) {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <div className="interested_partners">
+          <div className="transaction_table">
             <table>
               <tr>
                 <th>Product</th>

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -8,12 +7,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-// import EditIcon from "@mui/icons-material/Edit";
-// import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-import useWindowDimensions from "../../../components/useWindowDimensions";
-import ChatRoomAccount from "./ChatRoomAccount";
+import ChatAccount from "./ChatAccount";
+import { ValueContext } from "../../../Context";
+import { useNavigate } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -24,10 +21,11 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function ChatProfile({ title, users }) {
-  const userId = localStorage.getItem("userId");
+export default function ChatProfile({ title, users, id }) {
   const [open, setOpen] = React.useState(false);
-  const { width } = useWindowDimensions();
+  const { tokenChecker } = React.useContext(ValueContext);
+  const navigate = useNavigate();
+  console.log(users);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,6 +34,14 @@ export default function ChatProfile({ title, users }) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  React.useEffect(() => {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+  }, [navigate, tokenChecker]);
+
   return (
     <React.Fragment>
       <button className="new_chatroom_button" onClick={handleClickOpen}>
@@ -68,7 +74,9 @@ export default function ChatProfile({ title, users }) {
         </IconButton>
         <DialogContent dividers>
           <div className="account_body">
-            <ChatRoomAccount />
+            <div style={{ textAlign: "center" }}>
+              <ChatAccount />
+            </div>
             <div className="interested_partners">
               <table className="account_table">
                 <tr>
@@ -76,7 +84,20 @@ export default function ChatProfile({ title, users }) {
                 </tr>
                 {users.map((user, i) => (
                   <tr key={i}>
-                    <td>{user.fullName}</td>
+                    {/* <td></td> */}
+                    <td
+                      style={{
+                        textTransform: "capitalize",
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "0.5rem",
+                      }}
+                    >
+                      <div className="result_user_image">
+                        <img src={user.userId.profileImage.imageUrl} alt="" />
+                      </div>
+                      {user.userId.fullName}
+                    </td>
                   </tr>
                 ))}
               </table>

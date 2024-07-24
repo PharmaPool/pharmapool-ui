@@ -1,12 +1,16 @@
 /* Posts */
 .posts {
-  padding: 6rem 15rem;
+  padding: 5rem 20rem;
 }
 
 .post {
-  padding: 2rem;
+  padding: 2rem 0rem;
   border-bottom: #e5e9e9 solid 0.1px;
   margin-bottom: 1rem;
+}
+
+.post_content {
+  padding-left: 2rem;
 }
 
 .post_interactions {
@@ -63,7 +67,7 @@
   overflow: hidden;
 }
 
-.comment_image img{
+.comment_image img {
   height: 100%;
   width: 100%;
 }
@@ -214,12 +218,16 @@ p {
 
 @media screen and (max-width: 1000px) {
   .posts {
-    padding: 4rem 1rem;
+    padding: 4rem 0rem;
   }
 
   .post {
-    padding: 1rem;
+    padding: 1rem 0rem;
     border-bottom: #e5e9e9 solid 0.1px;
+  }
+
+  .post_content {
+    padding-left: 1rem;
   }
 
   .post_interactions {

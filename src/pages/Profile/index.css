@@ -31,7 +31,7 @@
 
 .edit_image {
   position: relative;
-  top: 5rem;
+  top: 3.5rem;
   left: 3rem;
   padding: 0.4rem;
   width: 2.5rem;
@@ -189,7 +189,7 @@
 
 @media screen and (max-width: 1000px) {
   .profile {
-    padding: 5rem 1rem 1rem;
+    padding: 5rem 0rem 1rem;
   }
 
   .profile_image {

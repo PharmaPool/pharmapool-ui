@@ -10,6 +10,7 @@ import Header from "../../components/Header";
 import MoreInfo from "./component/MoreInfo";
 import images from "../../data/images";
 import ExtraInfo from "./component/ExtraInfo";
+import Emailjs from "./component/Emailjs";
 
 function Homepage() {
   const [navBg, setNavSize] = useState(false);
@@ -59,7 +60,7 @@ function Homepage() {
       <MoreInfo />
       <div className="join_us">
         <div className="join">
-          <h3>Ready to dive in?</h3>
+          <h1>Ready to dive in?</h1>
           <div>
             <p>
               Join Pharmapool today and experience the future of pharmaceutical
@@ -75,6 +76,7 @@ function Homepage() {
         <h1>CAC CERTIFIED</h1>
       </div>
       <ExtraInfo />
+      <Emailjs />
       <QuickLinks />
       <Footer />
     </div>

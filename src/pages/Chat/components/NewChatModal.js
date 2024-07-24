@@ -1,14 +1,11 @@
 import * as React from "react";
-import { useState, useContext } from "react";
-import Button from "@mui/material/Button";
+import { useState, useContext, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-// import EditIcon from "@mui/icons-material/Edit";
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
@@ -27,10 +24,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 export default function NewChatRoomModal() {
   const userId = localStorage.getItem("userId");
   const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = useState("");
-  const { width } = useWindowDimensions();
-  const { friends } = useContext(ValueContext);
   const navigate = useNavigate();
+  const [friends, setFriends] = useState([]);
+  const { tokenChecker } = useContext(ValueContext);
+  let token;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,6 +45,7 @@ export default function NewChatRoomModal() {
         friendId,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })
@@ -57,6 +55,21 @@ export default function NewChatRoomModal() {
       })
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch(`http://127.0.0.1:8000/api/user/friends/${userId}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => setFriends(json.friends))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <React.Fragment>

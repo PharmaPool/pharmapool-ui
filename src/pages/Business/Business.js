@@ -11,13 +11,15 @@ function Business() {
   const [clicked, setClicked] = useState(false);
   const _id = localStorage.getItem("userId");
   const { id } = useParams();
-  const { business, setBusiness, show } = useContext(ValueContext);
+  const { business, setBusiness, show, tokenChecker } =
+    useContext(ValueContext);
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [showTitle, setShowTitle] = useState(false);
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
+  const token = localStorage.getItem("token");
 
   const handleGroup = () => {
     fetch(`http://127.0.0.1:8000/api/business/group/${business._id}`, {
@@ -27,6 +29,7 @@ function Business() {
         title,
       }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     })
@@ -43,9 +46,7 @@ function Business() {
         userId: _id,
         amount,
       }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { Authorization: token, "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then((json) => setAmount(""))
@@ -53,14 +54,22 @@ function Business() {
   };
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/business/${id}`)
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch(`http://127.0.0.1:8000/api/business/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
         setBusiness(json.business);
         setLoading(true);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [id, navigate, setBusiness, tokenChecker]);
   return (
     <div className="biz">
       {loading && (
@@ -88,11 +97,11 @@ function Business() {
             <div className="business_description">
               <p>{business.content}</p>
             </div>
-            <div>
+            <div className="business_deadline">
               <h5>Deadline: {business.deadline}</h5>
             </div>
             <div className="product">
-              <div className="product_discription">
+              <div className="product_description">
                 <h6>Product details</h6>
                 <ul>
                   <li>
@@ -120,14 +129,14 @@ function Business() {
               </div>
               {business.product.productImage && (
                 <div className="product_image">
-                  <h6>Product image</h6>
+                  <h6 style={{paddingLeft:"1rem"}}>Product image</h6>
                   {business.product.productImage.map((img, i) => (
                     <img src={img.imageUrl} alt="product_image" key={i} />
                   ))}
                 </div>
               )}
             </div>
-            {show ? (
+            {!show ? (
               <div className="not_authorized">
                 <h4>
                   Not Authorized,{" "}
