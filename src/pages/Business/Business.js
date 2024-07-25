@@ -6,6 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { ValueContext } from "../../Context";
 import useWindowDimensions from "../../components/useWindowDimensions";
+import BusinessLoader from "./components/BusinessLoader";
 
 function Business() {
   const [clicked, setClicked] = useState(false);
@@ -22,7 +23,7 @@ function Business() {
   const token = localStorage.getItem("token");
 
   const handleGroup = () => {
-    fetch(`http://127.0.0.1:8000/api/business/group/${business._id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/group/${business._id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
@@ -40,7 +41,7 @@ function Business() {
 
   const handleInterest = () => {
     setClicked(!clicked);
-    fetch(`http://127.0.0.1:8000/api/business/user/${business._id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/user/${business._id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
@@ -58,7 +59,7 @@ function Business() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/business/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -72,6 +73,7 @@ function Business() {
   }, [id, navigate, setBusiness, tokenChecker]);
   return (
     <div className="biz">
+      {!loading && <BusinessLoader />}
       {loading && (
         <div className="business">
           <div className="business_head">
@@ -129,7 +131,7 @@ function Business() {
               </div>
               {business.product.productImage && (
                 <div className="product_image">
-                  <h6 style={{paddingLeft:"1rem"}}>Product image</h6>
+                  <h6 style={{ paddingLeft: "1rem" }}>Product image</h6>
                   {business.product.productImage.map((img, i) => (
                     <img src={img.imageUrl} alt="product_image" key={i} />
                   ))}
@@ -158,26 +160,28 @@ function Business() {
                           onClick={handleInterest}
                           className={clicked ? "interest" : "clicked_interest"}
                         >
-                          Not Interested <BackHandIcon />
+                          Partner <BackHandIcon />
                         </button>
                       </div>
                     ) : (
                       <div className="ints">
-                        <label htmlFor="offer">I need:</label>
-                        <input
-                          type="text"
-                          name="offer"
-                          placeholder="e.g 10 boxes"
-                          value={amount}
-                          onChange={(e) => setAmount(e.target.value)}
-                        />
+                        <div>
+                          <label htmlFor="offer">I need:</label>
+                          <input
+                            type="text"
+                            name="offer"
+                            placeholder="e.g 10 boxes"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                          />
+                        </div>
                         <button className="interest" onClick={handleInterest}>
                           submit
                         </button>
                       </div>
                     )}
                     <p className="end">
-                      {business.interestedPartners.length} interested
+                      {business.interestedPartners.length} partners
                     </p>
                   </div>
                 )}
@@ -188,18 +192,18 @@ function Business() {
                     ).length > 0 ? (
                       <div>
                         <button className="clicked_interest">
-                          Not Interested <BackHandIcon />
+                          Partner <BackHandIcon />
                         </button>
                       </div>
                     ) : (
                       <div>
                         <button onClick={handleInterest} className="interest">
-                          Interested <BackHandIcon />
+                          Partner <BackHandIcon />
                         </button>
                       </div>
                     )}
                     <p className="end">
-                      {business.interestedPartners.length} interested
+                      {business.interestedPartners.length} partners
                     </p>
                   </div>
                 )}
@@ -213,7 +217,7 @@ function Business() {
                           onClick={handleInterest}
                           className="clicked_interest"
                         >
-                          Not Interested <BackHandIcon />
+                          Partner <BackHandIcon />
                         </button>
                       </div>
                     ) : (
@@ -232,7 +236,7 @@ function Business() {
                       </div>
                     )}
                     <p className="end">
-                      {business.interestedPartners.length} interests
+                      {business.interestedPartners.length} partners
                     </p>
                   </div>
                 )}

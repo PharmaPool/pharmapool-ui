@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 
-import useWindowDimensions from "../../../components/useWindowDimensions";
 import { ValueContext } from "../../../Context";
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +37,7 @@ export default function NewChatRoomModal() {
   };
 
   const handleChat = (friendId) => {
-    fetch("http://127.0.0.1:8000/api/user/chat", {
+    fetch("https://pharmapoolserver.com/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
         userId,
@@ -61,7 +60,7 @@ export default function NewChatRoomModal() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/user/friends/${userId}`, {
+    fetch(`https://pharmapoolserver.com/api/user/friends/${userId}`, {
       headers: {
         Authorization: token,
       },
@@ -99,14 +98,15 @@ export default function NewChatRoomModal() {
         </IconButton>
         <DialogContent dividers>
           <div className="friends">
-            {friends.map((friend, i) => (
-              <div className="friend" onClick={() => handleChat(friend._id)}>
-                <div className="friend_image">
-                  <img src={friend.profileImage.imageUrl} alt="friend_logo" />
+            {friends.length > 0 &&
+              friends.map((friend, i) => (
+                <div className="friend" onClick={() => handleChat(friend._id)}>
+                  <div className="friend_image">
+                    <img src={friend.profileImage.imageUrl} alt="friend_logo" />
+                  </div>
+                  <h5>{friend.fullName}</h5>
                 </div>
-                <h5>{friend.fullName}</h5>
-              </div>
-            ))}
+              ))}
           </div>
         </DialogContent>
         {/* <DialogActions>

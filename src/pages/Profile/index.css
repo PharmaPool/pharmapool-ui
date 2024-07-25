@@ -85,9 +85,9 @@
 
 .profile_details {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
-  margin-bottom: 2rem;
+  margin: 0rem auto 2rem;
 }
 
 .profile_details p {
@@ -187,7 +187,7 @@
   z-index: 0;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .profile {
     padding: 5rem 0rem 1rem;
   }
@@ -275,7 +275,7 @@
 
   .profile_details {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     grid-gap: 1rem;
     margin-bottom: 2rem;
   }

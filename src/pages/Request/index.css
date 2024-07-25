@@ -112,7 +112,7 @@
   flex-direction: row-reverse;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .requests {
     padding: 4rem 0.5rem 2rem;
   }

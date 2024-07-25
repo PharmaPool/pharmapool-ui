@@ -29,7 +29,7 @@ export default function AccountMenu() {
   };
 
   const handleLogout = () => {
-    fetch(`http://127.0.0.1:8000/api/auth/signout/${userId}`, {
+    fetch(`https://pharmapoolserver.com/api/auth/signout/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export default function AccountMenu() {
         localStorage.setItem("userId", "");
         localStorage.setItem("token", json.token);
 
-        navigate("/signin")
+        navigate("/signin");
       })
       .catch((err) => console.log(err));
   };

@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 import io from "socket.io-client";
 
-const socket = io("http://127.0.0.1:8000");
+const socket = io("https://pharmapoolserver.com");
 
 export const ValueContext = createContext();
 const token = localStorage.getItem("token");
@@ -119,7 +119,7 @@ export class Context extends Component {
   setPharmacy = (e) => this.setState({ pharmacy: e });
 
   setAllPosts = () =>
-    fetch("http://127.0.0.1:8000/api/feed/posts", {
+    fetch("https://pharmapoolserver.com/api/feed/posts", {
       headers: {
         Authorization: token,
       },

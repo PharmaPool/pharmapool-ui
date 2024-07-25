@@ -34,13 +34,14 @@ function Profile() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/user/profile/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/user/profile/${id}`, {
       headers: {
         Authorization: token,
       },
     })
       .then((response) => response.json())
       .then((res) => {
+        console.log(res);
         setDetails(res.user.details);
         setFullname(res.user.fullName);
         setProfileImage(res.user.profileImage.imageUrl);
@@ -56,7 +57,7 @@ function Profile() {
       })
       .catch((err) => console.log(err));
 
-    fetch(`http://127.0.0.1:8000/api/user/profile/${currentUser}`, {
+    fetch(`https://pharmapoolserver.com/api/user/profile/${currentUser}`, {
       headers: {
         Authorization: token,
       },
@@ -79,7 +80,7 @@ function Profile() {
   }, [id, navigate, currentUser, token]);
 
   const handleRequest = () => {
-    fetch("http://127.0.0.1:8000/api/user/friend-request", {
+    fetch("https://pharmapoolserver.com/api/user/friend-request", {
       method: "POST",
       body: JSON.stringify({
         userId: currentUser,
@@ -99,7 +100,7 @@ function Profile() {
   };
 
   const handleChat = () => {
-    fetch("http://127.0.0.1:8000/api/user/chat", {
+    fetch("https://pharmapoolserver.com/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
         userId: currentUser,
@@ -118,7 +119,7 @@ function Profile() {
   };
 
   const acceptRequest = () => {
-    fetch("http://127.0.0.1:8000/api/user/accept-request", {
+    fetch("https://pharmapoolserver.com/api/user/accept-request", {
       method: "POST",
       body: JSON.stringify({
         friendId: id,
@@ -141,7 +142,7 @@ function Profile() {
 
   return (
     <>
-      {width > 900 ? <PrivateHeader /> : <MediaHeader />}
+      {width > 1200 ? <PrivateHeader /> : <MediaHeader />}
       <div className="profile">
         <Banner fullname={fullname} profileImage={profileImage} />
         <Details details={details} />

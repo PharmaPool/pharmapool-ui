@@ -22,10 +22,10 @@ function ChatRoom() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/user/messages/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/user/messages/${_id}`, {
       headers: {
         Authorization: token,
-      }
+      },
     })
       .then((response) => response.json())
       .then((json) => setChatrooms(json.messages.chatroomcontent))
@@ -33,7 +33,7 @@ function ChatRoom() {
   }, [_id, navigate, tokenChecker]);
   return (
     <>
-      {width > 900 ? <PrivateHeader /> : <MediaHeader />}
+      {width > 1200 ? <PrivateHeader /> : <MediaHeader />}
       <div className="chatrooms">
         <div className="chatroom_title">
           <h5>Chatrooms</h5>

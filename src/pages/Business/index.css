@@ -379,7 +379,7 @@ th {
   justify-content: center;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .businesses {
     padding: 4rem 0rem 2rem;
   }
@@ -457,7 +457,7 @@ th {
     padding: 1rem 0rem 0rem;
   }
 
-  .product_description{
+  .product_description {
     padding-left: 1rem;
   }
 
@@ -529,6 +529,10 @@ th {
     justify-content: center;
   }
 
+  .ints div {
+    display: flex;
+  }
+
   .ints input {
     width: 10rem;
     border: none;
@@ -540,6 +544,10 @@ th {
   .ints input:focus {
     outline: none;
     background-color: #e0f2f1;
+  }
+
+  .ints button {
+    width: 50%;
   }
 
   .demand_interactions {

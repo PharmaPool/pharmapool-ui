@@ -30,7 +30,7 @@ export default function PostModal() {
   const [content, setContent] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const _id = localStorage.getItem("userId");
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   let file;
 
   const handleClickOpen = () => {
@@ -62,12 +62,12 @@ export default function PostModal() {
     formData.append("content", content);
     formData.append("userId", _id);
 
-    fetch("http://127.0.0.1:8000/api/user/post", {
+    fetch("https://pharmapoolserver.com/api/user/post", {
       method: "POST",
       body: formData,
       headers: {
-        Authorization: token
-      }
+        Authorization: token,
+      },
     })
       .then((response) => response.json())
       .then((json) => {

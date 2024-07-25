@@ -35,7 +35,7 @@ function SingleChat() {
     if (!token) {
       history("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/user/singlechat/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/user/singlechat/${id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
@@ -47,7 +47,7 @@ function SingleChat() {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.chat.users)
+        console.log(json.chat.users);
         setTitle(json.chat.users[0].userId.fullName);
         setProfileImage(json.chat.users[0].userId.profileImage.imageUrl);
         setFriendId(json.chat.users[0].userId._id);
@@ -97,7 +97,7 @@ function SingleChat() {
             </h6>
           </div>
           <div className="chat_profile">
-            <ChatProfile users={users} title={title} id={id}/>
+            <ChatProfile users={users} title={title} id={id} />
           </div>
         </div>
         <Chat chat={chat} />

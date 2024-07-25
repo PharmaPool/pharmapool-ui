@@ -22,7 +22,7 @@ function Notification() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/feed/notifications/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/feed/notifications/${_id}`, {
       headers: {
         Authorization: token,
       },

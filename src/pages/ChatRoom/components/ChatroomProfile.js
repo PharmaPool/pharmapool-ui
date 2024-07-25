@@ -42,7 +42,7 @@ export default function ChatroomProfile({ title, users, id, admin }) {
     if (!token) {
       navigate("/signin");
     }
-    fetch("http://127.0.0.1:8000/api/user/chatroom/leave", {
+    fetch("https://pharmapoolserver.com/api/user/chatroom/leave", {
       method: "DELETE",
       body: JSON.stringify({
         chatId: id,

@@ -21,7 +21,7 @@ function PrivateBusiness() {
     if (!token) {
       navigate("/signin");
     }
-    fetch("http://127.0.0.1:8000/api/business/", {
+    fetch("https://pharmapoolserver.com/api/business/", {
       headers: {
         Authorization: token,
       },
@@ -34,13 +34,13 @@ function PrivateBusiness() {
   }, [navigate, setBusinesses, tokenChecker]);
   return (
     <>
-      {width > 900 ? <PrivateHeader /> : <MediaHeader />}
+      {width > 1200 ? <PrivateHeader /> : <MediaHeader />}
       <div className="businesses">
         <div className="create_business">
           <PostModal />
         </div>
         <div className="business_body">
-          {businesses ? (
+          {businesses.length > 0 ? (
             businesses.map((business, i) => (
               <SingleBusiness key={i} business={business} />
             ))

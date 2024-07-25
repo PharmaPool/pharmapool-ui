@@ -18,7 +18,7 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    fetch("http://127.0.0.1:8000/api/auth/signup", {
+    fetch("https://pharmapoolserver.com/api/auth/signup", {
       method: "POST",
       body: JSON.stringify({
         firstName: firstname,
@@ -32,14 +32,16 @@ function Signup() {
       }),
       headers: { "Content-Type": "application/json" },
     })
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.type === "email") {
-          setMessage(res.error);
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.type === "email") {
+          setMessage(json.error);
         } else {
           setShow(true);
           localStorage.setItem("email", email);
           localStorage.setItem("password", password);
+          localStorage.setItem("userId", json.user._id);
+          navigate(`/verify`);
         }
       })
       .catch((err) => console.log(err));
@@ -72,8 +74,8 @@ function Signup() {
                 type="text"
                 placeholder="First Name"
                 value={firstname}
-                  onChange={(e) => setFirstname(e.target.value)}
-                  autoFocus
+                onChange={(e) => setFirstname(e.target.value)}
+                autoFocus
               />
               <input
                 type="text"

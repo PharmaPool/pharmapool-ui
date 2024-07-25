@@ -7,15 +7,18 @@ import { ValueContext } from "../../../Context";
 function RemoveForm({ id, invent }) {
   const { setRemove } = useContext(ValueContext);
   const [quantity, setQuantity] = useState(0);
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const handleRemove = () => {
-    fetch(`http://127.0.0.1:8000/api/business/inventory/removestock/${id}`, {
-      method: "DELETE",
-      body: JSON.stringify({
-        quantity,
-      }),
-      headers: { Authorization: token, "Content-Type": "application/json" },
-    })
+    fetch(
+      `https://pharmapoolserver.com/api/business/inventory/removestock/${id}`,
+      {
+        method: "DELETE",
+        body: JSON.stringify({
+          quantity,
+        }),
+        headers: { Authorization: token, "Content-Type": "application/json" },
+      }
+    )
       .then((response) => response.json())
       .then((json) => window.location.reload())
       .catch((err) => console.log(err));

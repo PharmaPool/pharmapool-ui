@@ -8,10 +8,10 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 function PharmacyLogin() {
   const navigate = useNavigate();
   const _id = localStorage.getItem("userId");
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const [pharmacy, setPharmacy] = useState([]);
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/business/pharmacies/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/pharmacies/${_id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

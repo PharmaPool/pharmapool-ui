@@ -426,7 +426,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   /* LANDING PAGE */
   .home_banner {
     display: flex;

@@ -11,10 +11,10 @@ function Pharmacy() {
   const { id } = useParams();
   const { setPharmacy } = useContext(ValueContext);
   const [inventory, setInventory] = useState([]);
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const [transactions, setTransactions] = useState([]);
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/business/pharmacy/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/pharmacy/${id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

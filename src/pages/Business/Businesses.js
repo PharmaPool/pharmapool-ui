@@ -12,7 +12,7 @@ function Business() {
 
   useEffect(() => {
     tokenChecker();
-    fetch("http://127.0.0.1:8000/api/auth/", {
+    fetch("https://pharmapoolserver.com/api/auth/", {
       Authorization: token,
     })
       .then((response) => response.json())

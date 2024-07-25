@@ -17,7 +17,7 @@
   grid-template-columns: 1fr 4%;
 }
 
-.notification h6{
+.notification h6 {
   text-transform: capitalize;
 }
 
@@ -59,18 +59,18 @@
   z-index: 0;
 }
 
-.notifications_header h5{
+.notifications_header h5 {
   margin: 0rem;
   display: flex;
   align-items: center;
 }
 
-.notifications_header div{
+.notifications_header div {
   display: flex;
   flex-direction: row-reverse;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .notifications {
     padding: 3rem 0.5rem 1rem;
   }

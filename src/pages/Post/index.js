@@ -23,7 +23,7 @@ function Posts() {
     if (!login.user.loggedIn) {
       navigate("/signin");
     }
-    fetch("http://127.0.0.1:8000/api/feed/posts", {
+    fetch("https://pharmapoolserver.com/api/feed/posts", {
       headers: {
         Authorization: token,
       },
@@ -34,7 +34,7 @@ function Posts() {
   }, [token, setAllPosts, navigate]);
   return (
     <>
-      {width > 900 ? <PrivateHeader /> : <MediaHeader />}
+      {width > 1200 ? <PrivateHeader /> : <MediaHeader />}
 
       <div className="posts">
         <div className="create_business">

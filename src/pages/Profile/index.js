@@ -26,7 +26,7 @@ function Profile() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/user/profile/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/user/profile/${_id}`, {
       headers: {
         Authorization: token,
       },
@@ -43,7 +43,7 @@ function Profile() {
 
   return (
     <>
-      {width > 900 ? <PrivateHeader /> : <MediaHeader />}
+      {width > 1200 ? <PrivateHeader /> : <MediaHeader />}
       <div className="profile">
         <Banner fullname={fullname} profileImage={profileImage} />
         <Details details={details} />

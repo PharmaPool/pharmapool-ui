@@ -11,18 +11,18 @@ import { ValueContext } from "../../Context";
 import { useNavigate } from "react-router-dom";
 
 function Chats() {
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [chats, setChats] = useState([]);
   const _id = localStorage.getItem("userId");
-  const {tokenChecker} = useContext(ValueContext)
+  const { tokenChecker } = useContext(ValueContext);
 
   useEffect(() => {
-    const token = tokenChecker()
+    const token = tokenChecker();
     if (!token) {
-      navigate("/signin")
+      navigate("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/user/messages/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/user/messages/${_id}`, {
       headers: {
         Authorization: token,
       },
@@ -33,7 +33,7 @@ function Chats() {
   }, [_id, navigate, tokenChecker]);
   return (
     <>
-      {width > 900 ? <PrivateHeader /> : <MediaHeader />}
+      {width > 1200 ? <PrivateHeader /> : <MediaHeader />}
       <div className="chats">
         <div className="chatroom_title">
           <h5>Chats</h5>

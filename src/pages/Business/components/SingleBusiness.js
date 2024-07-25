@@ -18,7 +18,7 @@ function SingleBusiness({ business }) {
       setShow();
     }
     setClicked(!clicked);
-    fetch(`http://127.0.0.1:8000/api/business/user/${business._id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/user/${business._id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
@@ -65,6 +65,12 @@ function SingleBusiness({ business }) {
           <p>{business.content}</p>
         </div>
         <div
+          className="business_deadline"
+          onClick={() => navigate(`/business/${business._id}`)}
+        >
+          <h5>Deadline: {business.deadline}</h5>
+        </div>
+        <div
           className="product"
           onClick={() => navigate(`/business/${business._id}`)}
         >
@@ -106,6 +112,7 @@ function SingleBusiness({ business }) {
         {!show ? (
           <div className="not_authorized">
             <h4>
+              Not Authorized,{" "}
               <a href="/signin">
                 <i>Login</i>
               </a>{" "}
@@ -124,28 +131,28 @@ function SingleBusiness({ business }) {
                       onClick={handleInterest}
                       className={clicked ? "interest" : "clicked_interest"}
                     >
-                      Not Interested <BackHandIcon />
+                      Partner <BackHandIcon />
                     </button>
                   </div>
                 ) : (
                   <div className="ints">
-                    <label htmlFor="offer">I need:</label>
-                    <input
-                      type="text"
-                      name="offer"
-                      placeholder="e.g 10 boxes"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                    />
                     <div>
-                      <button className="interest" onClick={handleInterest}>
-                        submit
-                      </button>
+                      <label htmlFor="offer">I need:</label>
+                      <input
+                        type="text"
+                        name="offer"
+                        placeholder="e.g 10 boxes"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                      />
                     </div>
+                    <button className="interest" onClick={handleInterest}>
+                      submit
+                    </button>
                   </div>
                 )}
                 <p className="end">
-                  {business.interestedPartners.length} interested
+                  {business.interestedPartners.length} partners
                 </p>
               </div>
             )}
@@ -156,18 +163,18 @@ function SingleBusiness({ business }) {
                 ).length > 0 ? (
                   <div>
                     <button className="clicked_interest">
-                      Not Interested <BackHandIcon />
+                      Partner <BackHandIcon />
                     </button>
                   </div>
                 ) : (
                   <div>
                     <button onClick={handleInterest} className="interest">
-                      Interested <BackHandIcon />
+                      Partner <BackHandIcon />
                     </button>
                   </div>
                 )}
                 <p className="end">
-                  {business.interestedPartners.length} interested
+                  {business.interestedPartners.length} partners
                 </p>
               </div>
             )}
@@ -181,7 +188,7 @@ function SingleBusiness({ business }) {
                       onClick={handleInterest}
                       className="clicked_interest"
                     >
-                      Not Interested <BackHandIcon />
+                      Partner <BackHandIcon />
                     </button>
                   </div>
                 ) : (
@@ -194,15 +201,13 @@ function SingleBusiness({ business }) {
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
                     />
-                    <div>
-                      <button className="interest" onClick={handleInterest}>
-                        submit
-                      </button>
-                    </div>
+                    <button className="interest" onClick={handleInterest}>
+                      submit
+                    </button>
                   </div>
                 )}
                 <p className="end">
-                  {business.interestedPartners.length} interested
+                  {business.interestedPartners.length} partners
                 </p>
               </div>
             )}

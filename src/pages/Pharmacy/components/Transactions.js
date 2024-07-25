@@ -28,7 +28,7 @@ export default function Transactions({ id }) {
   const { width } = useWindowDimensions();
   const [transactions, setTransactions] = useState([]);
   const { tokenChecker } = useContext(ValueContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,7 +43,7 @@ export default function Transactions({ id }) {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`http://127.0.0.1:8000/api/business/pharmacy/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/pharmacy/${id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

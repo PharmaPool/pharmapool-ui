@@ -30,7 +30,7 @@ export default function NewChatRoomModal() {
   const token = localStorage.getItem("token");
 
   let url;
-  url = `http://127.0.0.1:8000/api/user/chatroom/create`;
+  url = `https://pharmapoolserver.com/api/user/chatroom/create`;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,7 +69,6 @@ export default function NewChatRoomModal() {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
-        fullScreen={width < 1000 ? true : false}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
           create chatroom
@@ -88,7 +87,7 @@ export default function NewChatRoomModal() {
         </IconButton>
         <DialogContent dividers>
           <div className="chatroom_form">
-            <div>
+            <div style={{ textAlign: "center" }}>
               <input
                 type="text"
                 placeholder="title"

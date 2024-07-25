@@ -274,7 +274,7 @@ th {
   z-index: 0;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .chatrooms {
     padding: 3rem 0.5rem 0rem;
   }

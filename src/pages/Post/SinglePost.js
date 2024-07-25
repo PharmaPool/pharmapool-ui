@@ -27,7 +27,7 @@ function SinglePost() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/feed/post/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/feed/post/${_id}`, {
       headers: {
         Authorization: token,
       },
@@ -44,7 +44,7 @@ function SinglePost() {
 
   const handleLike = () => {
     if (clicked === true) {
-      fetch(`http://127.0.0.1:8000/api/feed/post/${_id}/like`, {
+      fetch(`https://pharmapoolserver.com/api/feed/post/${_id}/like`, {
         method: "DELETE",
         body: JSON.stringify({
           userId,
@@ -55,7 +55,7 @@ function SinglePost() {
         .then((json) => json)
         .catch((err) => console.log(err));
     } else {
-      fetch(`http://127.0.0.1:8000/api/feed/post/${_id}/like`, {
+      fetch(`https://pharmapoolserver.com/api/feed/post/${_id}/like`, {
         method: "POST",
         body: JSON.stringify({
           userId,
@@ -69,7 +69,7 @@ function SinglePost() {
   };
 
   const handleComment = () => {
-    fetch(`http://127.0.0.1:8000/api/feed/post/${_id}/comment`, {
+    fetch(`https://pharmapoolserver.com/api/feed/post/${_id}/comment`, {
       method: "POST",
       body: JSON.stringify({
         content: addComment,
@@ -86,7 +86,7 @@ function SinglePost() {
   };
   return (
     <>
-      {width > 900 ? <PrivateHeader /> : <MediaHeader />}
+      {width > 1200 ? <PrivateHeader /> : <MediaHeader />}
       {posts ? (
         <div className="single_post">
           <div className="business">
