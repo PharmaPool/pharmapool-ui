@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Register from "./Register";
 
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+// import { ValueContext } from "../../Context";
 
 function PharmacyLogin() {
   const navigate = useNavigate();
+  // const { tokenChecker } = useContext(ValueContext);
   const _id = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const [pharmacy, setPharmacy] = useState([]);
+
   useEffect(() => {
-    fetch(`https://pharmapoolserver.com/api/business/pharmacies/${_id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/business/pharmacies/${_id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())
@@ -24,7 +27,7 @@ function PharmacyLogin() {
       <div className="invent_menu">
         <div>
           <button onClick={() => navigate("/profile")}>
-            <ArrowCircleLeftIcon /> BACK TO PROFILE
+            <ArrowCircleLeftIcon /> Back to profile
           </button>
         </div>
       </div>

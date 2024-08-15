@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import AddForm from "./AddForm";
+import AddFormWide from "./AddFormWide";
+import AddFormMin from "./AddFormMin";
 import RemoveForm from "./RemoveForm";
+import RemoveFormMin from "./RemoveFormMin";
 
 import { ValueContext } from "../../../Context";
 import { useParams } from "react-router-dom";
+import useWindowDimensions from "../../../components/useWindowDimensions";
 
 function InventoryItem() {
   const { add, remove, setAdd, setRemove } = useContext(ValueContext);
@@ -13,9 +16,10 @@ function InventoryItem() {
   const [invent, setInvent] = useState([]);
   const { id } = useParams();
   const token = localStorage.getItem("token");
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
-    fetch(`https://pharmapoolserver.com/api/business/inventory/${id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/business/inventory/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -28,9 +32,9 @@ function InventoryItem() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className="inventory_list">
-      <div className="interested_partners">
-        <h2 style={{ textTransform: "capitalize" }}>{inventory.product}</h2>
+    <div className="inventory_item">
+      <h2 style={{ textTransform: "capitalize" }}>{inventory.product}</h2>
+      <div className="inventory">
         <table>
           <tr>
             <th>Brand</th>
@@ -65,15 +69,29 @@ function InventoryItem() {
             <th style={{ textAlign: "center" }}>{inventory.total}</th>
           </tr>
         </table>
-        {add && <AddForm id={inventory._id} />}
-        {remove && <RemoveForm id={inventory._id} invent={invent} />}
-        <div className="add_product">
-          <button className="clicked_interest" onClick={() => setAdd()}>
-            <AddIcon /> Add Stock
-          </button>
-          <button className="interest" onClick={() => setRemove()}>
-            <RemoveIcon /> Remove Stock
-          </button>
+      </div>
+      <div className="table_below">
+        {add && width > 1000 ? <AddFormWide id={inventory._id} /> : ""}
+        {add && width < 1000 ? <AddFormMin id={inventory._id} /> : ""}
+        {remove && width > 1000 ? (
+          <RemoveForm id={inventory._id} invent={invent} />
+        ) : (
+          ""
+        )}
+        {remove && width < 1000 ? (
+          <RemoveFormMin id={inventory._id} invent={invent} />
+        ) : (
+          ""
+        )}
+        <div class="table_below">
+          <div className="add_product">
+            <button className="interest" onClick={() => setAdd()}>
+              <AddIcon /> Add
+            </button>
+            <button className="not_interest" onClick={() => setRemove()}>
+              <RemoveIcon /> Remove
+            </button>
+          </div>
         </div>
       </div>
     </div>

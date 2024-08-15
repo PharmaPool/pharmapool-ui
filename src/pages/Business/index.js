@@ -21,7 +21,7 @@ function PrivateBusiness() {
     if (!token) {
       navigate("/signin");
     }
-    fetch("https://pharmapoolserver.com/api/business/", {
+    fetch("https://www.pharmapoolserver.com/api/business/", {
       headers: {
         Authorization: token,
       },

@@ -12,7 +12,7 @@ function Business() {
 
   useEffect(() => {
     tokenChecker();
-    fetch("https://pharmapoolserver.com/api/auth/", {
+    fetch("https://www.pharmapoolserver.com/api/auth/", {
       Authorization: token,
     })
       .then((response) => response.json())

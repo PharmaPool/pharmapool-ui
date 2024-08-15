@@ -47,7 +47,7 @@ const Header = () => {
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            style={{ color: "black" }}
+            style={{ color: "#004d40", outline: "none", border: "none" }}
           >
             <i class="fas fa-bars"></i>
           </button>

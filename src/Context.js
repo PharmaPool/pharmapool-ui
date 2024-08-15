@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 import io from "socket.io-client";
 
-const socket = io("https://pharmapoolserver.com");
+const socket = io("https://www.pharmapoolserver.com");
 
 export const ValueContext = createContext();
 const token = localStorage.getItem("token");
@@ -78,6 +78,8 @@ export class Context extends Component {
     }
   };
 
+  logOut = () => this.setState({ login: false });
+
   openAdvert = () => this.setState({ advertControl: true });
 
   closeAdvert = () => this.setState({ advertControl: false });
@@ -119,7 +121,7 @@ export class Context extends Component {
   setPharmacy = (e) => this.setState({ pharmacy: e });
 
   setAllPosts = () =>
-    fetch("https://pharmapoolserver.com/api/feed/posts", {
+    fetch("https://www.pharmapoolserver.com/api/feed/posts", {
       headers: {
         Authorization: token,
       },
@@ -151,6 +153,7 @@ export class Context extends Component {
           openAdvert: this.openAdvert,
           closeAdvert: this.closeAdvert,
           tokenChecker: this.tokenChecker,
+          logOut: this.logOut,
         }}
       >
         {this.props.children}

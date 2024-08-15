@@ -12,7 +12,7 @@ function Inventory() {
         <div>
           <button onClick={() => navigate(-1)}>
             <ArrowCircleLeftIcon />
-            BACK
+            Back
           </button>
         </div>
       </div>

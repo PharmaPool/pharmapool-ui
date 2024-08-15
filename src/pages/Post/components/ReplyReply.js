@@ -14,7 +14,7 @@ function Reply({ comment, postId }) {
 
   const handleReply = () => {
     fetch(
-      `https://pharmapoolserver.com/api/feed/post/${postId}/comment/reply`,
+      `https://www.pharmapoolserver.com/api/feed/post/${postId}/comment/reply`,
       {
         method: "POST",
         body: JSON.stringify({

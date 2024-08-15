@@ -32,9 +32,10 @@ export default function Register() {
   const [selectedFile, setSelectedFile] = useState(null);
   const { width } = useWindowDimensions();
   const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(false);
 
   let url, file;
-  url = `https://pharmapoolserver.com/api/business/pharmacy/${_id}`;
+  url = `https://www.pharmapoolserver.com/api/business/pharmacy/${_id}`;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,6 +57,7 @@ export default function Register() {
   };
 
   const handleSubmit = () => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("businessName", businessName);
@@ -161,7 +163,7 @@ export default function Register() {
         </DialogContent>
         <DialogActions>
           <Button color="success" autoFocus onClick={handleSubmit}>
-            Register
+            {loading ? "registering..." : "register"}
           </Button>
         </DialogActions>
       </BootstrapDialog>

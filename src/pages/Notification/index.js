@@ -22,7 +22,7 @@ function Notification() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`https://pharmapoolserver.com/api/feed/notifications/${_id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/feed/notifications/${_id}`, {
       headers: {
         Authorization: token,
       },

@@ -45,7 +45,7 @@ export default function AddFriendModal({ id, users }) {
     if (!token) {
       navigate("/signin");
     }
-    fetch("https://pharmapoolserver.com/api/user/chatroom/add", {
+    fetch("https://www.pharmapoolserver.com/api/user/chatroom/add", {
       method: "POST",
       body: JSON.stringify({
         chatId: id,

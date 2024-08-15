@@ -22,7 +22,7 @@ function Chats() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`https://pharmapoolserver.com/api/user/messages/${_id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/user/messages/${_id}`, {
       headers: {
         Authorization: token,
       },

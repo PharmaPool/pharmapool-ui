@@ -14,7 +14,7 @@ function Reply({ comment, postId }) {
 
   const handleReply = () => {
     fetch(
-      `https://pharmapoolserver.com/api/feed/post/${postId}/comment/reply`,
+      `https://www.pharmapoolserver.com/api/feed/post/${postId}/comment/reply`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -39,7 +39,7 @@ function Reply({ comment, postId }) {
   const handleLike = () => {
     if (clicked === true) {
       fetch(
-        `https://pharmapoolserver.com/api/feed/post/${postId}/comment/like`,
+        `https://www.pharmapoolserver.com/api/feed/post/${postId}/comment/like`,
         {
           method: "DELETE",
           body: JSON.stringify({
@@ -57,7 +57,7 @@ function Reply({ comment, postId }) {
         .catch((err) => console.log(err));
     } else {
       fetch(
-        `https://pharmapoolserver.com/api/feed/post/${postId}/comment/like`,
+        `https://www.pharmapoolserver.com/api/feed/post/${postId}/comment/like`,
         {
           method: "POST",
           body: JSON.stringify({

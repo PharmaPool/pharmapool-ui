@@ -36,15 +36,6 @@ function PrivateHeader() {
         }}
       >
         <div class="container">
-          <a class="navbar-brand" href="/">
-            <img
-              src={images.logo}
-              alt="pharmapool_logo"
-              width={50}
-              style={{ margin: "0px" }}
-              className="logoss"
-            />
-          </a>
           <button
             class="navbar-toggler"
             type="button"
@@ -62,8 +53,17 @@ function PrivateHeader() {
             id="navbarSupportedContent"
             style={{ backgroundColor: "white" }}
           >
-            <div style={{ width: "7rem" }}></div>
-            <ul class="navbar-nav me-auto">
+            <div style={{ width: "0rem" }}></div>
+            <ul class="navbar-nav" style={{ margin: "auto" }}>
+              <a class="navbar-brand" href="/">
+                <img
+                  src={images.logo}
+                  alt="pharmapool_logo"
+                  width={40}
+                  style={{ margin: "0px" }}
+                  className="logoss"
+                />
+              </a>
               <li class="nav-item me-3 me-lg-0">
                 <a
                   class="nav-link"
@@ -154,11 +154,10 @@ function PrivateHeader() {
                   Notifications
                 </a>
               </li>
-              <div style={{ width: "3rem" }}></div>
+              <div style={{ width: "1rem" }}></div>
               <li class="nav-item me-3 me-lg-0">
                 <AccountMenu />
               </li>
-              <li></li>
             </ul>
           </div>
         </div>

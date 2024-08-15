@@ -42,7 +42,7 @@ export default function PostModal() {
   const token = localStorage.getItem("token");
 
   let url, file, business;
-  url = `https://pharmapoolserver.com/api/business/${_id}`;
+  url = `https://www.pharmapoolserver.com/api/business/${_id}`;
   if (bt1) {
     business = "demand";
   } else if (bt2) {

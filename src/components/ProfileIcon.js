@@ -15,7 +15,7 @@ import { ValueContext } from "../Context";
 import { useNavigate } from "react-router-dom";
 
 export default function AccountMenu() {
-  const { tokenChecker } = React.useContext(ValueContext);
+  const { tokenChecker, logOut } = React.useContext(ValueContext);
   const firstName = localStorage.getItem("firstName");
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export default function AccountMenu() {
   };
 
   const handleLogout = () => {
-    fetch(`https://pharmapoolserver.com/api/auth/signout/${userId}`, {
+    fetch(`https://www.pharmapoolserver.com/api/auth/signout/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -39,11 +39,20 @@ export default function AccountMenu() {
       .then((json) => {
         localStorage.setItem("userId", "");
         localStorage.setItem("token", json.token);
+        logOut();
 
         navigate("/signin");
       })
       .catch((err) => console.log(err));
   };
+
+  // React.useEffect(() => {
+  //   const token = tokenChecker();
+  //   if (!token) {
+  //     navigate("/signin");
+  //   }
+  // }, []);
+
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>

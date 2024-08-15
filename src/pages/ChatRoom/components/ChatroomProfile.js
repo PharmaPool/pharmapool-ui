@@ -7,13 +7,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-// import EditIcon from "@mui/icons-material/Edit";
-// import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatRoomAccount from "./ChatRoomAccount";
 import AddFriendModal from "./AddFriendModal";
 import { ValueContext } from "../../../Context";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -42,7 +41,7 @@ export default function ChatroomProfile({ title, users, id, admin }) {
     if (!token) {
       navigate("/signin");
     }
-    fetch("https://pharmapoolserver.com/api/user/chatroom/leave", {
+    fetch("https://www.pharmapoolserver.com/api/user/chatroom/leave", {
       method: "DELETE",
       body: JSON.stringify({
         chatId: id,
@@ -56,6 +55,14 @@ export default function ChatroomProfile({ title, users, id, admin }) {
       .then((json) => navigate("/chatrooms"))
       .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+  }, [tokenChecker, navigate]);
+
   return (
     <React.Fragment>
       <button className="new_chatroom_button" onClick={handleClickOpen}>
@@ -89,7 +96,7 @@ export default function ChatroomProfile({ title, users, id, admin }) {
         <DialogContent dividers>
           <div className="account_body">
             <div class="account_buttons">
-              <ChatRoomAccount />
+              <ChatRoomAccount id={id} />
               <AddFriendModal id={id} users={users} />
             </div>
             <div className="interested_partners">

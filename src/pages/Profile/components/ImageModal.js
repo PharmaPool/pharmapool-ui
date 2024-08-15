@@ -31,7 +31,7 @@ export default function ImageModal() {
   const token = localStorage.getItem("token");
 
   let url, file, business;
-  url = `https://pharmapoolserver.com/profile/details/${_id}/image`;
+  url = `https://www.pharmapoolserver.com/profile/details/${_id}/image`;
 
   const handleClickOpen = () => {
     setOpen(true);

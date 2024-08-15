@@ -4,7 +4,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 import { ValueContext } from "../../../Context";
 
-function AddForm({ id }) {
+function AddFormMin({ id }) {
   const { setAdd } = useContext(ValueContext);
   const [brand, setBrand] = useState("");
   const [strength, setStrength] = useState("");
@@ -16,7 +16,7 @@ function AddForm({ id }) {
 
   const handleSubmit = () => {
     fetch(
-      `https://pharmapoolserver.com/api/business/inventory/addstock/${id}`,
+      `https://www.pharmapoolserver.com/api/business/inventory/addstock/${id}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -41,13 +41,6 @@ function AddForm({ id }) {
         <table className="addform">
           <tr>
             <th>Brand</th>
-            <th>Strength</th>
-            <th>manufacturer</th>
-            <th>Date in</th>
-            <th>expiry date</th>
-            <th>quantity</th>
-          </tr>
-          <tr>
             <td>
               <input
                 type="text"
@@ -55,6 +48,9 @@ function AddForm({ id }) {
                 onChange={(e) => setBrand(e.target.value)}
               />
             </td>
+          </tr>
+          <tr>
+            <th>Strength</th>
             <td>
               <input
                 type="number"
@@ -62,6 +58,9 @@ function AddForm({ id }) {
                 onChange={(e) => setStrength(e.target.value)}
               />
             </td>
+          </tr>
+          <tr>
+            <th>manufacturer</th>
             <td>
               <input
                 type="text"
@@ -69,6 +68,9 @@ function AddForm({ id }) {
                 onChange={(e) => setManufacturer(e.target.value)}
               />
             </td>
+          </tr>
+          <tr>
+            <th>Date in</th>
             <td>
               <input
                 type="date"
@@ -76,6 +78,9 @@ function AddForm({ id }) {
                 onChange={(e) => setDateIn(e.target.value)}
               />
             </td>
+          </tr>
+          <tr>
+            <th>expiry date</th>
             <td>
               <input
                 type="date"
@@ -83,6 +88,9 @@ function AddForm({ id }) {
                 onChange={(e) => setExpiryDate(e.target.value)}
               />
             </td>
+          </tr>
+          <tr>
+            <th>quantity</th>
             <td>
               <input
                 type="number"
@@ -93,16 +101,18 @@ function AddForm({ id }) {
           </tr>
         </table>
       </div>
-      <div className="add_product">
-        <button className="clicked_interest" onClick={handleSubmit}>
-          <AddIcon /> Add
-        </button>
-        <button className="interest" onClick={() => setAdd()}>
-          <CancelIcon /> Cancel
-        </button>
+      <div class="table_below">
+        <div className="add_product">
+          <button className="interest" onClick={handleSubmit}>
+            <AddIcon /> Add
+          </button>
+          <button className="not_interest" onClick={() => setAdd()}>
+            <CancelIcon /> Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-export default AddForm;
+export default AddFormMin;

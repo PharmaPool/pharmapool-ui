@@ -22,7 +22,7 @@ function Request() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`https://pharmapoolserver.com/api/user/friend-request/${_id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/user/friend-request/${_id}`, {
       headers: {
         Authorization: token,
       },

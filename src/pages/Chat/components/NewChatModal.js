@@ -20,7 +20,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function NewChatRoomModal() {
+export default function NewChatModal() {
   const userId = localStorage.getItem("userId");
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export default function NewChatRoomModal() {
   };
 
   const handleChat = (friendId) => {
-    fetch("https://pharmapoolserver.com/api/user/chat", {
+    fetch("https://www.pharmapoolserver.com/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
         userId,
@@ -60,7 +60,7 @@ export default function NewChatRoomModal() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`https://pharmapoolserver.com/api/user/friends/${userId}`, {
+    fetch(`https://www.pharmapoolserver.com/api/user/friends`, {
       headers: {
         Authorization: token,
       },
@@ -68,7 +68,7 @@ export default function NewChatRoomModal() {
       .then((res) => res.json())
       .then((json) => setFriends(json.friends))
       .catch((err) => console.log(err));
-  }, []);
+  }, [tokenChecker, userId]);
 
   return (
     <React.Fragment>

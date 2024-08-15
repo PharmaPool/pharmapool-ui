@@ -15,16 +15,16 @@ function Banner() {
           {/* <img src={Logo} alt="pharmapool logo" width={60}/> */}
         </div>
         <div className="home_social">
-          <a href="#">
+          <a href="https://x.com/pharmapool_ng">
             <XIcon />
           </a>
           <a href="https://www.linkedin.com/in/pharmapool-pharmapool-521656317/">
             <LinkedInIcon />
           </a>
-          <a href="#">
+          <a href="https://www.instagram.com/pharmapool_ng/">
             <InstagramIcon />
           </a>
-          <a href="https://web.facebook.com/profile.php?id=61561532954556">
+          <a href="https://web.facebook.com/profile.php?id=61563092285684">
             <FacebookIcon />
           </a>
         </div>
@@ -49,7 +49,6 @@ function Banner() {
       </div>
       <div className="banner_footer">
         <div className="links">
-          <a href="/">Home</a>
           <a href="/business">Business</a>
           <a href="/about">About</a>
           <a href="/contact">Contact</a>

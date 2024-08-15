@@ -4,7 +4,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 import { ValueContext } from "../../../Context";
 
-function RemoveForm({ id, invent }) {
+function RemoveFormMin({ id, invent }) {
   const { setRemove } = useContext(ValueContext);
   const [quantity, setQuantity] = useState(0);
   const token = localStorage.getItem("token");
@@ -27,19 +27,7 @@ function RemoveForm({ id, invent }) {
     <div className="interested_partners">
       <table className="addform">
         <tr>
-          <th>Brand</th>
-          <th>Strength</th>
-          <th>manufacturer</th>
-          <th>Date in</th>
-          <th>expiry date</th>
           <th>quantity</th>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
           <td>
             <input
               type="number"
@@ -63,4 +51,4 @@ function RemoveForm({ id, invent }) {
   );
 }
 
-export default RemoveForm;
+export default RemoveFormMin;

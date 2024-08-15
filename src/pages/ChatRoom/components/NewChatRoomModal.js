@@ -30,7 +30,7 @@ export default function NewChatRoomModal() {
   const token = localStorage.getItem("token");
 
   let url;
-  url = `https://pharmapoolserver.com/api/user/chatroom/create`;
+  url = `https://www.pharmapoolserver.com/api/user/chatroom/create`;
 
   const handleClickOpen = () => {
     setOpen(true);

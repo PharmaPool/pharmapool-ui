@@ -34,14 +34,14 @@ function Homepage() {
       {navBg && <Header />}
       <Banner />
       <div className="pharmapool_intro">
-        <h5>
+        <h6>
           At <b style={{ color: "#004d40" }}>Pharmapool</b>, we're
           revolutionizing the way pharmacists and pharmacies do business. Our
           platform serves as a dynamic marketplace, connecting professionals in
           the pharmaceutical industry and facilitating collaborative ventures
           that drive growth and efficiency. We provide connections for our
           esteemed customers nationwide.
-        </h5>
+        </h6>
         <div className="intro_image">
           <img src={images.map} alt="map" />
         </div>

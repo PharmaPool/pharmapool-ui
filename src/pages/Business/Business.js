@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import BackHandIcon from "@mui/icons-material/BackHand";
+import HandshakeIcon from "@mui/icons-material/Handshake";
 import PersonIcon from "@mui/icons-material/Person";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -23,17 +23,20 @@ function Business() {
   const token = localStorage.getItem("token");
 
   const handleGroup = () => {
-    fetch(`https://pharmapoolserver.com/api/business/group/${business._id}`, {
-      method: "POST",
-      body: JSON.stringify({
-        userId: _id,
-        title,
-      }),
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://www.pharmapoolserver.com/api/business/group/${business._id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userId: _id,
+          title,
+        }),
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((json) => navigate(`/chatroom/${json.newChatRoom._id}`))
       .catch((err) => console.log(err));
@@ -41,14 +44,17 @@ function Business() {
 
   const handleInterest = () => {
     setClicked(!clicked);
-    fetch(`https://pharmapoolserver.com/api/business/user/${business._id}`, {
-      method: "POST",
-      body: JSON.stringify({
-        userId: _id,
-        amount,
-      }),
-      headers: { Authorization: token, "Content-Type": "application/json" },
-    })
+    fetch(
+      `https://www.pharmapoolserver.com/api/business/user/${business._id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userId: _id,
+          amount,
+        }),
+        headers: { Authorization: token, "Content-Type": "application/json" },
+      }
+    )
       .then((response) => response.json())
       .then((json) => setAmount(""))
       .catch((err) => console.log(err));
@@ -59,7 +65,7 @@ function Business() {
     if (!token) {
       navigate("/signin");
     }
-    fetch(`https://pharmapoolserver.com/api/business/${id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/business/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -68,6 +74,7 @@ function Business() {
       .then((json) => {
         setBusiness(json.business);
         setLoading(true);
+        // console.log(json.business.interestedPartners)
       })
       .catch((err) => console.log(err));
   }, [id, navigate, setBusiness, tokenChecker]);
@@ -152,15 +159,12 @@ function Business() {
               <div>
                 {business.business === "sale" && (
                   <div className="demand_interactions">
-                    {business.interestedPartners.filter(
-                      (partner) => partner.user === _id
-                    ).length > 0 ? (
+                    {business.interestedPartners.find(
+                      (partner) => partner.user._id === _id
+                    ) ? (
                       <div>
-                        <button
-                          onClick={handleInterest}
-                          className={clicked ? "interest" : "clicked_interest"}
-                        >
-                          Partner <BackHandIcon />
+                        <button onClick={handleInterest} className="interest">
+                          Partner <HandshakeIcon />
                         </button>
                       </div>
                     ) : (
@@ -187,18 +191,18 @@ function Business() {
                 )}
                 {business.business === "joint purchase" && (
                   <div className="interactions">
-                    {business.interestedPartners.filter(
-                      (partner) => partner === _id
-                    ).length > 0 ? (
+                    {business.interestedPartners.find(
+                      (partner) => partner.user._id === _id
+                    ) ? (
                       <div>
-                        <button className="clicked_interest">
-                          Partner <BackHandIcon />
+                        <button className="interest">
+                          Partner <HandshakeIcon />
                         </button>
                       </div>
                     ) : (
                       <div>
                         <button onClick={handleInterest} className="interest">
-                          Partner <BackHandIcon />
+                          Become partner <HandshakeIcon />
                         </button>
                       </div>
                     )}
@@ -209,15 +213,12 @@ function Business() {
                 )}
                 {business.business === "demand" && (
                   <div className="demand_interactions">
-                    {business.interestedPartners.filter(
-                      (partner) => partner.user === _id
-                    ).length === 1 ? (
+                    {business.interestedPartners.find(
+                      (partner) => partner.user._id === _id
+                    ) ? (
                       <div>
-                        <button
-                          onClick={handleInterest}
-                          className="clicked_interest"
-                        >
-                          Partner <BackHandIcon />
+                        <button onClick={handleInterest} className="interest">
+                          Partner <HandshakeIcon />
                         </button>
                       </div>
                     ) : (
@@ -243,38 +244,47 @@ function Business() {
               </div>
             )}
           </div>
-          <div className="interested_partners">
-            <h4>INTERESTED PARTNERS</h4>
-            <table>
-              <tr>
-                <th>NAME</th>
-                <th>OFFER</th>
-                <th></th>
-              </tr>
-
-              {business.interestedPartners.map((partner, i) => (
+          <div>
+            <h4 style={{ textAlign: "center" }}>INTERESTED PARTNERS</h4>
+            <div class="interested_partners">
+              <table>
                 <tr>
-                  <td>{partner.user.fullName}</td>
-                  <td>{partner.price}</td>
-                  <td>
-                    <button
-                      className="interest"
-                      onClick={() => navigate(`/profile/${partner.user._id}`)}
-                    >
-                      {width > 1000 ? "View Profile" : <PersonIcon />}
-                    </button>
-                  </td>
+                  <th>NAME</th>
+                  <th>OFFER</th>
+                  <th></th>
                 </tr>
-              ))}
-            </table>
+
+                {business.interestedPartners.map((partner, i) => (
+                  <tr>
+                    <td>{partner.user.fullName}</td>
+                    <td>{partner.price}</td>
+                    <td>
+                      <button
+                        className="interest"
+                        onClick={() => navigate(`/profile/${partner.user._id}`)}
+                      >
+                        {width > 1000 ? "View Profile" : <PersonIcon />}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </table>
+            </div>
             <br />
             {business.creator._id !== _id && (
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 {!showTitle && (
                   <div className="interestedPartners_button">
                     <button
                       className="interest"
                       onClick={() => setShowTitle(true)}
+                      style={{ textAlign: "center" }}
                     >
                       Create Business Group
                     </button>

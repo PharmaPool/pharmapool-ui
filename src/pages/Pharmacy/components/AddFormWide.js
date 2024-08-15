@@ -4,24 +4,22 @@ import CancelIcon from "@mui/icons-material/Cancel";
 
 import { ValueContext } from "../../../Context";
 
-function AddProduct({ id }) {
-  const { setProduct } = useContext(ValueContext);
-  const [products, setProducts] = useState("");
+function AddFormWide({ id }) {
+  const { setAdd } = useContext(ValueContext);
   const [brand, setBrand] = useState("");
   const [strength, setStrength] = useState("");
   const [manufacturer, setManufacturer] = useState("");
-  const [dateIn, setDateIn] = useState("");
+  const [dateIn, setDateIn] = useState(Date);
   const [expiryDate, setExpiryDate] = useState("");
   const [quantity, setQuantity] = useState("");
   const token = localStorage.getItem("token");
 
   const handleSubmit = () => {
     fetch(
-      `https://pharmapoolserver.com/api/business/inventory/addproduct/${id}`,
+      `https://www.pharmapoolserver.com/api/business/inventory/addstock/${id}`,
       {
         method: "POST",
         body: JSON.stringify({
-          product: products,
           brand,
           strength,
           manufacturer,
@@ -40,15 +38,6 @@ function AddProduct({ id }) {
   return (
     <div className="inventory_list">
       <div className="interested_partners">
-        <div className="product_name">
-          <input
-            type="text"
-            placeholder="Name of product"
-            value={products}
-            onChange={(e) => setProducts(e.target.value)}
-            autoFocus={true}
-          />
-        </div>
         <table className="addform">
           <tr>
             <th>Brand</th>
@@ -68,7 +57,7 @@ function AddProduct({ id }) {
             </td>
             <td>
               <input
-                type="text"
+                type="number"
                 value={strength}
                 onChange={(e) => setStrength(e.target.value)}
               />
@@ -104,16 +93,18 @@ function AddProduct({ id }) {
           </tr>
         </table>
       </div>
-      <div className="add_product">
-        <button className="clicked_interest" onClick={handleSubmit}>
-          <AddIcon /> Add
-        </button>
-        <button className="interest" onClick={() => setProduct()}>
-          <CancelIcon /> Cancel
-        </button>
+      <div class="table_below">
+        <div className="add_product">
+          <button className="clicked_interest" onClick={handleSubmit}>
+            <AddIcon /> Add
+          </button>
+          <button className="interest" onClick={() => setAdd()}>
+            <CancelIcon /> Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-export default AddProduct;
+export default AddFormWide;

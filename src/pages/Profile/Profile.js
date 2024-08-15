@@ -24,24 +24,26 @@ function Profile() {
   const [fullname, setFullname] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [posts, setPosts] = useState([]);
-  const { businesses } = useContext(ValueContext);
+  const { businesses, tokenChecker } = useContext(ValueContext);
   const currentUser = localStorage.getItem("userId");
   const [requestSent, setRequestSent] = useState(false);
   const [friends, setFriends] = useState([]);
   const [alreadyRequested, setAlreadyRequested] = useState(false);
   const [requestAccepted, setRequestAccepted] = useState(false);
   const [requestId, setRequestId] = useState("");
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`https://pharmapoolserver.com/api/user/profile/${id}`, {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch(`https://www.pharmapoolserver.com/api/user/profile/${id}`, {
       headers: {
         Authorization: token,
       },
     })
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
         setDetails(res.user.details);
         setFullname(res.user.fullName);
         setProfileImage(res.user.profileImage.imageUrl);
@@ -57,7 +59,7 @@ function Profile() {
       })
       .catch((err) => console.log(err));
 
-    fetch(`https://pharmapoolserver.com/api/user/profile/${currentUser}`, {
+    fetch(`https://www.pharmapoolserver.com/api/user/profile/${currentUser}`, {
       headers: {
         Authorization: token,
       },
@@ -77,10 +79,14 @@ function Profile() {
         }
       })
       .catch((err) => console.log(err));
-  }, [id, navigate, currentUser, token]);
+  }, [id, navigate, currentUser]);
 
   const handleRequest = () => {
-    fetch("https://pharmapoolserver.com/api/user/friend-request", {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch("https://www.pharmapoolserver.com/api/user/friend-request", {
       method: "POST",
       body: JSON.stringify({
         userId: currentUser,
@@ -100,7 +106,11 @@ function Profile() {
   };
 
   const handleChat = () => {
-    fetch("https://pharmapoolserver.com/api/user/chat", {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch("https://www.pharmapoolserver.com/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
         userId: currentUser,
@@ -119,11 +129,14 @@ function Profile() {
   };
 
   const acceptRequest = () => {
-    fetch("https://pharmapoolserver.com/api/user/accept-request", {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+    fetch("https://www.pharmapoolserver.com/api/user/accept-request", {
       method: "POST",
       body: JSON.stringify({
         friendId: id,
-        userId: currentUser,
         requestId,
       }),
       headers: {

@@ -35,7 +35,7 @@ function SingleChat() {
     if (!token) {
       history("/signin");
     }
-    fetch(`https://pharmapoolserver.com/api/user/singlechat/${id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/user/singlechat/${id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,

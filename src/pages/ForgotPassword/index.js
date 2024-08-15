@@ -19,7 +19,7 @@ function Login() {
       setError(true);
       setOpen(false);
     } else {
-      fetch("https://pharmapoolserver.com/api/auth//password-reset", {
+      fetch("https://www.pharmapoolserver.com/api/auth//password-reset", {
         method: "POST",
         body: JSON.stringify({
           email,

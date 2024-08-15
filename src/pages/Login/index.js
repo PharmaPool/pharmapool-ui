@@ -21,7 +21,7 @@ function Login() {
 
   const handleSubmit = () => {
     setOpen(true);
-    fetch("https://pharmapoolserver.com/api/auth/signin", {
+    fetch("https://www.pharmapoolserver.com/api/auth/signin", {
       method: "POST",
       body: JSON.stringify({
         email,
@@ -70,7 +70,7 @@ function Login() {
     const rememberedPassword = localStorage.getItem("password");
     setEmail(rememberedEmail);
     setPassword(rememberedPassword);
-  }, [tokenChecker, navigate, login]);
+  }, []);
 
   return (
     <div className="login">

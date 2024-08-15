@@ -8,10 +8,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-// import EditIcon from "@mui/icons-material/Edit";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-
-import useWindowDimensions from "../../../components/useWindowDimensions";
+import { useEffect } from "react";
+import { ValueContext } from "../../../Context";
+import { useNavigate } from "react-router-dom";
+import Paystack from "@paystack/inline-js";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -22,11 +22,19 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function ChatRoomAccount() {
-  const userId = localStorage.getItem("userId");
+export default function ChatRoomAccount({ id }) {
+  const popup = new Paystack();
   const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = useState("");
-  const { width } = useWindowDimensions();
+  const { tokenChecker } = React.useContext(ValueContext);
+  const [show, setShow] = useState(false);
+  const [amount, setAmount] = useState(0);
+  const [paid, setPaid] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [wallet, setWallet] = useState({});
+  const [partners, setPartners] = useState([]);
+  const [required, setRequired] = useState(false);
+  const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,10 +43,156 @@ export default function ChatRoomAccount() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+
+    fetch(`https://www.pharmapoolserver.com/api/wallet/chatroom/${id}`, {
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (!json.chatroom.wallet) {
+          setShow(false);
+          return;
+        } else {
+          setShow(true);
+        }
+        setWallet(json.wallet);
+        setPartners(json.chatroom.users);
+        const paid_user = json.wallet.referenceCodes.find(
+          (user) => user.user._id === userId
+        );
+        if (paid_user !== undefined) {
+          setPaid(true);
+        }
+        if (paid_user.paymentStatus) {
+          setVerified(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [tokenChecker, navigate, id]);
+
+  const handleAmount = (e) => {
+    const requested_amount = e.target.value;
+    const amount_to_pay =
+      Number(requested_amount) * 0.1 + Number(requested_amount);
+    setAmount(amount_to_pay);
+  };
+
+  const handle_wallet_request = () => {
+    const token = tokenChecker();
+    if (amount < 1) {
+      setRequired(true);
+      return;
+    }
+    if (!token) {
+      navigate("/signin");
+    }
+
+    fetch(`https://www.pharmapoolserver.com/api/wallet/chatroom/${id}`, {
+      method: "POST",
+      body: JSON.stringify({
+        amount,
+      }),
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setShow(true);
+        setWallet(json.wallet);
+        setPartners(json.chatroom.users);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handle_payment = () => {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+
+    fetch(
+      `https://www.pharmapoolserver.com/api/wallet/payment/accept/${wallet.walletAddress}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          amount: Number(wallet.amount) / partners.length,
+        }),
+        headers: {
+          authorization: token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        setWallet(json.wallet);
+        const paid_user = json.wallet.referenceCodes.find(
+          (user) => user.user === userId
+        );
+        if (paid_user !== undefined) {
+          setPaid(true);
+          localStorage.setItem("reference", paid_user.reference);
+          popup.resumeTransaction(json.result.data.access_code);
+        }
+        if (paid_user.paymentStatus) {
+          setVerified(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const verify_payment = () => {
+    const reference = localStorage.getItem("reference");
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+
+    fetch(
+      `https://www.pharmapoolserver.com/api/wallet/payment/verify/${wallet.walletAddress}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          reference,
+          chatroomId: id,
+        }),
+        headers: {
+          authorization: token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        setWallet(json.wallet);
+        setPartners(json.chatroom.users);
+        const paid_user = json.wallet.referenceCodes.find(
+          (user) => user.user._id === userId
+        );
+        if (paid_user !== undefined) {
+          setPaid(true);
+        }
+        if (paid_user.paymentStatus) {
+          setVerified(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <React.Fragment>
       <button className="new_chatroom_button" onClick={handleClickOpen}>
-        Request account
+        chatroom wallet
       </button>
       <BootstrapDialog
         onClose={handleClose}
@@ -47,7 +201,7 @@ export default function ChatRoomAccount() {
         fullScreen
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Chatroom Account Details
+          Chatroom wallet details
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -62,29 +216,105 @@ export default function ChatRoomAccount() {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <div className="account_body">
-            <p>N<h1>0.00</h1>K</p>
-            <div className="interested_partners">
-              <table className="account_table">
-                <tr>
-                  <th>Partner</th>
-                  <th>Payment status</th>
-                </tr>
-                <tr>
-                  <td>Wilson Zimthamaha Bonkuru</td>
-                  <td>pending</td>
-                </tr>
-                <tr>
-                  <td>Partner</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <td>Partner</td>
-                  <td>paid</td>
-                </tr>
-              </table>
+          {show ? (
+            <div className="account_body">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                N<h1>{wallet.balance}</h1>K
+              </div>
+              <div
+                style={{
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <p>
+                  Total amount: N
+                  <span style={{ fontWeight: "bold" }}>{wallet.amount}</span>
+                </p>
+                <p>
+                  Each partner will pay: N
+                  <span style={{ fontWeight: "bold" }}>
+                    {Number(wallet.amount) / partners.length}
+                  </span>
+                </p>
+              </div>
+              {!verified && (
+                <div style={{ margin: "1rem 0px" }}>
+                  {paid ? (
+                    <button
+                      className="new_chatroom_button"
+                      onClick={verify_payment}
+                    >
+                      Verify payment
+                    </button>
+                  ) : (
+                    <button
+                      className="new_chatroom_button"
+                      onClick={handle_payment}
+                    >
+                      Pay now
+                    </button>
+                  )}
+                </div>
+              )}
+              <div className="interested_partners">
+                <table className="account_table">
+                  <tr>
+                    <th>Partner</th>
+                    <th>Payment status</th>
+                  </tr>
+                  {wallet.referenceCodes.map((user) => (
+                    <tr>
+                      <td>{user.user.fullName}</td>
+                      {user.paymentStatus === true && (
+                        <td style={{ color: "#004d40", fontWeight: "bold" }}>
+                          success
+                        </td>
+                      )}
+                      {user.paymentStatus === false && (
+                        <td style={{ color: "orange", fontWeight: "bold" }}>
+                          pending...
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </table>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="account_body">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                N<h1>{amount}</h1>K
+              </div>
+              <div class="wallet_form">
+                <p>Enter business amount</p>
+                <small>
+                  Note that the final amount to pay will include Pharmapool's
+                  charges
+                </small>
+                {required && <br />}
+                {required && (
+                  <small style={{ color: "red" }}>Type in a valid amount</small>
+                )}
+                <input
+                  type="number"
+                  placeholder="Amount"
+                  autoFocus={true}
+                  onChange={handleAmount}
+                  required={required}
+                />
+                <button
+                  className="new_chatroom_button"
+                  onClick={handle_wallet_request}
+                >
+                  Request wallet
+                </button>
+              </div>
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
           <Button color="success" autoFocus onClick={handleClose}>

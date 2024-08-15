@@ -170,7 +170,7 @@
   flex-direction: column;
 }
 
-.pharmapool_intro h5 {
+.pharmapool_intro h6 {
   text-align: justify;
 }
 
@@ -254,7 +254,7 @@
 }
 
 .service_details p {
-  font-size: larger;
+  word-wrap: normal;
 }
 
 .home_footer {
@@ -592,7 +592,7 @@
     color: #004d40;
     font-weight: bold;
     text-decoration: none;
-    margin: 1rem 0.5rem 0rem;
+    margin: 1rem auto 0rem;
     text-align: center;
   }
 
@@ -609,9 +609,10 @@
     flex-direction: column;
   }
 
-  .pharmapool_intro h5 {
+  .pharmapool_intro h6 {
     text-align: center;
     font-size: large;
+    font-weight: normal;
   }
 
   .intro_image img {
@@ -619,7 +620,7 @@
   }
 
   .info {
-    padding: 1rem;
+    padding: 0rem;
   }
 
   .info h1 {
@@ -689,7 +690,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
   }
 
   .service_details h3 {

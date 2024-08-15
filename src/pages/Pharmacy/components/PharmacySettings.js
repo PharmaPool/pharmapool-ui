@@ -37,7 +37,7 @@ export default function PharmacySettings({ pharmacyInfo }) {
   const token = localStorage.getItem("token");
 
   let url, file;
-  url = `https://pharmapoolserver.com/api/business/pharmacy/${pharmacy._id}`;
+  url = `https://www.pharmapoolserver.com/api/business/pharmacy/${pharmacy._id}`;
 
   const handleClickOpen = () => {
     setOpen(true);

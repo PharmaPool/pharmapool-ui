@@ -62,7 +62,7 @@ export default function PostModal() {
     formData.append("content", content);
     formData.append("userId", _id);
 
-    fetch("https://pharmapoolserver.com/api/user/post", {
+    fetch("https://www.pharmapoolserver.com/api/user/post", {
       method: "POST",
       body: formData,
       headers: {

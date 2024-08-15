@@ -32,7 +32,7 @@ export default function DetailsModal() {
   const token = localStorage.getItem("token");
 
   let url;
-  url = `https://pharmapoolserver.com/profile/details/update/${_id}`;
+  url = `https://www.pharmapoolserver.com/profile/details/update/${_id}`;
 
   const handleClickOpen = () => {
     setOpen(true);

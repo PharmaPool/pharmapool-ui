@@ -1,6 +1,6 @@
 /* Chatrooms */
 .chatrooms {
-  padding: 4rem 12rem 0rem;
+  padding: 4rem 18rem 0rem;
 }
 
 .chat p {
@@ -186,7 +186,7 @@ p {
 
 .account_table td,
 th {
-  padding: 1rem 4rem;
+  padding: 1rem 0.5rem;
 }
 
 .account_buttons {
@@ -272,6 +272,25 @@ th {
   width: max-content;
   will-change: transform, opacity;
   z-index: 0;
+}
+
+.wallet_form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wallet_form input{
+  margin: 1rem 0px;
+  border: none;
+  outline: none;
+  border-bottom: #004d40 1px solid;
+}
+
+.wallet_form input:focus {
+  background-color: #e0f2f1;
 }
 
 @media screen and (max-width: 1200px) {

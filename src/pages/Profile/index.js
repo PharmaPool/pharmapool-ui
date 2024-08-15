@@ -9,24 +9,21 @@ import ProfileNavigation from "./components/ProfileNavigation";
 import UserProfileBody from "./components/UserProfileBody";
 import useWindowDimensions from "../../components/useWindowDimensions";
 import { ValueContext } from "../../Context";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const _id = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const [details, setDetails] = useState({});
   const [fullname, setFullname] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [posts, setPosts] = useState([]);
-  const { businesses, tokenChecker } = useContext(ValueContext);
+  const { businesses } = useContext(ValueContext);
   const { width } = useWindowDimensions();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate("/signin");
-    }
-    fetch(`https://pharmapoolserver.com/api/user/profile/${_id}`, {
+    fetch(`https://www.pharmapoolserver.com/api/user/profile/${_id}`, {
       headers: {
         Authorization: token,
       },
@@ -39,7 +36,7 @@ function Profile() {
         setPosts(res.user.posts);
       })
       .catch((err) => console.log(err));
-  }, [_id, navigate, tokenChecker]);
+  }, []);
 
   return (
     <>

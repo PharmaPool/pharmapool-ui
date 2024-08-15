@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 
-import BackHandIcon from "@mui/icons-material/BackHand";
+import HandshakeIcon from "@mui/icons-material/Handshake";
 import { useNavigate } from "react-router-dom";
 
 import { ValueContext } from "../../../Context";
@@ -12,23 +12,28 @@ function SingleBusiness({ business }) {
   const navigate = useNavigate();
   const { show, setShow, tokenChecker } = useContext(ValueContext);
 
+  console.log(business);
+
   const handleInterest = () => {
     const token = tokenChecker();
     if (!token) {
       setShow();
     }
     setClicked(!clicked);
-    fetch(`https://pharmapoolserver.com/api/business/user/${business._id}`, {
-      method: "POST",
-      body: JSON.stringify({
-        userId: _id,
-        amount,
-      }),
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://www.pharmapoolserver.com/api/business/user/${business._id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userId: _id,
+          amount,
+        }),
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then((json) => json)
       .catch((err) => console.log(err));
@@ -123,15 +128,12 @@ function SingleBusiness({ business }) {
           <div>
             {business.business === "sale" && (
               <div className="demand_interactions">
-                {business.interestedPartners.filter(
+                {business.interestedPartners.find(
                   (partner) => partner.user === _id
-                ).length > 0 ? (
+                ) ? (
                   <div>
-                    <button
-                      onClick={handleInterest}
-                      className={clicked ? "interest" : "clicked_interest"}
-                    >
-                      Partner <BackHandIcon />
+                    <button onClick={handleInterest} className="interest">
+                      Partner <HandshakeIcon />
                     </button>
                   </div>
                 ) : (
@@ -158,18 +160,18 @@ function SingleBusiness({ business }) {
             )}
             {business.business === "joint purchase" && (
               <div className="interactions">
-                {business.interestedPartners.filter(
-                  (partner) => partner === _id
-                ).length > 0 ? (
+                {business.interestedPartners.find(
+                  (partner) => partner.user === _id
+                ) ? (
                   <div>
-                    <button className="clicked_interest">
-                      Partner <BackHandIcon />
+                    <button className="interest">
+                      Partner <HandshakeIcon />
                     </button>
                   </div>
                 ) : (
                   <div>
                     <button onClick={handleInterest} className="interest">
-                      Partner <BackHandIcon />
+                      Become partner <HandshakeIcon />
                     </button>
                   </div>
                 )}
@@ -180,15 +182,12 @@ function SingleBusiness({ business }) {
             )}
             {business.business === "demand" && (
               <div className="demand_interactions">
-                {business.interestedPartners.filter(
+                {business.interestedPartners.find(
                   (partner) => partner.user === _id
-                ).length === 1 ? (
+                ) ? (
                   <div>
-                    <button
-                      onClick={handleInterest}
-                      className="clicked_interest"
-                    >
-                      Partner <BackHandIcon />
+                    <button onClick={handleInterest} className="interest">
+                      Partner <HandshakeIcon />
                     </button>
                   </div>
                 ) : (

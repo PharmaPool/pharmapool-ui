@@ -19,7 +19,7 @@ function Post({ post }) {
 
   const handleLike = () => {
     if (clicked === true) {
-      fetch(`https://pharmapoolserver.com/api/feed/post/${post._id}/like`, {
+      fetch(`https://www.pharmapoolserver.com/api/feed/post/${post._id}/like`, {
         method: "DELETE",
         body: JSON.stringify({
           userId,
@@ -35,7 +35,7 @@ function Post({ post }) {
         })
         .catch((err) => console.log(err));
     } else {
-      fetch(`https://pharmapoolserver.com/api/feed/post/${post._id}/like`, {
+      fetch(`https://www.pharmapoolserver.com/api/feed/post/${post._id}/like`, {
         method: "POST",
         body: JSON.stringify({
           userId,

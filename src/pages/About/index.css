@@ -96,7 +96,7 @@ h2 {
   }
 
   .about h1 {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   .about_intro {
@@ -140,7 +140,7 @@ h2 {
   }
 
   .mission {
-    margin: 2rem 1rem;
+    margin: 2rem 0rem;
     text-align: center;
   }
 

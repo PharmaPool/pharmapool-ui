@@ -1,6 +1,6 @@
 /* Business */
 .businesses {
-  padding: 5rem 16rem 2rem;
+  padding: 5rem 18rem 2rem;
 }
 
 /* .business_body {
@@ -133,49 +133,11 @@ ul {
 .interest {
   align-items: center;
   appearance: none;
-  background-color: var(--text);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   border-style: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
-    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
   box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  fill: currentcolor;
-  font-size: small;
-  font-weight: bold;
-  height: 35px;
-  justify-content: center;
-  letter-spacing: 0.25px;
-  line-height: normal;
-  margin: 0rem 0.5rem;
-  max-width: 100%;
-  overflow: visible;
-  padding: 0px 10px;
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  /* width: 40%; */
-  will-change: transform, opacity;
-  z-index: 0;
-}
-
-.not_interest {
-  align-items: center;
-  appearance: none;
-  background-color: #b71c1c;
-  border-radius: 24px;
-  border-style: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
-    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
-  box-sizing: border-box;
-  color: #fff;
+  color: #004d40;
   cursor: pointer;
   display: inline-flex;
   fill: currentcolor;
@@ -238,8 +200,43 @@ ul {
   z-index: 0;
 }
 
+.not_interest {
+  align-items: center;
+  appearance: none;
+  background-color: #fff;
+  border-radius: 24px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #b71c1c;
+  cursor: pointer;
+  display: inline-flex;
+  fill: currentcolor;
+  font-size: medium;
+  font-weight: bold;
+  height: 35px;
+  justify-content: center;
+  letter-spacing: 0.25px;
+  line-height: normal;
+  margin: 0rem 0.5rem;
+  max-width: 100%;
+  overflow: visible;
+  padding: 0px 10px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  /* width: 40%; */
+  will-change: transform, opacity;
+  z-index: 0;
+}
+
 .ints {
   width: 100%;
+  display: flex;
 }
 
 .ints input {
@@ -323,7 +320,7 @@ ul {
   padding: 1rem 15rem;
 }
 
-.interested_partners {
+/* .interested_partners {
   padding: 3rem 5rem 1rem;
   display: flex;
   flex-direction: column;
@@ -332,17 +329,46 @@ ul {
 
 .interested_partners td,
 th {
-  text-transform: uppercase;
+  text-transform: capitalize;
   padding: 0.5rem 0.5rem;
 }
 
 .interested_partners tr:nth-child(even) {
   background-color: #e0f2f1;
-  padding: 1rem;
+  padding: 0.2rem;
 }
 
 .interested_partners button {
   border: none;
+} */
+
+.interested_partners {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.interested_partners tr:nth-child(even) {
+  background-color: #e0f2f1;
+}
+
+.interested_partners table tr th,
+td {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  text-transform: capitalize;
+}
+
+.table_below{
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin: 1rem 0rem;
 }
 
 .not_authorized {
@@ -371,12 +397,14 @@ th {
 
 .group_button {
   display: flex;
+  margin: auto;
 }
 
 .interestedPartners_button {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
 }
 
 @media screen and (max-width: 1200px) {
@@ -390,7 +418,7 @@ th {
 } */
 
   .biz {
-    padding: 0rem;
+    padding: 0rem 0rem 1rem;
   }
 
   .business {
@@ -471,43 +499,78 @@ th {
   }
 
   .interactions {
-    padding: 1rem 1rem;
+    padding: 1rem 0rem;
   }
 
   .interactions p {
     margin: 0px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
   }
 
   .interactions input {
     width: 2rem;
   }
 
-  .interactions button {
+  .interest {
     align-items: center;
     appearance: none;
-    background-color: var(--text);
+    background-color: none;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: var(--text);
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-size: medium;
+    font-weight: bold;
+    height: 35px;
+    justify-content: flex-start;
+    letter-spacing: 0.25px;
+    line-height: normal;
+    margin: auto;
+    max-width: 100%;
+    overflow: visible;
+    padding: 0px 10px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
+    will-change: transform, opacity;
+    z-index: 0;
+  }
+
+  .clicked_interest {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
     border-radius: 24px;
     border-style: none;
     box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
       rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
     box-sizing: border-box;
-    color: #fff;
+    color: #004d40;
     cursor: pointer;
     display: inline-flex;
     fill: currentcolor;
-    font-size: larger;
-    font-weight: bolder;
-    height: 48px;
+    font-size: small;
+    font-weight: bold;
+    height: 35px;
     justify-content: center;
     letter-spacing: 0.25px;
     line-height: normal;
     margin: 0rem 0.5rem;
     max-width: 100%;
     overflow: visible;
-    padding: 2px 20px;
+    padding: 0px 10px;
     position: relative;
     text-align: center;
     text-transform: none;
@@ -552,15 +615,14 @@ th {
 
   .demand_interactions {
     display: grid;
-    grid-template-columns: 1fr 30%;
-    padding: 1rem 1rem 0rem;
+    grid-template-columns: 1fr 35%;
+    padding: 1rem 0.5rem 0rem;
   }
 
   .demand_interactions p {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-end;
   }
 
   .create_business {
@@ -619,30 +681,47 @@ th {
     margin: 0.5rem;
   }
 
-  .interested_partners {
-    padding: 1rem 0rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: scroll;
+  /* .interested_partners {
+    overflow: scroll;
   }
 
   .interested_partners table {
-    /* width: 100%; */
+    margin: 0.5rem;
+    text-transform: capitalize;
   }
 
   .interested_partners td,
   th {
-    text-transform: uppercase;
-    /* padding: 0.5rem; */
-  }
+    padding: 0.5rem;
+  } */
 
   .interested_partners tr:nth-child(even) {
     background-color: #e0f2f1;
-    /* padding: 0.5rem; */
   }
 
   .interested_partners button {
     border: none;
+  }
+
+  .interestedPartners_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: max-content;
+  }
+
+  .group_form input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: #004d40 1px solid;
+    margin: 0rem;
+  }
+
+  .group_button {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
   }
 }

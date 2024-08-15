@@ -45,16 +45,16 @@ const Contact = () => {
               </a>
             </div>
             <div className="socials">
-              <a href="https://x.com/pharmapoolng">
+              <a href="https://x.com/pharmapool_ng">
                 <XIcon />
               </a>
               <a href="https://www.linkedin.com/in/pharmapool-pharmapool-521656317/">
                 <LinkedInIcon />
               </a>
-              <a href="#">
+              <a href="https://www.instagram.com/pharmapool_ng/">
                 <InstagramIcon />
               </a>
-              <a href="https://web.facebook.com/profile.php?id=61561532954556">
+              <a href="https://web.facebook.com/profile.php?id=61563092285684">
                 <FacebookIcon />
               </a>
             </div>
