@@ -26,7 +26,6 @@ export default function NewChatModal() {
   const navigate = useNavigate();
   const [friends, setFriends] = useState([]);
   const { tokenChecker } = useContext(ValueContext);
-  let token;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,10 +36,14 @@ export default function NewChatModal() {
   };
 
   const handleChat = (friendId) => {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
+
     fetch("https://www.pharmapoolserver.com/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
-        userId,
         friendId,
       }),
       headers: {
@@ -56,7 +59,7 @@ export default function NewChatModal() {
   };
 
   useEffect(() => {
-    token = tokenChecker();
+    const token = tokenChecker();
     if (!token) {
       navigate("/signin");
     }
@@ -68,7 +71,7 @@ export default function NewChatModal() {
       .then((res) => res.json())
       .then((json) => setFriends(json.friends))
       .catch((err) => console.log(err));
-  }, [tokenChecker, userId]);
+  }, [tokenChecker]);
 
   return (
     <React.Fragment>

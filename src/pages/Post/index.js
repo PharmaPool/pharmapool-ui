@@ -29,7 +29,12 @@ function Posts() {
       },
     })
       .then((response) => response.json())
-      .then((data) => setAllPosts(data.posts))
+      .then((json) => {
+        if (json.error) {
+          navigate("/signin");
+        }
+        setAllPosts(json.posts);
+      })
       .catch((err) => console.log(err));
   }, [token, setAllPosts, navigate]);
   return (

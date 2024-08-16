@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -10,6 +10,9 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 // import EditIcon from "@mui/icons-material/Edit";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+
+import { ValueContext } from "../../../Context";
+import { useNavigate } from "react-router-dom";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
 
@@ -23,11 +26,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function NewChatRoomModal() {
-  const userId = localStorage.getItem("userId");
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = useState("");
-  const { width } = useWindowDimensions();
-  const token = localStorage.getItem("token");
+  const { tokenChecker } = useContext(ValueContext);
+  const navigate = useNavigate();
 
   let url;
   url = `https://www.pharmapoolserver.com/api/user/chatroom/create`;
@@ -41,10 +43,13 @@ export default function NewChatRoomModal() {
   };
 
   const handleSubmit = () => {
+    const token = tokenChecker();
+    if (!token) {
+      navigate("/signin");
+    }
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        userId,
         title,
       }),
       headers: {

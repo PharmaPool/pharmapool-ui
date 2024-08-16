@@ -44,6 +44,7 @@
   height: 3rem;
   border-radius: 1.5rem;
   margin-right: 0.5rem;
+  overflow: hidden;
 }
 
 .chat_user_image img {
@@ -56,7 +57,7 @@
   align-items: center;
 }
 
-.chat_titl h6 {
+.chat_titl h5 {
   margin-bottom: 0px;
 }
 
@@ -83,11 +84,13 @@
   padding: 0.5rem 8rem;
 }
 
-.chat_input input {
+.chat_input textarea {
   border: #004d40 1px solid;
   border-radius: 5rem;
-  padding: 0rem 1rem;
+  padding: 0.5rem 1rem;
   outline: #004d40;
+  scrollbar-width: none;
+  vertical-align: middle;
 }
 
 .chat_input button {

@@ -21,10 +21,6 @@ function SingleChat() {
   const divReff = useRef(null);
   const history = useNavigate();
 
-  // socket.on("connect", () => {
-  //   console.log("chat connected");
-  // });
-
   socket.on("chat", (result) => {
     setChat(result.chatMade.messages);
     setMessage("");
@@ -37,9 +33,6 @@ function SingleChat() {
     }
     fetch(`https://www.pharmapoolserver.com/api/user/singlechat/${id}`, {
       method: "POST",
-      body: JSON.stringify({
-        userId: _id,
-      }),
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -47,10 +40,12 @@ function SingleChat() {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.chat.users);
-        setTitle(json.chat.users[0].userId.fullName);
-        setProfileImage(json.chat.users[0].userId.profileImage.imageUrl);
-        setFriendId(json.chat.users[0].userId._id);
+        const friend = json.chat.users.filter(
+          (user) => user.userId._id !== _id
+        );
+        setTitle(friend[0].userId.fullName);
+        setProfileImage(friend[0].userId.profileImage.imageUrl);
+        setFriendId(friend[0].userId._id);
         setChat(json.chat.messages);
         setUsers(json.chat.users);
       })
@@ -84,7 +79,7 @@ function SingleChat() {
               overflow: "hidden",
             }}
           >
-            <h6
+            <h5
               style={{
                 wordBreak: "break-word",
                 lineClamp: "1",
@@ -94,7 +89,7 @@ function SingleChat() {
               }}
             >
               {title}
-            </h6>
+            </h5>
           </div>
           <div className="chat_profile">
             <ChatProfile users={users} title={title} id={id} />
@@ -104,7 +99,7 @@ function SingleChat() {
         <div ref={divReff}></div>
       </div>
       <div className="chat_input">
-        <input
+        <textarea
           type="text"
           placeholder="Type a message"
           value={message}

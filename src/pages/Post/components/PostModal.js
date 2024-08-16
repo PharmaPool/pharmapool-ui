@@ -10,6 +10,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 
+import SpinLoader from "../../../components/SpinLoader";
+
 // import { ValueContext } from "../Context";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
@@ -24,7 +26,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 export default function PostModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [load, setLoad] = useState(false);
   const [previewImage, setPreviewImage] = useState([]);
   const { width } = useWindowDimensions();
   const [content, setContent] = useState("");
@@ -57,6 +60,7 @@ export default function PostModal() {
   };
 
   const handleSubmit = () => {
+    setLoad(true);
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("content", content);
@@ -73,6 +77,7 @@ export default function PostModal() {
       .then((json) => {
         window.location.reload();
         setOpen(false);
+        setLoad(false);
       })
       .catch((err) => console.log(err));
   };
@@ -137,7 +142,7 @@ export default function PostModal() {
         </DialogContent>
         <DialogActions>
           <Button color="success" autoFocus onClick={handleSubmit}>
-            Post
+            {load ? <SpinLoader color={false} /> : "Post"}
           </Button>
         </DialogActions>
       </BootstrapDialog>

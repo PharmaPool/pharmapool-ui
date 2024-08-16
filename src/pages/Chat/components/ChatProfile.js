@@ -25,7 +25,6 @@ export default function ChatProfile({ title, users, id }) {
   const [open, setOpen] = React.useState(false);
   const { tokenChecker } = React.useContext(ValueContext);
   const navigate = useNavigate();
-  console.log(users);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,7 +74,7 @@ export default function ChatProfile({ title, users, id }) {
         <DialogContent dividers>
           <div className="account_body">
             <div style={{ textAlign: "center" }}>
-              <ChatAccount />
+              <ChatAccount id={id} />
             </div>
             <div className="interested_partners">
               <table className="account_table">

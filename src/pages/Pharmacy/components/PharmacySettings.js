@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
+import SpinLoader from "../../../components/SpinLoader";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
 import { ValueContext } from "../../../Context";
@@ -26,6 +27,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 export default function PharmacySettings({ pharmacyInfo }) {
   const _id = localStorage.getItem("userId");
   const [open, setOpen] = useState(false);
+  const [load, setLoad] = useState(false);
   const [previewImage, setPreviewImage] = useState([]);
   const [businessName, setBusinessName] = useState("");
   const [location, setLocation] = useState("");
@@ -63,7 +65,7 @@ export default function PharmacySettings({ pharmacyInfo }) {
   };
 
   const handleSubmit = () => {
-    // console.log(businessName, motto, location, contactNumber);
+    setLoad(true);
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("businessName", businessName);
@@ -175,7 +177,7 @@ export default function PharmacySettings({ pharmacyInfo }) {
             delete pharmacy
           </Button> */}
           <Button color="success" autoFocus onClick={handleSubmit}>
-            save
+            {load ? <SpinLoader /> : "save"}
           </Button>
         </DialogActions>
       </BootstrapDialog>

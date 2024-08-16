@@ -4,15 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 function ChatItem({ chat }) {
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
+  const user = chat.users.filter((user) => user.userId._id !== userId);
   return (
     <div className="chat_item" onClick={() => navigate(`/chat/${chat._id}`)}>
       <div className="chat_image">
-        <img src={chat.users[0].userId.profileImage.imageUrl} alt="" />
+        <img src={user[0].userId.profileImage.imageUrl} alt="" />
       </div>
       {chat.messages.length > 0 ? (
         <div className="chat_title">
           <h5>
-            {chat.users[0].userId.firstName} {chat.users[0].userId.lastName}
+            {user[0].userId.firstName} {user[0].userId.lastName}
           </h5>
           <p
             style={{
@@ -30,7 +32,7 @@ function ChatItem({ chat }) {
         <div>
           {" "}
           <h5>
-            {chat.users[0].userId.firstName} {chat.users[0].userId.lastName}
+            {user[0].userId.firstName} {user[0].userId.lastName}
           </h5>
         </div>
       )}

@@ -12,8 +12,6 @@ function SingleBusiness({ business }) {
   const navigate = useNavigate();
   const { show, setShow, tokenChecker } = useContext(ValueContext);
 
-  console.log(business);
-
   const handleInterest = () => {
     const token = tokenChecker();
     if (!token) {

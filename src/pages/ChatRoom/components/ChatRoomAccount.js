@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { ValueContext } from "../../../Context";
 import { useNavigate } from "react-router-dom";
 import Paystack from "@paystack/inline-js";
+import SpinLoader from "../../../components/SpinLoader";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -24,15 +25,17 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function ChatRoomAccount({ id }) {
   const popup = new Paystack();
-  const [open, setOpen] = React.useState(false);
-  const { tokenChecker } = React.useContext(ValueContext);
+  const [open, setOpen] = useState(false);
+  const { tokenChecker } = useContext(ValueContext);
   const [show, setShow] = useState(false);
   const [amount, setAmount] = useState(0);
   const [paid, setPaid] = useState(false);
+  const [paidAgain, setPaidAgain] = useState(false);
   const [verified, setVerified] = useState(false);
   const [wallet, setWallet] = useState({});
-  const [partners, setPartners] = useState([]);
+  const [partners, setPartners] = useState("");
   const [required, setRequired] = useState(false);
+  const [load, setLoad] = useState(false);
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
@@ -65,11 +68,11 @@ export default function ChatRoomAccount({ id }) {
           setShow(true);
         }
         setWallet(json.wallet);
-        setPartners(json.chatroom.users);
-        const paid_user = json.wallet.referenceCodes.find(
+        setPartners(json.wallet.partners);
+        const paid_user = json.wallet.referenceCodes.filter(
           (user) => user.user._id === userId
         );
-        if (paid_user !== undefined) {
+        if (paid_user.length > 0) {
           setPaid(true);
         }
         if (paid_user.paymentStatus) {
@@ -87,6 +90,7 @@ export default function ChatRoomAccount({ id }) {
   };
 
   const handle_wallet_request = () => {
+    setLoad(true);
     const token = tokenChecker();
     if (amount < 1) {
       setRequired(true);
@@ -100,6 +104,7 @@ export default function ChatRoomAccount({ id }) {
       method: "POST",
       body: JSON.stringify({
         amount,
+        partners,
       }),
       headers: {
         authorization: token,
@@ -108,14 +113,16 @@ export default function ChatRoomAccount({ id }) {
     })
       .then((res) => res.json())
       .then((json) => {
+        setLoad(false);
         setShow(true);
         setWallet(json.wallet);
-        setPartners(json.chatroom.users);
+        setPartners(json.wallet.partners);
       })
       .catch((err) => console.log(err));
   };
 
   const handle_payment = () => {
+    setLoad(true);
     const token = tokenChecker();
     if (!token) {
       navigate("/signin");
@@ -126,7 +133,7 @@ export default function ChatRoomAccount({ id }) {
       {
         method: "POST",
         body: JSON.stringify({
-          amount: Number(wallet.amount) / partners.length,
+          amount: Number(wallet.amount) / Number(partners),
         }),
         headers: {
           authorization: token,
@@ -137,15 +144,18 @@ export default function ChatRoomAccount({ id }) {
       .then((res) => res.json())
       .then((json) => {
         setWallet(json.wallet);
-        const paid_user = json.wallet.referenceCodes.find(
+        const paid_user = json.wallet.referenceCodes.filter(
           (user) => user.user === userId
         );
-        if (paid_user !== undefined) {
+        if (paid_user.length > 0) {
+          setLoad(false);
           setPaid(true);
-          localStorage.setItem("reference", paid_user.reference);
+          setPaidAgain(true);
+          localStorage.setItem("reference", paid_user[0].reference);
           popup.resumeTransaction(json.result.data.access_code);
         }
-        if (paid_user.paymentStatus) {
+        if (paid_user[0].paymentStatus) {
+          setLoad(false);
           setVerified(true);
         }
       })
@@ -153,6 +163,7 @@ export default function ChatRoomAccount({ id }) {
   };
 
   const verify_payment = () => {
+    setLoad(true);
     const reference = localStorage.getItem("reference");
     const token = tokenChecker();
     if (!token) {
@@ -160,7 +171,7 @@ export default function ChatRoomAccount({ id }) {
     }
 
     fetch(
-      `https://www.pharmapoolserver.com/api/wallet/payment/verify/${wallet.walletAddress}`,
+      `https://www.pharmapoolserver.com/api/wallet/payment/verify/chatroom/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -176,14 +187,17 @@ export default function ChatRoomAccount({ id }) {
       .then((res) => res.json())
       .then((json) => {
         setWallet(json.wallet);
-        setPartners(json.chatroom.users);
-        const paid_user = json.wallet.referenceCodes.find(
+        setPartners(json.wallet.partners);
+        const paid_user = json.wallet.referenceCodes.filter(
           (user) => user.user._id === userId
         );
-        if (paid_user !== undefined) {
+        if (paid_user.length > 0) {
+          setLoad(false);
           setPaid(true);
+          setPaidAgain(false);
         }
-        if (paid_user.paymentStatus) {
+        if (paid_user[0].paymentStatus) {
+          setLoad(false);
           setVerified(true);
         }
       })
@@ -235,27 +249,51 @@ export default function ChatRoomAccount({ id }) {
                   <span style={{ fontWeight: "bold" }}>{wallet.amount}</span>
                 </p>
                 <p>
+                  Number of paying partners:
+                  <span style={{ fontWeight: "bold", marginLeft: "0.2rem" }}>
+                    {partners}
+                  </span>
+                </p>
+                <p>
                   Each partner will pay: N
                   <span style={{ fontWeight: "bold" }}>
-                    {Number(wallet.amount) / partners.length}
+                    {Number(wallet.amount) / Number(partners)}
                   </span>
                 </p>
               </div>
-              {!verified && (
+              {!verified ? (
                 <div style={{ margin: "1rem 0px" }}>
                   {paid ? (
                     <button
                       className="new_chatroom_button"
                       onClick={verify_payment}
                     >
-                      Verify payment
+                      {load ? <SpinLoader color={true} /> : "Verify payment"}
                     </button>
                   ) : (
                     <button
                       className="new_chatroom_button"
                       onClick={handle_payment}
                     >
-                      Pay now
+                      {load ? <SpinLoader color={true} /> : "Pay now"}
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div style={{ margin: "1rem 0px" }}>
+                  {paidAgain ? (
+                    <button
+                      className="new_chatroom_button"
+                      onClick={verify_payment}
+                    >
+                      {load ? <SpinLoader color={true} /> : "Verify payment"}
+                    </button>
+                  ) : (
+                    <button
+                      className="new_chatroom_button"
+                      onClick={handle_payment}
+                    >
+                      {load ? <SpinLoader color={true} /> : "Pay again"}
                     </button>
                   )}
                 </div>
@@ -290,10 +328,10 @@ export default function ChatRoomAccount({ id }) {
                 N<h1>{amount}</h1>K
               </div>
               <div class="wallet_form">
-                <p>Enter business amount</p>
+                <p>Enter business amount and number of paying partners</p>
                 <small>
                   Note that the final amount to pay will include Pharmapool's
-                  charges
+                  charges and a partner can pay more than once
                 </small>
                 {required && <br />}
                 {required && (
@@ -306,11 +344,19 @@ export default function ChatRoomAccount({ id }) {
                   onChange={handleAmount}
                   required={required}
                 />
+                <input
+                  type="text"
+                  placeholder="Number of partners"
+                  autoFocus={true}
+                  required={required}
+                  value={partners}
+                  onChange={(e) => setPartners(e.target.value)}
+                />
                 <button
                   className="new_chatroom_button"
                   onClick={handle_wallet_request}
                 >
-                  Request wallet
+                  {load ? <SpinLoader color={true} /> : "Request wallet"}
                 </button>
               </div>
             </div>

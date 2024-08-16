@@ -91,7 +91,7 @@ function SingleChatRoom() {
               overflow: "hidden",
             }}
           >
-            <h6
+            <h5
               style={{
                 wordBreak: "break-word",
                 lineClamp: "1",
@@ -101,7 +101,7 @@ function SingleChatRoom() {
               }}
             >
               {title}
-            </h6>
+            </h5>
           </div>
           <div className="chat_profile">
             <ChatProfile title={title} users={users} id={id} admin={admin} />
@@ -111,13 +111,14 @@ function SingleChatRoom() {
         {/* <div ref={divRef}></div> */}
       </div>
       <div className="chat_input">
-        <input
+        <textarea
           type="text"
           placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeydown}
           autoFocus
+          rows={1}
         />
         <button onClick={handleMessage}>Send</button>
       </div>

@@ -11,6 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
+import SpinLoader from "../../../components/SpinLoader";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -23,10 +24,11 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function PostModal() {
   const _id = localStorage.getItem("userId");
-  const [open, setOpen] = React.useState(false);
-  const [bt1, setBt1] = React.useState(false);
-  const [bt2, setBt2] = React.useState(false);
-  const [bt3, setBt3] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [load, setLoad] = useState(false);
+  const [bt1, setBt1] = useState(false);
+  const [bt2, setBt2] = useState(false);
+  const [bt3, setBt3] = useState(false);
   const [previewImage, setPreviewImage] = useState([]);
   const [genericName, setGenericName] = useState("");
   const [brandName, setBrandName] = useState("");
@@ -71,6 +73,7 @@ export default function PostModal() {
   };
 
   const handleSubmit = () => {
+    setLoad(true);
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("genericName", genericName);
@@ -94,6 +97,7 @@ export default function PostModal() {
       .then((response) => response.json())
       .then((json) => {
         setOpen(false);
+        setLoad(false);
       })
       .catch((err) => console.log(err));
   };
@@ -242,7 +246,7 @@ export default function PostModal() {
         </DialogContent>
         <DialogActions>
           <Button color="success" autoFocus onClick={handleSubmit}>
-            create
+            {load ? <SpinLoader color={false} /> : "create"}
           </Button>
         </DialogActions>
       </BootstrapDialog>
