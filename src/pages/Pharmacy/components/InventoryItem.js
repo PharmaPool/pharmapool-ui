@@ -89,7 +89,7 @@ function InventoryItem() {
               <AddIcon /> Add
             </button>
             <button className="not_interest" onClick={() => setRemove()}>
-              <RemoveIcon /> Remove
+              <RemoveIcon /> Sell
             </button>
           </div>
         </div>

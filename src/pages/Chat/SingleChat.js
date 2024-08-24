@@ -64,35 +64,54 @@ function SingleChat() {
   return (
     <>
       <div className="single_chat" style={{ height: `${height - 60}px` }}>
-        <div className="chat_header">
-          <div className="back" onClick={() => history(-1)}>
-            <ArrowBackIcon />
-          </div>
-          <div>
-            <div className="chat_user_image">
-              <img src={profileImage} alt="" />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="chat_header">
+            <div className="back" onClick={() => history(-1)}>
+              <ArrowBackIcon />
+            </div>
+            <div>
+              <div className="chat_user_image">
+                <img src={profileImage} alt="" />
+              </div>
+            </div>
+            <div
+              className="chat_titl"
+              style={{
+                overflow: "hidden",
+              }}
+            >
+              <h5
+                style={{
+                  wordBreak: "break-word",
+                  lineClamp: "1",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {title}
+              </h5>
+            </div>
+            <div className="chat_profile">
+              <ChatProfile users={users} title={title} id={id} />
             </div>
           </div>
           <div
-            className="chat_titl"
             style={{
-              overflow: "hidden",
+              position: "relative",
+              top: "3.5rem",
+              textAlign: "center",
+              width: "100%",
             }}
           >
-            <h5
-              style={{
-                wordBreak: "break-word",
-                lineClamp: "1",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
+            <p
+              style={{ fontWeight: "bold", textAlign: "center", width: "100%" }}
             >
-              {title}
-            </h5>
-          </div>
-          <div className="chat_profile">
-            <ChatProfile users={users} title={title} id={id} />
+              ALL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL TO AVOID SCAM{" "}
+              <br />
+              ALL FINANCIAL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL
+              ACCOUNT FOR SECURITY REASONS
+            </p>
           </div>
         </div>
         <Chat chat={chat} />

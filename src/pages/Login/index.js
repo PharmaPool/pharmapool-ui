@@ -10,8 +10,7 @@ import { ValueContext } from "../../Context";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const { setUser, setName, setShow, tokenChecker, login } =
-    useContext(ValueContext);
+  const { setUser, setName, setShow } = useContext(ValueContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
@@ -62,10 +61,6 @@ function Login() {
   };
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (token !== null && login === true) {
-      navigate("/posts");
-    }
     const rememberedEmail = localStorage.getItem("email");
     const rememberedPassword = localStorage.getItem("password");
     setEmail(rememberedEmail);

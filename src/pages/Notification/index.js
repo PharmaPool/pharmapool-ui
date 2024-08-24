@@ -7,20 +7,24 @@ import NotificationList from "./components/NotificationList";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import useWindowDimensions from "../../components/useWindowDimensions";
+import { jwtDecode } from "jwt-decode";
 import { ValueContext } from "../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Notification() {
   const { width } = useWindowDimensions();
   const _id = localStorage.getItem("userId");
   const [notifications, setNotifications] = useState([]);
+  const token = localStorage.getItem("token");
   const { tokenChecker } = useContext(ValueContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate("/signin");
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch(`https://www.pharmapoolserver.com/api/feed/notifications/${_id}`, {
       headers: {
@@ -28,7 +32,13 @@ function Notification() {
       },
     })
       .then((res) => res.json())
-      .then((json) => setNotifications(json.notifications.content))
+      .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
+        setNotifications(json.notifications.content);
+      })
       .catch((err) => console.log(err));
   }, [_id, navigate, tokenChecker]);
   return (

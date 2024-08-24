@@ -12,7 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
 
@@ -30,6 +30,7 @@ export default function NewChatRoomModal() {
   const [title, setTitle] = useState("");
   const { tokenChecker } = useContext(ValueContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   let url;
   url = `https://www.pharmapoolserver.com/api/user/chatroom/create`;
@@ -45,7 +46,8 @@ export default function NewChatRoomModal() {
   const handleSubmit = () => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch(url, {
       method: "POST",

@@ -8,19 +8,23 @@ import NewChatModal from "./components/NewChatModal";
 
 import useWindowDimensions from "../../components/useWindowDimensions";
 import { ValueContext } from "../../Context";
-import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Chats() {
   const navigate = useNavigate();
   const { width } = useWindowDimensions();
   const [chats, setChats] = useState([]);
   const _id = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const { tokenChecker } = useContext(ValueContext);
+  const location = useLocation();
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate("/signin");
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch(`https://www.pharmapoolserver.com/api/user/messages/${_id}`, {
       headers: {
@@ -28,7 +32,13 @@ function Chats() {
       },
     })
       .then((response) => response.json())
-      .then((json) => setChats(json.messages.singlechatcontent))
+      .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
+        setChats(json.messages.singlechatcontent);
+      })
       .catch((err) => console.log(err));
   }, [_id, navigate, tokenChecker]);
   return (

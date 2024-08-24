@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Header from "../../components/Header";
 import SingleBusiness from "./components/SingleBusiness";
@@ -9,14 +9,17 @@ import { ValueContext } from "../../Context";
 function Business() {
   const { businesses, setBusinesses, tokenChecker } = useContext(ValueContext);
   const token = localStorage.getItem("token");
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    tokenChecker();
     fetch("https://www.pharmapoolserver.com/api/auth/", {
       Authorization: token,
     })
       .then((response) => response.json())
-      .then((json) => setBusinesses(json.businesses))
+      .then((json) => {
+        setLoggedIn(json.loggedIn);
+        setBusinesses(json.businesses);
+      })
       .catch((err) => console.log(err));
   }, [setBusinesses, token, tokenChecker]);
   return (
@@ -26,7 +29,7 @@ function Business() {
         <div className="business_body">
           {businesses ? (
             businesses.map((business, i) => (
-              <SingleBusiness key={i} business={business} />
+              <SingleBusiness key={i} business={business} loggedIn={loggedIn} />
             ))
           ) : (
             <BusinessLoader />

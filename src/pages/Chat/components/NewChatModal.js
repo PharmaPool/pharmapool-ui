@@ -9,7 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 
 import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -26,6 +26,7 @@ export default function NewChatModal() {
   const navigate = useNavigate();
   const [friends, setFriends] = useState([]);
   const { tokenChecker } = useContext(ValueContext);
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,7 +39,8 @@ export default function NewChatModal() {
   const handleChat = (friendId) => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
 
     fetch("https://www.pharmapoolserver.com/api/user/chat", {
@@ -61,7 +63,8 @@ export default function NewChatModal() {
   useEffect(() => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch(`https://www.pharmapoolserver.com/api/user/friends`, {
       headers: {

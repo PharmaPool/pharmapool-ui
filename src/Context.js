@@ -63,13 +63,13 @@ export class Context extends Component {
         decodedToken.exp > currentTime &&
         decodedToken.user.loggedIn === true
       ) {
-        this.setState({ show: true, login: true });
+        this.setState({ show: false, login: true });
         return token;
       } else if (decodedToken.user.loggedIn === false) {
-        this.setState({ show: false, login: false });
+        this.setState({ show: true, login: false });
         return null;
       } else {
-        this.setState({ show: false, login: false });
+        this.setState({ show: true, login: false });
         return null;
       }
     } catch (error) {

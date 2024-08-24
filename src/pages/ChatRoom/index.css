@@ -193,6 +193,7 @@ th {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .add_friend {
@@ -205,12 +206,17 @@ th {
 .add_friend_input input {
   border: none;
   border-bottom: #004d40 1px solid;
-  width: 16rem;
+  width: 100%;
 }
 
 .add_friend_input input:focus {
   outline: none;
   background-color: #e0f2f1;
+}
+
+.add_friend_input {
+  width: 60%;
+  padding: 0rem 1rem;
 }
 
 .result_user_image {
@@ -228,13 +234,16 @@ th {
 
 .search_result_item {
   display: grid;
-  grid-template-columns: 13% 1fr 15%;
-  margin: 0.7rem;
-  width: 20rem;
+  grid-template-columns: 8% 1fr 15%;
+  margin: 0.7rem 0rem;
+  width: 100%;
+  text-transform: capitalize;
 }
 
 .search_result {
   margin-top: 1rem;
+  width: 60%;
+  padding: 0rem 0.5rem;
 }
 
 .add_button {
@@ -274,7 +283,7 @@ th {
   z-index: 0;
 }
 
-.wallet_form{
+.wallet_form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -282,7 +291,7 @@ th {
   text-align: center;
 }
 
-.wallet_form input{
+.wallet_form input {
   margin: 1rem 0px;
   border: none;
   outline: none;
@@ -390,5 +399,54 @@ th {
     width: max-content;
     font-size: medium;
     font-weight: normal;
+  }
+
+  .add_friend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.5rem;
+  }
+
+  .add_friend_input input {
+    border: none;
+    border-bottom: #004d40 1px solid;
+    width: 100%;
+  }
+
+  .add_friend_input input:focus {
+    outline: none;
+    background-color: #e0f2f1;
+  }
+
+  .add_friend_input {
+    width: 100%;
+    padding: 0rem 1rem;
+  }
+
+  .result_user_image {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-right: 0.2rem;
+  }
+
+  .result_user_image img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .search_result_item {
+    display: grid;
+    grid-template-columns: 13% 1fr 15%;
+    margin: 0.7rem 0rem;
+    width: 100%;
+  }
+
+  .search_result {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0rem 0.5rem;
   }
 }

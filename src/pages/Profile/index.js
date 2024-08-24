@@ -8,8 +8,9 @@ import Details from "./components/UserDetails";
 import ProfileNavigation from "./components/ProfileNavigation";
 import UserProfileBody from "./components/UserProfileBody";
 import useWindowDimensions from "../../components/useWindowDimensions";
+import { jwtDecode } from "jwt-decode";
 import { ValueContext } from "../../Context";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Profile() {
   const _id = localStorage.getItem("userId");
@@ -20,9 +21,15 @@ function Profile() {
   const [posts, setPosts] = useState([]);
   const { businesses } = useContext(ValueContext);
   const { width } = useWindowDimensions();
-  // const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
+    }
     fetch(`https://www.pharmapoolserver.com/api/user/profile/${_id}`, {
       headers: {
         Authorization: token,
@@ -30,13 +37,17 @@ function Profile() {
     })
       .then((response) => response.json())
       .then((res) => {
+        if (res.error) {
+          navigate(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
         setDetails(res.user.details);
         setFullname(res.user.fullName);
         setProfileImage(res.user.profileImage.imageUrl);
         setPosts(res.user.posts);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [_id, token]);
 
   return (
     <>

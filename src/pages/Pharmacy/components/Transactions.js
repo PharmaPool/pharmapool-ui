@@ -12,7 +12,8 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
 import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -27,8 +28,10 @@ export default function Transactions({ id }) {
   const [open, setOpen] = useState(false);
   const { width } = useWindowDimensions();
   const [transactions, setTransactions] = useState([]);
+  const token = localStorage.getItem("token");
   const { tokenChecker } = useContext(ValueContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,15 +42,18 @@ export default function Transactions({ id }) {
   };
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate("/signin");
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      navigate(`/verify/signin?redirectTo=/pharmacy`);
     }
     fetch(`https://www.pharmapoolserver.com/api/business/pharmacy/${id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())
       .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=/pharmacy`);
+        }
         setTransactions(json.pharmacy.allTransactions);
       })
       .catch((err) => console.log(err));

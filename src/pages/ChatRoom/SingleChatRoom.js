@@ -73,38 +73,57 @@ function SingleChatRoom() {
   return (
     <div className="single_chatroom">
       <div className="single_chat" style={{ height: `${height - 60}px` }}>
-        <div className="chat_header">
-          <div className="back" onClick={() => history(-1)}>
-            <ArrowBackIcon />
-          </div>
-          <div>
-            <div className="chat_user_image">
-              <img
-                src="https://res.cloudinary.com/dex0mkckw/image/upload/v1713481897/92325970043_hzkfkj.png"
-                alt=""
-              />
+        <div>
+          <div className="chat_header">
+            <div className="back" onClick={() => history(-1)}>
+              <ArrowBackIcon />
+            </div>
+            <div>
+              <div className="chat_user_image">
+                <img
+                  src="https://res.cloudinary.com/dex0mkckw/image/upload/v1713481897/92325970043_hzkfkj.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div
+              className="chat_titl"
+              style={{
+                overflow: "hidden",
+              }}
+            >
+              <h5
+                style={{
+                  wordBreak: "break-word",
+                  lineClamp: "1",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {title}
+              </h5>
+            </div>
+            <div className="chat_profile">
+              <ChatProfile title={title} users={users} id={id} admin={admin} />
             </div>
           </div>
           <div
-            className="chat_titl"
             style={{
-              overflow: "hidden",
+              position: "relative",
+              top: "3.5rem",
+              textAlign: "center",
+              width: "100%",
             }}
           >
-            <h5
-              style={{
-                wordBreak: "break-word",
-                lineClamp: "1",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
+            <p
+              style={{ fontWeight: "bold", textAlign: "center", width: "100%" }}
             >
-              {title}
-            </h5>
-          </div>
-          <div className="chat_profile">
-            <ChatProfile title={title} users={users} id={id} admin={admin} />
+              ALL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL TO AVOID SCAM{" "}
+              <br />
+              ALL FINANCIAL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL
+              ACCOUNT FOR SECURITY REASONS
+            </p>
           </div>
         </div>
         <RoomChat chatroom={chatroom} title={title} />

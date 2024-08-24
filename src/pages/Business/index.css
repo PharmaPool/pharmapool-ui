@@ -36,6 +36,10 @@ ul {
   font-style: italic;
 }
 
+.username{
+  text-transform: capitalize;
+}
+
 .business_head p {
   /* margin: 3rem 0rem 0px; */
   font-size: small;
@@ -141,7 +145,7 @@ ul {
   cursor: pointer;
   display: inline-flex;
   fill: currentcolor;
-  font-size: small;
+  font-size: medium;
   font-weight: bold;
   height: 35px;
   justify-content: center;
@@ -317,7 +321,7 @@ ul {
 }
 
 .biz {
-  padding: 1rem 15rem;
+  padding: 4rem 18rem 1rem;
 }
 
 /* .interested_partners {

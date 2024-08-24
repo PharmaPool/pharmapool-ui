@@ -180,17 +180,17 @@ p {
 }
 
 .single_post {
-  padding: 6rem 15rem 0rem;
+  padding: 6rem 18rem 0rem;
 }
 
 /* .post_form {
   width: 30rem;
 } */
 
-.post_image {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
+/* .post_image {
+  height: 846px;
+  overflow-y: hidden;
+} */
 
 .post_image img {
   height: 100%;

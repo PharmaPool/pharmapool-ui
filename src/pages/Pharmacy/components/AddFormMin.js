@@ -5,7 +5,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { ValueContext } from "../../../Context";
 
 function AddFormMin({ id }) {
-  const { setAdd } = useContext(ValueContext);
+  const { setAdd, pharmacy } = useContext(ValueContext);
   const [brand, setBrand] = useState("");
   const [strength, setStrength] = useState("");
   const [manufacturer, setManufacturer] = useState("");
@@ -26,6 +26,7 @@ function AddFormMin({ id }) {
           dateIn,
           expiryDate,
           quantity,
+          pharmacyId: pharmacy._id,
         }),
         headers: { Authorization: token, "Content-Type": "application/json" },
       }

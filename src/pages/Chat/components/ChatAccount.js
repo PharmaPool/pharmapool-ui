@@ -9,11 +9,9 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Paystack from "@paystack/inline-js";
 import SpinLoader from "../../../components/SpinLoader";
-
-import useWindowDimensions from "../../../components/useWindowDimensions";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -31,13 +29,19 @@ export default function ChatAccount({ id }) {
   const [show, setShow] = useState(false);
   const [amount, setAmount] = useState(0);
   const [paid, setPaid] = useState(false);
+  const [paidAgain, setPaidAgain] = useState(false);
   const [verified, setVerified] = useState(false);
+  const [verificationError, setVerificationError] = useState(false);
   const [wallet, setWallet] = useState({});
-  const [partners, setPartners] = useState([]);
+  const [partners, setPartners] = useState("");
   const [required, setRequired] = useState(false);
   const [load, setLoad] = useState(false);
+  const [paymentComplete, setPaymentComplete] = useState(false);
+  const [supplier, setSupplier] = useState(null);
+  const [acctType, setAcctType] = useState("");
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -50,7 +54,8 @@ export default function ChatAccount({ id }) {
   useEffect(() => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
 
     fetch(`https://www.pharmapoolserver.com/api/wallet/chat/${id}`, {
@@ -67,16 +72,25 @@ export default function ChatAccount({ id }) {
         } else {
           setShow(true);
         }
+        console.log(json.wallet);
+        setSupplier(json.wallet.supplier);
+        setPaymentComplete(json.wallet.paymentComplete);
         setWallet(json.wallet);
         setPartners(json.chat.users);
-        const paid_user = json.wallet.referenceCodes.find(
-          (user) => user.user._id === userId
+        const paid_user_verified = json.wallet.referenceCodes.filter(
+          (user) => user.user._id === userId && user.paymentStatus === true
         );
-        if (paid_user !== undefined) {
+        const paid_user_unverified = json.wallet.referenceCodes.filter(
+          (user) => user.user._id === userId && user.paymentStatus === false
+        );
+        if (paid_user_verified.length > 0) {
           setPaid(true);
-        }
-        if (paid_user.paymentStatus) {
+          setPaidAgain(false);
           setVerified(true);
+        }
+        if (paid_user_unverified.length > 0) {
+          setPaid(true);
+          setVerified(false);
         }
       })
       .catch((err) => console.log(err));
@@ -97,7 +111,8 @@ export default function ChatAccount({ id }) {
       return;
     }
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
 
     fetch(`https://www.pharmapoolserver.com/api/wallet/chat/${id}`, {
@@ -114,17 +129,22 @@ export default function ChatAccount({ id }) {
       .then((json) => {
         setLoad(false);
         setShow(true);
+        setSupplier(json.wallet.supplier);
+        setPaymentComplete(json.wallet.paymentComplete);
         setWallet(json.wallet);
-        setPartners(json.chat.users);
+        setPartners(json.wallet.partners);
       })
       .catch((err) => console.log(err));
   };
 
   const handle_payment = () => {
     setLoad(true);
+    setVerificationError(false);
+
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
 
     fetch(
@@ -143,16 +163,18 @@ export default function ChatAccount({ id }) {
       .then((res) => res.json())
       .then((json) => {
         setWallet(json.wallet);
-        const paid_user = json.wallet.referenceCodes.find(
+        setSupplier(json.wallet.supplier);
+        const paid_user = json.wallet.referenceCodes.filter(
           (user) => user.user === userId
         );
-        if (paid_user !== undefined) {
+        if (paid_user.length > 0) {
           setLoad(false);
           setPaid(true);
-          localStorage.setItem("reference", paid_user.reference);
+          setPaidAgain(true);
+          localStorage.setItem("reference", paid_user[0].reference);
           popup.resumeTransaction(json.result.data.access_code);
         }
-        if (paid_user.paymentStatus) {
+        if (paid_user[0].paymentStatus) {
           setLoad(false);
           setVerified(true);
         }
@@ -165,7 +187,8 @@ export default function ChatAccount({ id }) {
     const reference = localStorage.getItem("reference");
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
 
     fetch(
@@ -175,6 +198,7 @@ export default function ChatAccount({ id }) {
         body: JSON.stringify({
           reference,
           chatId: id,
+          amount: wallet.amount,
         }),
         headers: {
           authorization: token,
@@ -184,27 +208,76 @@ export default function ChatAccount({ id }) {
     )
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
+        if (json.success === false) {
+          setLoad(false);
+          setVerificationError(true);
+          setVerified(true);
+          setPaid(true);
+          setPaidAgain(false);
+          setPaymentComplete(json.wallet.paymentComplete);
+          setWallet(json.wallet);
+          return;
+        }
+        setPaymentComplete(json.wallet.paymentComplete);
         setWallet(json.wallet);
-        setPartners(json.chat.users);
-        const paid_user = json.wallet.referenceCodes.find(
+        setPartners(json.wallet.partners);
+        const paid_user = json.wallet.referenceCodes.filter(
           (user) => user.user._id === userId
         );
-        if (paid_user !== undefined) {
+        if (paid_user.length > 0) {
           setLoad(false);
           setPaid(true);
+          setPaidAgain(false);
         }
-        if (paid_user.paymentStatus) {
+        if (paid_user[0].paymentStatus) {
           setLoad(false);
           setVerified(true);
         }
       })
       .catch((err) => console.log(err));
   };
+
+  const acknowledge_receipt = () => {
+    setLoad(true);
+    const token = tokenChecker();
+    if (!token) {
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
+    }
+
+    if (supplier.user._id === userId) {
+      setAcctType("supplier");
+    } else {
+      setAcctType("partner");
+    }
+
+    fetch(
+      `https://www.pharmapoolserver.com/api/wallet/receipt/acknowledge/chat`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          chatId: id,
+          acctType,
+        }),
+        headers: {
+          authorization: token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        setLoad(false);
+        setPaymentComplete(json.wallet.paymentComplete);
+        setWallet(json.wallet);
+        setSupplier(json.wallet.supplier);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <React.Fragment>
       <button className="new_chatroom_button" onClick={handleClickOpen}>
-        wallet
+        business wallet
       </button>
       <BootstrapDialog
         onClose={handleClose}
@@ -213,7 +286,7 @@ export default function ChatAccount({ id }) {
         fullScreen
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Chat Account Details
+          Chat wallet details
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -231,7 +304,7 @@ export default function ChatAccount({ id }) {
           {show ? (
             <div className="account_body">
               <div style={{ display: "flex", alignItems: "baseline" }}>
-                N<h1>{wallet.balance}</h1>K
+                N<h1>{Number(wallet.balance).toFixed(2)}</h1>K
               </div>
               <div
                 style={{
@@ -252,8 +325,16 @@ export default function ChatAccount({ id }) {
                     {Number(wallet.amount)}
                   </span>
                 </p>
+                <p>
+                  Supplier:
+                  <span
+                    style={{ fontWeight: "bold", textTransform: "capitalize" }}
+                  >
+                    {supplier.user.fullName}
+                  </span>
+                </p>
               </div>
-              {!verified && (
+              {!verified && !paymentComplete && (
                 <div style={{ margin: "1rem 0px" }}>
                   {paid ? (
                     <button
@@ -272,29 +353,107 @@ export default function ChatAccount({ id }) {
                   )}
                 </div>
               )}
-              <div className="interested_partners">
-                <table className="account_table">
-                  <tr>
-                    <th>Partner</th>
-                    <th>Payment status</th>
-                  </tr>
-                  {wallet.referenceCodes.map((user) => (
+
+              {verificationError && (
+                <p style={{ color: "red" }}>
+                  Payment was unsuccessful. Please try again or contact
+                  Pharmapool for verification.
+                </p>
+              )}
+
+              {verified && !paymentComplete && (
+                <div style={{ margin: "1rem 0px" }}>
+                  {paidAgain ? (
+                    <button
+                      className="new_chatroom_button"
+                      onClick={verify_payment}
+                    >
+                      {load ? <SpinLoader color={true} /> : "Verify payment"}
+                    </button>
+                  ) : (
+                    <button
+                      className="new_chatroom_button"
+                      onClick={handle_payment}
+                    >
+                      {load ? <SpinLoader color={true} /> : "Pay again"}
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {verified && paymentComplete && (
+                <div style={{ margin: "1rem 0px" }}>
+                  <button
+                    className="new_chatroom_button"
+                    onClick={acknowledge_receipt}
+                  >
+                    {load ? <SpinLoader color={true} /> : "Acknowledge receipt"}
+                  </button>
+                </div>
+              )}
+
+              {paymentComplete ? (
+                <div className="interested_partners">
+                  <table className="account_table">
                     <tr>
-                      <td>{user.user.fullName}</td>
-                      {user.paymentStatus === true && (
+                      <th>Partner</th>
+                      <th>Receipt</th>
+                    </tr>
+                    <tr>
+                      <td>{supplier.user.fullName}</td>
+                      {supplier.receipt === true && (
                         <td style={{ color: "#004d40", fontWeight: "bold" }}>
                           success
                         </td>
                       )}
-                      {user.paymentStatus === false && (
+                      {supplier.receipt === false && (
                         <td style={{ color: "orange", fontWeight: "bold" }}>
                           pending...
                         </td>
                       )}
                     </tr>
-                  ))}
-                </table>
-              </div>
+                    {wallet.referenceCodes.map((user) => (
+                      <tr>
+                        <td>{user.user.fullName}</td>
+                        {user.receipt === true && (
+                          <td style={{ color: "#004d40", fontWeight: "bold" }}>
+                            success
+                          </td>
+                        )}
+                        {user.receipt === false && (
+                          <td style={{ color: "orange", fontWeight: "bold" }}>
+                            pending...
+                          </td>
+                        )}
+                      </tr>
+                    ))}
+                  </table>
+                </div>
+              ) : (
+                <div className="interested_partners">
+                  <table className="account_table">
+                    <tr>
+                      <th>Partner</th>
+                      <th>Payment status</th>
+                    </tr>
+                    {wallet.referenceCodes.map((user) => (
+                      <tr>
+                        <td>{user.user.fullName}</td>
+                        {user.paymentStatus === true && (
+                          <td style={{ color: "#004d40", fontWeight: "bold" }}>
+                            success
+                          </td>
+                        )}
+                        {user.paymentStatus === false && (
+                          <td style={{ color: "orange", fontWeight: "bold" }}>
+                            pending...
+                          </td>
+                        )}
+                      </tr>
+                    ))}
+                  </table>
+                </div>
+              )}
             </div>
           ) : (
             <div className="account_body">
@@ -305,7 +464,7 @@ export default function ChatAccount({ id }) {
                 <p>Enter business amount</p>
                 <small>
                   Note that the final amount to pay will include Pharmapool's
-                  charges
+                  charges and a partner can pay more than once
                 </small>
                 {required && <br />}
                 {required && (

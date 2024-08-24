@@ -7,7 +7,7 @@ import Loading from "../../data/loader.gif";
 
 import { ValueContext } from "../../Context";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Login() {
   const { setUser, setName, setShow } = useContext(ValueContext);
@@ -17,6 +17,9 @@ function Login() {
   const [error, setError] = useState(false);
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
+  // const {redirectTo}
 
   const handleSubmit = () => {
     setOpen(true);
@@ -32,17 +35,20 @@ function Login() {
     })
       .then((response) => response.json())
       .then((res) => {
-        if (res.type === "email" || res.type === "password") {
+        if (res.error) {
           setError(true);
           setOpen(false);
         }
+
+        setShow();
         const user = jwtDecode(res.token);
         setUser(user.user);
         setName(user.user.fullName.charAt(0));
         localStorage.setItem("userId", user.user._id);
+        localStorage.setItem("token", res.token);
 
         // setShow()
-        navigate("/posts");
+        navigate(redirectTo);
       })
       .catch((err) => console.log(err));
   };

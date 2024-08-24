@@ -12,7 +12,7 @@ import MedicationIcon from "@mui/icons-material/Medication";
 import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
 import { ValueContext } from "../Context";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AccountMenu() {
   const { tokenChecker, logOut } = React.useContext(ValueContext);
@@ -21,6 +21,8 @@ export default function AccountMenu() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const location = useLocation();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,7 +39,6 @@ export default function AccountMenu() {
     })
       .then((res) => res.json())
       .then((json) => {
-        localStorage.setItem("userId", "");
         localStorage.setItem("token", json.token);
         logOut();
 

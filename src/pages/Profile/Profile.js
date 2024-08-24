@@ -13,8 +13,9 @@ import MessageIcon from "@mui/icons-material/Message";
 import DoneIcon from "@mui/icons-material/Done";
 
 import { ValueContext } from "../../Context";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import useWindowDimensions from "../../components/useWindowDimensions";
+import { jwtDecode } from "jwt-decode";
 
 function Profile() {
   const { id } = useParams();
@@ -30,13 +31,11 @@ function Profile() {
   const [friends, setFriends] = useState([]);
   const [alreadyRequested, setAlreadyRequested] = useState(false);
   const [requestAccepted, setRequestAccepted] = useState(false);
+  const location = useLocation();
   const [requestId, setRequestId] = useState("");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate("/signin");
-    }
     fetch(`https://www.pharmapoolserver.com/api/user/profile/${id}`, {
       headers: {
         Authorization: token,
@@ -44,6 +43,10 @@ function Profile() {
     })
       .then((response) => response.json())
       .then((res) => {
+        if (res.error) {
+          navigate(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
         setDetails(res.user.details);
         setFullname(res.user.fullName);
         setProfileImage(res.user.profileImage.imageUrl);
@@ -84,7 +87,8 @@ function Profile() {
   const handleRequest = () => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch("https://www.pharmapoolserver.com/api/user/friend-request", {
       method: "POST",
@@ -108,7 +112,8 @@ function Profile() {
   const handleChat = () => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch("https://www.pharmapoolserver.com/api/user/chat", {
       method: "POST",
@@ -131,7 +136,8 @@ function Profile() {
   const acceptRequest = () => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch("https://www.pharmapoolserver.com/api/user/accept-request", {
       method: "POST",

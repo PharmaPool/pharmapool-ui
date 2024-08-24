@@ -10,7 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatAccount from "./ChatAccount";
 import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -25,6 +25,7 @@ export default function ChatProfile({ title, users, id }) {
   const [open, setOpen] = React.useState(false);
   const { tokenChecker } = React.useContext(ValueContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,7 +38,8 @@ export default function ChatProfile({ title, users, id }) {
   React.useEffect(() => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
   }, [navigate, tokenChecker]);
 

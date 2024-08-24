@@ -109,6 +109,10 @@
   flex-direction: row-reverse;
 }
 
+.find_friends{
+  margin-top: 3rem;
+}
+
 @media screen and (max-width: 1200px) {
   .requests {
     padding: 4rem 0.2rem 2rem;

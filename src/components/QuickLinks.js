@@ -10,6 +10,8 @@ import XIcon from "@mui/icons-material/X";
 import VerifiedIcon from "@mui/icons-material/Verified";
 
 function QuickLinks() {
+  // const userId = localStorage.getItem("userId");
+  // const url = `/verify/signin?redirectTo=/profile/${userId}`;
   return (
     <div className="quicklinks">
       <div className="quicklinks_first">
@@ -34,12 +36,12 @@ function QuickLinks() {
         </div>
         <div className="quick_links">
           <h6>Account links</h6>
-          <a href="/Signin">Posts</a>
-          <a href="/Signin">Business</a>
-          <a href="/Signin">Chatrooms</a>
-          <a href="/Signin">Chats</a>
-          <a href="/Signin">Notifications</a>
-          <a href="/Signin">Profile</a>
+          <a href="/verify/signin?redirectTo=/posts">Posts</a>
+          <a href="/verify/signin?redirectTo=/private_business">Business</a>
+          <a href="/verify/signin?redirectTo=/chatrooms">Chatrooms</a>
+          <a href="/verify/signin?redirectTo=/chats">Chats</a>
+          <a href="/verify/signin?redirectTo=/notifications">Notifications</a>
+          <a href={`/verify/signin?redirectTo=/profile`}>Profile</a>
         </div>
       </div>
       <div className="company_info">

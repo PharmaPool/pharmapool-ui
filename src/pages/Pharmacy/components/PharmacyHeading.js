@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { ValueContext } from "../../../Context";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../../components/useWindowDimensions";
 
 import Logout from "@mui/icons-material/Logout";

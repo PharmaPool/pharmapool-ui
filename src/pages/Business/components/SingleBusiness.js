@@ -1,21 +1,23 @@
 import React, { useState, useContext } from "react";
 
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import { ValueContext } from "../../../Context";
 
-function SingleBusiness({ business }) {
+function SingleBusiness({ business, loggedIn }) {
   const [clicked, setClicked] = useState(false);
   const [amount, setAmount] = useState("");
   const _id = localStorage.getItem("userId");
   const navigate = useNavigate();
-  const { show, setShow, tokenChecker } = useContext(ValueContext);
-
+  const location = useLocation();
+  const { tokenChecker } = useContext(ValueContext);
+ 
   const handleInterest = () => {
     const token = tokenChecker();
     if (!token) {
-      setShow();
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     setClicked(!clicked);
     fetch(
@@ -112,11 +114,11 @@ function SingleBusiness({ business }) {
             </div>
           )}
         </div>
-        {!show ? (
+        {!loggedIn ? (
           <div className="not_authorized">
             <h4>
-              Not Authorized,{" "}
-              <a href="/signin">
+              Not Authorized,
+              <a href="/verify/signin?redirectTo=/private_business">
                 <i>Login</i>
               </a>{" "}
               to interact

@@ -11,7 +11,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatRoomAccount from "./ChatRoomAccount";
 import AddFriendModal from "./AddFriendModal";
 import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -27,6 +27,7 @@ export default function ChatroomProfile({ title, users, id, admin }) {
   const [open, setOpen] = React.useState(false);
   const { tokenChecker } = React.useContext(ValueContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -39,7 +40,8 @@ export default function ChatroomProfile({ title, users, id, admin }) {
   const handleLeave = () => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch("https://www.pharmapoolserver.com/api/user/chatroom/leave", {
       method: "DELETE",
@@ -59,7 +61,8 @@ export default function ChatroomProfile({ title, users, id, admin }) {
   useEffect(() => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
   }, [tokenChecker, navigate]);
 

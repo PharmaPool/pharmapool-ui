@@ -3,17 +3,19 @@ import React, { useContext } from "react";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ValueContext } from "../../../Context";
 
 function SingleRequest({ request }) {
   const navigate = useNavigate();
   const { tokenChecker } = useContext(ValueContext);
+  const location = useLocation();
 
   const acceptRequest = () => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
 
     fetch("https://www.pharmapoolserver.com/api/user/accept-request", {
@@ -38,7 +40,8 @@ function SingleRequest({ request }) {
   const declineRequest = () => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
 
     fetch("https://www.pharmapoolserver.com/api/user/decline-request", {

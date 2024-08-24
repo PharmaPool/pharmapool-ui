@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import { ValueContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -27,6 +27,7 @@ export default function AddFriendModal({ id, users }) {
   const [result, setResult] = useState([]);
   const { socket, tokenChecker } = useContext(ValueContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,7 +44,8 @@ export default function AddFriendModal({ id, users }) {
   const handleAdd = (friendId) => {
     const token = tokenChecker();
     if (!token) {
-      navigate("/signin");
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch("https://www.pharmapoolserver.com/api/user/chatroom/add", {
       method: "POST",

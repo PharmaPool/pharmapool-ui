@@ -5,7 +5,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { ValueContext } from "../../../Context";
 
 function AddFormWide({ id }) {
-  const { setAdd } = useContext(ValueContext);
+  const { setAdd, pharmacy } = useContext(ValueContext);
   const [brand, setBrand] = useState("");
   const [strength, setStrength] = useState("");
   const [manufacturer, setManufacturer] = useState("");
@@ -26,6 +26,7 @@ function AddFormWide({ id }) {
           dateIn,
           expiryDate,
           quantity,
+          pharmacyId: pharmacy._id,
         }),
         headers: { Authorization: token, "Content-Type": "application/json" },
       }
@@ -57,7 +58,7 @@ function AddFormWide({ id }) {
             </td>
             <td>
               <input
-                type="number"
+                type="text"
                 value={strength}
                 onChange={(e) => setStrength(e.target.value)}
               />
@@ -95,10 +96,10 @@ function AddFormWide({ id }) {
       </div>
       <div class="table_below">
         <div className="add_product">
-          <button className="clicked_interest" onClick={handleSubmit}>
+          <button className="interest" onClick={handleSubmit}>
             <AddIcon /> Add
           </button>
-          <button className="interest" onClick={() => setAdd()}>
+          <button className="not_interest" onClick={() => setAdd()}>
             <CancelIcon /> Cancel
           </button>
         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
+import { jwtDecode } from "jwt-decode";
 import Register from "./Register";
 
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
@@ -12,13 +13,24 @@ function PharmacyLogin() {
   const _id = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const [pharmacy, setPharmacy] = useState([]);
+  const [inventory, setInventory] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      navigate(`/verify/signin?redirectTo=/pharmacy`);
+    }
     fetch(`https://www.pharmapoolserver.com/api/business/pharmacies/${_id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())
-      .then((json) => setPharmacy(json.pharmacy))
+      .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=/pharmacy`);
+        }
+        setPharmacy(json.pharmacy);
+      })
       .catch((err) => console.log(err));
   }, []);
 

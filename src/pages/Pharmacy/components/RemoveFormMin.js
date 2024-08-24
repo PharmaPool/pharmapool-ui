@@ -5,7 +5,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { ValueContext } from "../../../Context";
 
 function RemoveFormMin({ id, invent }) {
-  const { setRemove } = useContext(ValueContext);
+  const { setRemove, pharmacy } = useContext(ValueContext);
   const [quantity, setQuantity] = useState(0);
   const token = localStorage.getItem("token");
   const handleRemove = () => {
@@ -15,6 +15,7 @@ function RemoveFormMin({ id, invent }) {
         method: "DELETE",
         body: JSON.stringify({
           quantity,
+          pharmacyId: pharmacy._id,
         }),
         headers: { Authorization: token, "Content-Type": "application/json" },
       }
@@ -41,7 +42,7 @@ function RemoveFormMin({ id, invent }) {
       </table>
       <div className="add_product">
         <button className="interest" onClick={handleRemove}>
-          <RemoveIcon /> Remove
+          <RemoveIcon /> Sell
         </button>
         <button className="not_interest" onClick={() => setRemove()}>
           <CancelIcon /> Cancel

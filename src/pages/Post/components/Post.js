@@ -63,12 +63,7 @@ function Post({ post }) {
           className="user_image"
           onClick={() => navigate(`/profile/${post.creator._id}`)}
         >
-          <img
-            src={post.creator.profileImage.imageUrl}
-            alt="username"
-            width={100}
-            height={100}
-          />
+          <img src={post.creator.profileImage.imageUrl} alt="username" />
         </div>
         <div className="username">
           <h5>{post.creator.fullName}</h5>

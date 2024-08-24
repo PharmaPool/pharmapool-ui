@@ -106,10 +106,10 @@ function AddProductWide({ id }) {
       </div>
       <div class="table_below">
         <div className="add_product">
-          <button className="clicked_interest" onClick={handleSubmit}>
+          <button className="interest" onClick={handleSubmit}>
             <AddIcon /> Add
           </button>
-          <button className="interest" onClick={() => setProduct()}>
+          <button className="not_interest" onClick={() => setProduct()}>
             <CancelIcon /> Cancel
           </button>
         </div>
