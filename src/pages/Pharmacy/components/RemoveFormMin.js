@@ -3,11 +3,15 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import { ValueContext } from "../../../Context";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function RemoveFormMin({ id, invent }) {
   const { setRemove, pharmacy } = useContext(ValueContext);
   const [quantity, setQuantity] = useState(0);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleRemove = () => {
     fetch(
       `https://www.pharmapoolserver.com/api/business/inventory/removestock/${id}`,
@@ -21,7 +25,13 @@ function RemoveFormMin({ id, invent }) {
       }
     )
       .then((response) => response.json())
-      .then((json) => window.location.reload())
+      .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
+        window.location.reload();
+      })
       .catch((err) => console.log(err));
   };
   return (

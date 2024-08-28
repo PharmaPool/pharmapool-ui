@@ -3,10 +3,11 @@ import React, { useEffect, useState, useContext } from "react";
 import RoomChat from "./components/RoomChat";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useWindowDimensions from "../../components/useWindowDimensions";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import { ValueContext } from "../../Context";
 import ChatProfile from "./components/ChatroomProfile";
+import { jwtDecode } from "jwt-decode";
 
 function SingleChatRoom() {
   const { height } = useWindowDimensions();
@@ -20,26 +21,24 @@ function SingleChatRoom() {
   const history = useNavigate();
   const [users, setUsers] = useState([]);
   const [admin, setAdmin] = useState("");
-  let token;
+  const token = localStorage.getItem("token");
+  const location = useLocation();
 
   socket.on("connect", () => {
     console.log("connected");
   });
 
   socket.on("chatroom", (result) => {
-    token = tokenChecker();
-    if (!token) {
-      history("/signin");
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      history(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     setChatroom(result.chatMade.messages);
     setMessage("");
   });
 
   useEffect(() => {
-    token = tokenChecker();
-    if (!token) {
-      history("/signin");
-    }
     fetch(`https://www.pharmapoolserver.com/api/user/singlechatroom/${id}`, {
       method: "POST",
       body: JSON.stringify({
@@ -52,6 +51,10 @@ function SingleChatRoom() {
     })
       .then((response) => response.json())
       .then((json) => {
+        if (json.error) {
+          history(`/signin?`);
+          return;
+        }
         setAdmin(json.chat.admin);
         setChatroom(json.chat.messages);
         setTitle(json.chat.title);
@@ -75,7 +78,7 @@ function SingleChatRoom() {
       <div className="single_chat" style={{ height: `${height - 60}px` }}>
         <div>
           <div className="chat_header">
-            <div className="back" onClick={() => history(-1)}>
+            <div className="back" onClick={() => history("/chatroom")}>
               <ArrowBackIcon />
             </div>
             <div>

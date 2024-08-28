@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -11,6 +11,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SpinLoader from "../../../components/SpinLoader";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import useWindowDimensions from "../../../components/useWindowDimensions";
 import { ValueContext } from "../../../Context";
@@ -37,6 +39,8 @@ export default function PharmacySettings({ pharmacyInfo }) {
   const { width } = useWindowDimensions();
   const { pharmacy } = useContext(ValueContext);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const locations = useLocation();
 
   let url, file;
   url = `https://www.pharmapoolserver.com/api/business/pharmacy/${pharmacy._id}`;
@@ -65,6 +69,11 @@ export default function PharmacySettings({ pharmacyInfo }) {
   };
 
   const handleSubmit = () => {
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
+    }
     setLoad(true);
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -83,6 +92,10 @@ export default function PharmacySettings({ pharmacyInfo }) {
     })
       .then((response) => response.json())
       .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=${locations.pathname}`);
+          return;
+        }
         window.location.reload();
         setOpen(false);
       })

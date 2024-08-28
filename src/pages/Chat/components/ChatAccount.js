@@ -12,6 +12,7 @@ import { ValueContext } from "../../../Context";
 import { useNavigate, useLocation } from "react-router-dom";
 import Paystack from "@paystack/inline-js";
 import SpinLoader from "../../../components/SpinLoader";
+import { jwtDecode } from "jwt-decode";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -42,6 +43,7 @@ export default function ChatAccount({ id }) {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const location = useLocation();
+  const token = localStorage.getItem("token");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,8 +54,8 @@ export default function ChatAccount({ id }) {
   };
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
@@ -66,13 +68,16 @@ export default function ChatAccount({ id }) {
     })
       .then((res) => res.json())
       .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
         if (!json.chat.wallet) {
           setShow(false);
           return;
         } else {
           setShow(true);
         }
-        console.log(json.wallet);
         setSupplier(json.wallet.supplier);
         setPaymentComplete(json.wallet.paymentComplete);
         setWallet(json.wallet);
@@ -99,7 +104,7 @@ export default function ChatAccount({ id }) {
   const handleAmount = (e) => {
     const requested_amount = e.target.value;
     const amount_to_pay =
-      Number(requested_amount) * 0.1 + Number(requested_amount);
+      Number(requested_amount) * 0.01 + Number(requested_amount);
     setAmount(amount_to_pay);
   };
 

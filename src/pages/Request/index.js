@@ -97,9 +97,7 @@ function Request() {
               {result.length > 0 &&
                 result.map((user) => (
                   <div className="search_result_item">
-                    <div
-                      onClick={() => navigate(`/profile/${user._id}`)}
-                    >
+                    <div onClick={() => navigate(`/profile/${user._id}`)}>
                       <div className="result_user_image">
                         <img src={user.profileImage.imageUrl} alt="" />
                       </div>

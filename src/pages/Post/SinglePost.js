@@ -35,6 +35,7 @@ function SinglePost() {
       .then((response) => response.json())
       .then((data) => {
         setPosts(data.post);
+        console.log(data);
         if (data.post.likes.find((user) => user._id === userId) !== undefined) {
           setClicked(true);
         }

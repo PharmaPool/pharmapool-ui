@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 
-import useWindowDimensions from "../../components/useWindowDimensions";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -30,9 +30,10 @@ export default function Register() {
   const [motto, setMotto] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  const { width } = useWindowDimensions();
   const token = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
+  const locations = useLocation();
+  const navigate = useNavigate();
 
   let url, file;
   url = `https://www.pharmapoolserver.com/api/business/pharmacy/${_id}`;
@@ -72,6 +73,10 @@ export default function Register() {
     })
       .then((response) => response.json())
       .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=${locations.pathname}`);
+          return;
+        }
         window.location.reload();
         setOpen(false);
       })

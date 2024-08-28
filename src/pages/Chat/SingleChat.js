@@ -4,8 +4,9 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import Chat from "./components/Chat";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import useWindowDimensions from "../../components/useWindowDimensions";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ValueContext } from "../../Context";
+import { jwtDecode } from "jwt-decode";
 import ChatProfile from "./components/ChatProfile";
 
 function SingleChat() {
@@ -20,16 +21,24 @@ function SingleChat() {
   const [profileImage, setProfileImage] = useState("");
   const divReff = useRef(null);
   const history = useNavigate();
+  const location = useLocation();
+  const token = localStorage.getItem("token");
 
   socket.on("chat", (result) => {
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      history(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
+    }
     setChat(result.chatMade.messages);
     setMessage("");
   });
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      history("/signin");
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      history(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
     }
     fetch(`https://www.pharmapoolserver.com/api/user/singlechat/${id}`, {
       method: "POST",
@@ -40,6 +49,10 @@ function SingleChat() {
     })
       .then((response) => response.json())
       .then((json) => {
+        if (json.error) {
+          history(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
         const friend = json.chat.users.filter(
           (user) => user.userId._id !== _id
         );
@@ -53,6 +66,11 @@ function SingleChat() {
   }, [_id, id, history, setChat, tokenChecker]);
 
   const handleMessage = () => {
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      history(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
+    }
     socket.emit("chat", { userId: _id, message, friendId });
   };
 

@@ -12,7 +12,7 @@ function SingleBusiness({ business, loggedIn }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { tokenChecker } = useContext(ValueContext);
- 
+
   const handleInterest = () => {
     const token = tokenChecker();
     if (!token) {

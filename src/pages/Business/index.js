@@ -15,8 +15,8 @@ import { jwtDecode } from "jwt-decode";
 function PrivateBusiness() {
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
-  const { businesses, setBusinesses, tokenChecker } = useContext(ValueContext);
   const location = useLocation();
+  const { businesses, setBusinesses, tokenChecker } = useContext(ValueContext);
   const token = localStorage.getItem("token");
   const [loggedIn, setLoggedIn] = useState(false);
 

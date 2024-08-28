@@ -12,7 +12,8 @@ import ChatRoomAccount from "./ChatRoomAccount";
 import AddFriendModal from "./AddFriendModal";
 import { ValueContext } from "../../../Context";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+// import { useEffect } from "react";
+// import { jwtDecode } from "jwt-decode";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -28,6 +29,7 @@ export default function ChatroomProfile({ title, users, id, admin }) {
   const { tokenChecker } = React.useContext(ValueContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const token = localStorage.getItem("token");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,14 +59,6 @@ export default function ChatroomProfile({ title, users, id, admin }) {
       .then((json) => navigate("/chatrooms"))
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate(`/verify/signin?redirectTo=${location.pathname}`);
-      return;
-    }
-  }, [tokenChecker, navigate]);
 
   return (
     <React.Fragment>
