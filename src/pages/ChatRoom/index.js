@@ -21,11 +21,6 @@ function ChatRoom() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const login = jwtDecode(token);
-    if (!login.user.loggedIn) {
-      navigate(`/verify/signin?redirectTo=${location.pathname}`);
-      return;
-    }
     fetch(`https://www.pharmapoolserver.com/api/user/messages/${_id}`, {
       headers: {
         Authorization: token,

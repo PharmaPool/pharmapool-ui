@@ -78,7 +78,7 @@ function SingleChatRoom() {
       <div className="single_chat" style={{ height: `${height - 60}px` }}>
         <div>
           <div className="chat_header">
-            <div className="back" onClick={() => history("/chatroom")}>
+            <div className="back" onClick={() => history(-1)}>
               <ArrowBackIcon />
             </div>
             <div>

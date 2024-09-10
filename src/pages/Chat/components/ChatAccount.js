@@ -54,12 +54,6 @@ export default function ChatAccount({ id }) {
   };
 
   useEffect(() => {
-    const login = jwtDecode(token);
-    if (!login.user.loggedIn) {
-      navigate(`/verify/signin?redirectTo=${location.pathname}`);
-      return;
-    }
-
     fetch(`https://www.pharmapoolserver.com/api/wallet/chat/${id}`, {
       headers: {
         authorization: token,
@@ -68,10 +62,6 @@ export default function ChatAccount({ id }) {
     })
       .then((res) => res.json())
       .then((json) => {
-        if (json.error) {
-          navigate(`/verify/signin?redirectTo=${location.pathname}`);
-          return;
-        }
         if (!json.chat.wallet) {
           setShow(false);
           return;
@@ -104,7 +94,7 @@ export default function ChatAccount({ id }) {
   const handleAmount = (e) => {
     const requested_amount = e.target.value;
     const amount_to_pay =
-      Number(requested_amount) * 0.01 + Number(requested_amount);
+      Number(requested_amount) * 0.035 + Number(requested_amount);
     setAmount(amount_to_pay);
   };
 

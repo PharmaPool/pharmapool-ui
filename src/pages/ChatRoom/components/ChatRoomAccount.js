@@ -96,7 +96,7 @@ export default function ChatRoomAccount({ id }) {
   const handleAmount = (e) => {
     const requested_amount = e.target.value;
     const amount_to_pay = Number(requested_amount) * quantity;
-    const total = amount_to_pay * 0.01 + amount_to_pay;
+    const total = amount_to_pay * 0.035 + amount_to_pay;
     setAmount(total);
     setUnitPrice(requested_amount);
   };

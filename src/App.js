@@ -27,6 +27,16 @@ import ResetPassword from "./pages/ForgotPassword/ResetPassword";
 import ProductGallery from "./pages/ProductGallery";
 import VerifyLogin from "./pages/Login/VerifyLogin";
 
+import AdminAuth from "./admin/Auth";
+import AdminHome from "./admin/Home";
+import AdminBusiness from "./admin/Business";
+import AdminPosts from "./admin/Post";
+import AdminPharmacy from "./admin/Pharmacy";
+import AdminUsers from "./admin/Users";
+import AdminInventory from "./admin/Inventories";
+import AdminWallets from "./admin/Wallets"
+import AdminTransactions from "./admin/Transactions"
+
 import Adverts from "./components/Adverts";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -75,6 +85,16 @@ function App() {
           <Route exact path="/pharmacy/:id" element={<Pharmacy />} />
           <Route exact path="/pharmacy/:id/inventory" element={<Inventory />} />
           <Route exact path="/product-gallery" element={<ProductGallery />} />
+
+          <Route exact path="/admin/auth" element={<AdminAuth />} />
+          <Route exact path="/admin/overview" element={<AdminHome />} />
+          <Route exact path="/admin/businesses" element={<AdminBusiness />} />
+          <Route exact path="/admin/posts" element={<AdminPosts />} />
+          <Route exact path="/admin/pharmacies" element={<AdminPharmacy />} />
+          <Route exact path="/admin/users" element={<AdminUsers />} />
+          <Route exact path="/admin/inventories" element={<AdminInventory />} />
+          <Route exact path="/admin/wallets" element={<AdminWallets />} />
+          <Route exact path="/admin/transactions" element={<AdminTransactions />} />
         </Routes>
       </Router>
     </div>

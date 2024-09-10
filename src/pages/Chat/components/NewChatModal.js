@@ -27,6 +27,7 @@ export default function NewChatModal() {
   const [friends, setFriends] = useState([]);
   const { tokenChecker } = useContext(ValueContext);
   const location = useLocation();
+  const token = localStorage.getItem("token");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -61,11 +62,6 @@ export default function NewChatModal() {
   };
 
   useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate(`/verify/signin?redirectTo=${location.pathname}`);
-      return;
-    }
     fetch(`https://www.pharmapoolserver.com/api/user/friends`, {
       headers: {
         Authorization: token,

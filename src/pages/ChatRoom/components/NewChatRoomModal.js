@@ -31,6 +31,7 @@ export default function NewChatRoomModal() {
   const { tokenChecker } = useContext(ValueContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const token = localStorage.getItem("token");
 
   let url;
   url = `https://www.pharmapoolserver.com/api/user/chatroom/create`;
@@ -44,11 +45,6 @@ export default function NewChatRoomModal() {
   };
 
   const handleSubmit = () => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate(`/verify/signin?redirectTo=${location.pathname}`);
-      return;
-    }
     fetch(url, {
       method: "POST",
       body: JSON.stringify({

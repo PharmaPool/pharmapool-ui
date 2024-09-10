@@ -35,14 +35,6 @@ export default function ChatProfile({ title, users, id }) {
     setOpen(false);
   };
 
-  React.useEffect(() => {
-    const token = tokenChecker();
-    if (!token) {
-      navigate(`/verify/signin?redirectTo=${location.pathname}`);
-      return;
-    }
-  }, [navigate, tokenChecker]);
-
   return (
     <React.Fragment>
       <button className="new_chatroom_button" onClick={handleClickOpen}>

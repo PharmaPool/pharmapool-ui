@@ -29,6 +29,8 @@ export class Context extends Component {
     allPosts: [],
     advertControl: false,
     login: false,
+    adminUserId: "",
+    adminWalletId: "",
   };
 
   componentDidMount() {
@@ -79,6 +81,10 @@ export class Context extends Component {
   };
 
   logOut = () => this.setState({ login: false });
+
+  setAdminUserId = (e) => this.setState({ adminUserId: e });
+
+  setAdminWalletId = (e) => this.setState({ adminWalletId: e });
 
   openAdvert = () => this.setState({ advertControl: true });
 
@@ -154,6 +160,8 @@ export class Context extends Component {
           closeAdvert: this.closeAdvert,
           tokenChecker: this.tokenChecker,
           logOut: this.logOut,
+          setAdminUserId: this.setAdminUserId,
+          setAdminWalletId: this.setAdminWalletId,
         }}
       >
         {this.props.children}
