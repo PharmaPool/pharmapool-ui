@@ -13,17 +13,14 @@ function RemoveFormMin({ id, invent }) {
   const location = useLocation();
 
   const handleRemove = () => {
-    fetch(
-      `https://www.pharmapoolserver.com/api/business/inventory/removestock/${id}`,
-      {
-        method: "DELETE",
-        body: JSON.stringify({
-          quantity,
-          pharmacyId: pharmacy._id,
-        }),
-        headers: { Authorization: token, "Content-Type": "application/json" },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/business/inventory/removestock/${id}`, {
+      method: "DELETE",
+      body: JSON.stringify({
+        quantity,
+        pharmacyId: pharmacy._id,
+      }),
+      headers: { Authorization: token, "Content-Type": "application/json" },
+    })
       .then((response) => response.json())
       .then((json) => {
         if (json.error) {

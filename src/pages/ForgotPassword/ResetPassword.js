@@ -24,7 +24,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://www.pharmapoolserver.com/api/auth/password-reset/${email}`)
+    fetch(`http://127.0.0.1:8000/api/auth/password-reset/${email}`)
       .then((res) => res.json())
       .then((json) => {
         if (json.type === "token" || json.type === "user") {
@@ -41,18 +41,15 @@ function Login() {
       setError(true);
     } else {
       setOpen(true);
-      fetch(
-        `https://www.pharmapoolserver.com/api/auth/password-reset/${token}`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/auth/password-reset/${token}`, {
+        method: "POST",
+        body: JSON.stringify({
+          password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((res) => {
           if (res.type === "password") {

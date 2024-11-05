@@ -21,7 +21,7 @@ function ChatRoom() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://www.pharmapoolserver.com/api/user/messages/${_id}`, {
+    fetch(`http://127.0.0.1:8000/api/user/messages/${_id}`, {
       headers: {
         Authorization: token,
       },

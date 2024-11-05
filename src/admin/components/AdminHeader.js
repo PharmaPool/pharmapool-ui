@@ -56,7 +56,7 @@ const AdminHeader = () => {
             id="navbarSupportedContent"
             style={{ backgroundColor: navBg && "white" }}
           >
-            <div style={{ width: "8vw" }}></div>
+            <div style={{ width: "14vw" }}></div>
             <ul class="navbar-nav me-auto">
               <li class="nav-item me-3 me-lg-0">
                 <a
@@ -68,7 +68,7 @@ const AdminHeader = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Home
+                  Overview
                 </a>
               </li>
               <li class="nav-item me-3 me-lg-0">
@@ -113,7 +113,7 @@ const AdminHeader = () => {
               <li class="nav-item me-3 me-lg-0">
                 <a
                   class="nav-link"
-                  // href="/admin/posts"
+                  href="/admin/posts"
                   style={{
                     color: "#004d40",
                     margin: "0px 1rem",
@@ -126,7 +126,7 @@ const AdminHeader = () => {
               <li class="nav-item me-3 me-lg-0">
                 <a
                   class="nav-link"
-                  // href="/admin/pharmacies"
+                  href="/admin/pharmacies"
                   style={{
                     color: "#004d40",
                     margin: "0px 1rem",
@@ -136,7 +136,7 @@ const AdminHeader = () => {
                   Pharmacies
                 </a>
               </li>
-              <li class="nav-item me-3 me-lg-0">
+              {/* <li class="nav-item me-3 me-lg-0">
                 <a
                   class="nav-link"
                   // href="/admin/inventories"
@@ -148,8 +148,8 @@ const AdminHeader = () => {
                 >
                   Inventories
                 </a>
-              </li>
-              <li class="nav-item me-3 me-lg-0">
+              </li> */}
+              {/* <li class="nav-item me-3 me-lg-0">
                 <a
                   class="nav-link"
                   // href="/admin/transactions"
@@ -161,7 +161,7 @@ const AdminHeader = () => {
                 >
                   Transactions
                 </a>
-              </li>
+              </li> */}
               <li></li>
             </ul>
           </div>

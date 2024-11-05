@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 import io from "socket.io-client";
 
-const socket = io("https://www.pharmapoolserver.com");
+const socket = io("http://127.0.0.1:8000");
 
 export const ValueContext = createContext();
 const token = localStorage.getItem("token");
@@ -31,6 +31,7 @@ export class Context extends Component {
     login: false,
     adminUserId: "",
     adminWalletId: "",
+    approval: false,
   };
 
   componentDidMount() {
@@ -102,6 +103,10 @@ export class Context extends Component {
     this.setState({ modalOpen: !this.modalOpen });
   };
 
+  setApproval = () => this.setState({ approval: true });
+
+  resetApproval = () => this.setState({ approval: false });
+
   setPost = () => this.setState({ post: true, businessTab: false });
 
   setBusinessTab = () => this.setState({ post: false, businessTab: true });
@@ -127,7 +132,7 @@ export class Context extends Component {
   setPharmacy = (e) => this.setState({ pharmacy: e });
 
   setAllPosts = () =>
-    fetch("https://www.pharmapoolserver.com/api/feed/posts", {
+    fetch("http://127.0.0.1:8000/api/feed/posts", {
       headers: {
         Authorization: token,
       },
@@ -162,6 +167,8 @@ export class Context extends Component {
           logOut: this.logOut,
           setAdminUserId: this.setAdminUserId,
           setAdminWalletId: this.setAdminWalletId,
+          setApproval: this.setApproval,
+          resetApproval: this.resetApproval,
         }}
       >
         {this.props.children}

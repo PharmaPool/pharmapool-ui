@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 
+import Switch from "@mui/material/Switch";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -20,20 +21,17 @@ function SingleBusiness({ business, loggedIn }) {
       return;
     }
     setClicked(!clicked);
-    fetch(
-      `https://www.pharmapoolserver.com/api/business/user/${business._id}`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          userId: _id,
-          amount,
-        }),
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/business/user/${business._id}`, {
+      method: "POST",
+      body: JSON.stringify({
+        userId: _id,
+        amount,
+      }),
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((json) => json)
       .catch((err) => console.log(err));
@@ -74,6 +72,9 @@ function SingleBusiness({ business, loggedIn }) {
           onClick={() => navigate(`/business/${business._id}`)}
         >
           <h5>Deadline: {business.deadline}</h5>
+          <h5>
+            Closed <Switch checked={!business.status} color="success" /> Open
+          </h5>
         </div>
         <div
           className="product"

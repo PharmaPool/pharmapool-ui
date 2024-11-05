@@ -21,7 +21,7 @@ function Signin() {
 
   const handleSubmit = () => {
     setOpen(true);
-    fetch("https://www.pharmapoolserver.com/api/auth/admin/signin", {
+    fetch("http://127.0.0.1:8000/api/auth/admin/signin", {
       method: "POST",
       body: JSON.stringify({
         email,
@@ -48,7 +48,10 @@ function Signin() {
 
   const handlePasskey = () => {
     setOpen(true);
-    fetch("https://www.pharmapoolserver.com/api/auth/admin/passkey", {
+    if (password === "") {
+      alert("Invalid passkey")
+    }
+    fetch("http://127.0.0.1:8000/api/auth/admin/passkey", {
       method: "POST",
       body: JSON.stringify({
         email,

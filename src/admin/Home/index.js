@@ -4,6 +4,7 @@ import "./index.css";
 import images from "../../data/images";
 
 import OverviewBox from "./components/OverviewBox";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [users, setUsers] = useState(0);
@@ -15,28 +16,33 @@ function Home() {
   const [wallets, setWallets] = useState(0);
   const [target, setTarget] = useState(0);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTarget(100);
-    fetch("https://www.pharmapoolserver.com/api/admin/users", {
+    fetch("http://127.0.0.1:8000/api/admin/users", {
       headers: {
         Authorization: token,
       },
     })
       .then((res) => res.json())
-      .then((json) => setUsers(json.users.length))
+      .then((json) =>
+        json.success ? setUsers(json.users.length) : navigate("/admin/auth")
+      )
       .catch((err) => console.log(err));
 
-    fetch("https://www.pharmapoolserver.com/api/admin/posts", {
+    fetch("http://127.0.0.1:8000/api/admin/posts", {
       headers: {
         Authorization: token,
       },
     })
       .then((res) => res.json())
-      .then((json) => setPosts(json.posts.length))
+      .then((json) =>
+        json.error ? navigate("/admin/auth") : setPosts(json.posts.length)
+      )
       .catch((err) => console.log(err));
 
-    fetch("https://www.pharmapoolserver.com/api/admin/business", {
+    fetch("http://127.0.0.1:8000/api/admin/business", {
       headers: {
         Authorization: token,
       },
@@ -45,7 +51,7 @@ function Home() {
       .then((json) => setBusinesses(json.businesses.length))
       .catch((err) => console.log(err));
 
-    fetch("https://www.pharmapoolserver.com/api/admin/wallets", {
+    fetch("http://127.0.0.1:8000/api/admin/wallets", {
       headers: {
         Authorization: token,
       },
@@ -54,7 +60,7 @@ function Home() {
       .then((json) => setWallets(json.wallets.length))
       .catch((err) => console.log(err));
 
-    fetch("https://www.pharmapoolserver.com/api/admin/transactions", {
+    fetch("http://127.0.0.1:8000/api/admin/transactions", {
       headers: {
         Authorization: token,
       },
@@ -63,7 +69,7 @@ function Home() {
       .then((json) => setTransaction(json.allTransactions.length))
       .catch((err) => console.log(err));
 
-    fetch("https://www.pharmapoolserver.com/api/admin/pharmacies", {
+    fetch("http://127.0.0.1:8000/api/admin/pharmacies", {
       headers: {
         Authorization: token,
       },
@@ -72,7 +78,7 @@ function Home() {
       .then((json) => setPharmacies(json.pharmacies.length))
       .catch((err) => console.log(err));
 
-    fetch("https://www.pharmapoolserver.com/api/admin/inventories", {
+    fetch("http://127.0.0.1:8000/api/admin/inventories", {
       headers: {
         Authorization: token,
       },
@@ -110,13 +116,13 @@ function Home() {
           target={target}
           url={"/admin/wallets"}
         />
-        {/* <OverviewBox
+        <OverviewBox
           title={"Pharmacies"}
           value={pharmacies}
           target={target}
           url={"/admin/pharmacies"}
         />
-        <OverviewBox
+        {/* <OverviewBox
           title={"Inventories"}
           value={inventories}
           target={target}
@@ -127,13 +133,13 @@ function Home() {
           value={transactions}
           target={target}
           url={"/admin/transactions"}
-        />
+        /> */}
         <OverviewBox
           title={"Posts"}
           value={posts}
           target={target}
           url={"/admin/posts"}
-        /> */}
+        />
       </div>
     </div>
   );

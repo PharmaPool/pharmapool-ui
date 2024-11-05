@@ -1,7 +1,7 @@
-.admin_users {
-  padding: 5rem 1rem 1rem;
+.admin_wallets {
+  padding: 5rem 4rem 1rem;
   display: grid;
-  grid-template-columns: 30% 1fr;
+  grid-template-columns: 20% 1fr;
   width: 100vw;
 }
 
@@ -82,5 +82,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 5rem;
+  padding-top: 3rem;
 }

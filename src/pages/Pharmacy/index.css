@@ -188,14 +188,14 @@ th {
 
 .pharmacy_login {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   padding: 0.5rem;
   width: 100vw;
 }
 
 .login_container {
   width: 100vw;
-  padding: 1rem 3rem;
+  padding: 1rem;
   text-align: center;
 }
 

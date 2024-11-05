@@ -12,8 +12,11 @@ import images from "../../data/images";
 import ExtraInfo from "./component/ExtraInfo";
 import Emailjs from "./component/Emailjs";
 
+import { useNavigate } from "react-router-dom";
+
 function Homepage() {
   const [navBg, setNavSize] = useState(false);
+  const navigate = useNavigate();
 
   const changeNavSize = () => {
     window.innerWidth <= 300 || window.scrollY >= 730
@@ -55,6 +58,17 @@ function Homepage() {
           </a>{" "}
           Build connections and expand your business.
         </p>
+      </div>
+      <div class="medicine_request">
+        <h2>MAKE A REQUEST FOR YOUR MEDICINE</h2>
+        <p>
+          Click the button below to make request for your medicine from
+          anywhere.
+        </p>
+        <br />
+        <button class="button-1" onClick={() => navigate("/medicine_request")}>
+          Request Medicine Now
+        </button>
       </div>
       <Reason />
       <MoreInfo />

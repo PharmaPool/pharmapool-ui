@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useContext } from "react";
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -13,7 +12,6 @@ import { ValueContext } from "../../../Context";
 import { useNavigate, useLocation } from "react-router-dom";
 import Paystack from "@paystack/inline-js";
 import SpinLoader from "../../../components/SpinLoader";
-import { jwtDecode } from "jwt-decode";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -57,7 +55,7 @@ export default function ChatRoomAccount({ id }) {
   };
 
   useEffect(() => {
-    fetch(`https://www.pharmapoolserver.com/api/wallet/chatroom/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/wallet/chatroom/${id}`, {
       headers: {
         authorization: token,
         "Content-Type": "application/json",
@@ -109,11 +107,11 @@ export default function ChatRoomAccount({ id }) {
       return;
     }
     if (!token) {
-      navigate(`/verify/signin?redirectTo=/chatroom`);
+      navigate(`/signin`);
       return;
     }
 
-    fetch(`https://www.pharmapoolserver.com/api/wallet/chatroom/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/wallet/chatroom/${id}`, {
       method: "POST",
       body: JSON.stringify({
         amount,
@@ -143,7 +141,7 @@ export default function ChatRoomAccount({ id }) {
 
     const token = tokenChecker();
     if (!token) {
-      navigate(`/verify/signin?redirectTo=/chatroom`);
+      navigate(`/signin`);
       return;
     }
 
@@ -152,7 +150,7 @@ export default function ChatRoomAccount({ id }) {
     localStorage.setItem("amount", partner_amount.toString());
 
     fetch(
-      `https://www.pharmapoolserver.com/api/wallet/payment/accept/${wallet.walletAddress}`,
+      `http://127.0.0.1:8000/api/wallet/payment/accept/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -199,7 +197,7 @@ export default function ChatRoomAccount({ id }) {
     const paid_amount = localStorage.getItem("amount");
 
     fetch(
-      `https://www.pharmapoolserver.com/api/wallet/payment/verify/chatroom/${wallet.walletAddress}`,
+      `http://127.0.0.1:8000/api/wallet/payment/verify/chatroom/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -259,20 +257,17 @@ export default function ChatRoomAccount({ id }) {
       setAcctType("partner");
     }
 
-    fetch(
-      `https://www.pharmapoolserver.com/api/wallet/receipt/acknowledge/chatroom`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          chatroomId: id,
-          acctType,
-        }),
-        headers: {
-          authorization: token,
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/wallet/receipt/acknowledge/chatroom`, {
+      method: "POST",
+      body: JSON.stringify({
+        chatroomId: id,
+        acctType,
+      }),
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         setLoad(false);
@@ -311,6 +306,7 @@ export default function ChatRoomAccount({ id }) {
         <DialogContent dividers>
           {show ? (
             <div className="account_body">
+              <p>Wallet address: {wallet.walletAddress}</p>
               <div style={{ display: "flex", alignItems: "baseline" }}>
                 N<h1>{Number(wallet.balance).toFixed(2)}</h1>K
               </div>
@@ -543,9 +539,16 @@ export default function ChatRoomAccount({ id }) {
           )}
         </DialogContent>
         <DialogActions>
-          <Button color="success" autoFocus onClick={handleClose}>
-            done
-          </Button>
+          {verified && paymentComplete && (
+            <div style={{ margin: "1rem 0px" }}>
+              <button
+                className="new_chatroom_button"
+                onClick={()=>setShow(false)}
+              >
+                Request another wallet
+              </button>
+            </div>
+          )}
         </DialogActions>
       </BootstrapDialog>
     </React.Fragment>

@@ -33,7 +33,7 @@ function Request() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("https://www.pharmapoolserver.com/api/user/chatroom/add", {
+    fetch("http://127.0.0.1:8000/api/user/chatroom/add", {
       method: "POST",
       body: JSON.stringify({
         friendId,
@@ -54,7 +54,7 @@ function Request() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch(`https://www.pharmapoolserver.com/api/user/friend-request/${_id}`, {
+    fetch(`http://127.0.0.1:8000/api/user/friend-request/${_id}`, {
       headers: {
         Authorization: token,
       },

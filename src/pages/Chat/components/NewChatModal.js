@@ -44,7 +44,7 @@ export default function NewChatModal() {
       return;
     }
 
-    fetch("https://www.pharmapoolserver.com/api/user/chat", {
+    fetch("http://127.0.0.1:8000/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
         friendId,
@@ -62,7 +62,7 @@ export default function NewChatModal() {
   };
 
   useEffect(() => {
-    fetch(`https://www.pharmapoolserver.com/api/user/friends`, {
+    fetch(`http://127.0.0.1:8000/api/user/friends`, {
       headers: {
         Authorization: token,
       },

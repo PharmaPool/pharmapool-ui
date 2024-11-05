@@ -9,7 +9,7 @@ function Wallets() {
   return (
     <>
       <AdminHeader />
-      <div className="admin_users">
+      <div className="admin_wallets">
         <WalletList />
         <WalletDetails />
       </div>

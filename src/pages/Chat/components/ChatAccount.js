@@ -54,7 +54,7 @@ export default function ChatAccount({ id }) {
   };
 
   useEffect(() => {
-    fetch(`https://www.pharmapoolserver.com/api/wallet/chat/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/wallet/chat/${id}`, {
       headers: {
         authorization: token,
         "Content-Type": "application/json",
@@ -110,7 +110,7 @@ export default function ChatAccount({ id }) {
       return;
     }
 
-    fetch(`https://www.pharmapoolserver.com/api/wallet/chat/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/wallet/chat/${id}`, {
       method: "POST",
       body: JSON.stringify({
         amount,
@@ -143,7 +143,7 @@ export default function ChatAccount({ id }) {
     }
 
     fetch(
-      `https://www.pharmapoolserver.com/api/wallet/payment/accept/${wallet.walletAddress}`,
+      `http://127.0.0.1:8000/api/wallet/payment/accept/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -187,7 +187,7 @@ export default function ChatAccount({ id }) {
     }
 
     fetch(
-      `https://www.pharmapoolserver.com/api/wallet/payment/verify/chat/${wallet.walletAddress}`,
+      `http://127.0.0.1:8000/api/wallet/payment/verify/chat/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -246,20 +246,17 @@ export default function ChatAccount({ id }) {
       setAcctType("partner");
     }
 
-    fetch(
-      `https://www.pharmapoolserver.com/api/wallet/receipt/acknowledge/chat`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          chatId: id,
-          acctType,
-        }),
-        headers: {
-          authorization: token,
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/wallet/receipt/acknowledge/chat`, {
+      method: "POST",
+      body: JSON.stringify({
+        chatId: id,
+        acctType,
+      }),
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         setLoad(false);
@@ -298,6 +295,7 @@ export default function ChatAccount({ id }) {
         <DialogContent dividers>
           {show ? (
             <div className="account_body">
+              <p>Wallet address: {wallet.walletAddress}</p>
               <div style={{ display: "flex", alignItems: "baseline" }}>
                 N<h1>{Number(wallet.balance).toFixed(2)}</h1>K
               </div>
@@ -483,9 +481,16 @@ export default function ChatAccount({ id }) {
           )}
         </DialogContent>
         <DialogActions>
-          <Button color="success" autoFocus onClick={handleClose}>
-            done
-          </Button>
+          {verified && paymentComplete && (
+            <div style={{ margin: "1rem 0px" }}>
+              <button
+                className="new_chatroom_button"
+                onClick={() => setShow(false)}
+              >
+                Request another wallet
+              </button>
+            </div>
+          )}
         </DialogActions>
       </BootstrapDialog>
     </React.Fragment>

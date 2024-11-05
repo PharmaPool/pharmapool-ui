@@ -45,7 +45,7 @@ export default function ChatroomProfile({ title, users, id, admin }) {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("https://www.pharmapoolserver.com/api/user/chatroom/leave", {
+    fetch("http://127.0.0.1:8000/api/user/chatroom/leave", {
       method: "DELETE",
       body: JSON.stringify({
         chatId: id,
@@ -137,9 +137,9 @@ export default function ChatroomProfile({ title, users, id, admin }) {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button color="error" autoFocus onClick={handleLeave}>
+          {/* <Button color="error" autoFocus onClick={handleLeave}>
             remove partner
-          </Button>
+          </Button> */}
           <Button color="error" autoFocus onClick={handleLeave}>
             leave chatroom
           </Button>

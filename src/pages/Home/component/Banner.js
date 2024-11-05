@@ -7,7 +7,10 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
 
+import { useNavigate } from "react-router-dom";
+
 function Banner() {
+  const navigate = useNavigate();
   return (
     <div className="banner">
       <div className="home_socials">
@@ -40,6 +43,13 @@ function Banner() {
           <a href="/signup">
             <button className="business_button">Sign up Now!</button>
           </a>
+          <br />
+          <button
+            class="business_button"
+            onClick={() => navigate("/medicine_request")}
+          >
+            Request Medicine Now!
+          </button>
         </div>
         <div className="banner_display">
           <div className="banner_display_image">

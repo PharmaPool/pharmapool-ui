@@ -26,7 +26,7 @@ function PrivateBusiness() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("https://www.pharmapoolserver.com/api/business/", {
+    fetch("http://127.0.0.1:8000/api/business/", {
       headers: {
         Authorization: token,
       },

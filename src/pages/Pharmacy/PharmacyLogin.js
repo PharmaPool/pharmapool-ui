@@ -21,7 +21,7 @@ function PharmacyLogin() {
     if (!login.user.loggedIn) {
       navigate(`/verify/signin?redirectTo=/pharmacy`);
     }
-    fetch(`https://www.pharmapoolserver.com/api/business/pharmacies/${_id}`, {
+    fetch(`http://127.0.0.1:8000/api/business/pharmacies/${_id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

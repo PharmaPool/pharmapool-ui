@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import { ValueContext } from "../../../Context";
+import { useNavigate } from "react-router-dom";
 
 function WalletDetails() {
   const { adminWalletId } = useContext(ValueContext);
@@ -8,22 +9,22 @@ function WalletDetails() {
   const [wallet, setWallet] = useState({});
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [supplier, setSupplier] = useState(null);
+  const navigate = useNavigate()
 
   console.log(adminWalletId);
 
   useEffect(() => {
     if (adminWalletId !== "") {
-      fetch(
-        `https://www.pharmapoolserver.com/api/admin/wallet/${adminWalletId}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/admin/wallet/${adminWalletId}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
         .then((response) => response.json())
         .then((json) => {
-          console.log(json);
+          if (json.error) {
+            navigate("/admin/auth")
+          }
           setSupplier(json.wallet.supplier);
           setPaymentComplete(json.wallet.paymentComplete);
           setWallet(json.wallet);
@@ -36,6 +37,7 @@ function WalletDetails() {
     <div className="wallet_details">
       {wallet._id !== undefined ? (
         <div className="account_body">
+          <p>Wallet address: {wallet.walletAddress}</p>
           <div style={{ display: "flex", alignItems: "baseline" }}>
             N<h1>{Number(wallet.balance).toFixed(2)}</h1>K
           </div>

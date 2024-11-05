@@ -39,7 +39,7 @@ function SingleChatRoom() {
   });
 
   useEffect(() => {
-    fetch(`https://www.pharmapoolserver.com/api/user/singlechatroom/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/user/singlechatroom/${id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,

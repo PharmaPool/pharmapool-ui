@@ -23,7 +23,7 @@ function Posts() {
     if (!login.user.loggedIn) {
       navigate("/signin");
     }
-    fetch("https://www.pharmapoolserver.com/api/feed/posts", {
+    fetch("http://127.0.0.1:8000/api/feed/posts", {
       headers: {
         Authorization: token,
       },

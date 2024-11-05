@@ -6,6 +6,7 @@ import ProfileBody from "../../../pages/Profile/components/ProfileBody";
 import ProfileNavigation from "../../../pages/Profile/components/ProfileNavigation";
 
 import { ValueContext } from "../../../Context";
+import { useNavigate } from "react-router-dom";
 
 function UserDetails() {
   const { adminUserId } = useContext(ValueContext);
@@ -13,25 +14,26 @@ function UserDetails() {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [businesses, setBusinesses] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (adminUserId !== "") {
-      fetch(
-        `https://www.pharmapoolserver.com/api/user/profile/${adminUserId}`,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/user/profile/${adminUserId}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
         .then((response) => response.json())
         .then((res) => {
+          if (res.error) {
+            navigate("/admin/auth");
+          }
           setUser(res.user);
           setPosts(res.user.posts);
         })
         .catch((err) => console.log(err));
 
-      fetch("https://www.pharmapoolserver.com/api/admin/business", {
+      fetch("http://127.0.0.1:8000/api/admin/business", {
         headers: {
           Authorization: token,
         },

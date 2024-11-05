@@ -31,7 +31,7 @@ export default function AccountMenu() {
   };
 
   const handleLogout = () => {
-    fetch(`https://www.pharmapoolserver.com/api/auth/signout/${userId}`, {
+    fetch(`http://127.0.0.1:8000/api/auth/signout/${userId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

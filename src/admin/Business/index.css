@@ -1,0 +1,13 @@
+/* .admin_single_business_delete button{
+    border: none;
+    color: white;
+    background-color: red;
+    
+} */
+
+.admin_single_business_delete{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}

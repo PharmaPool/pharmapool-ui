@@ -27,7 +27,7 @@ function SinglePost() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`https://www.pharmapoolserver.com/api/feed/post/${_id}`, {
+    fetch(`http://127.0.0.1:8000/api/feed/post/${_id}`, {
       headers: {
         Authorization: token,
       },
@@ -45,7 +45,7 @@ function SinglePost() {
 
   const handleLike = () => {
     if (clicked === true) {
-      fetch(`https://www.pharmapoolserver.com/api/feed/post/${_id}/like`, {
+      fetch(`http://127.0.0.1:8000/api/feed/post/${_id}/like`, {
         method: "DELETE",
         body: JSON.stringify({
           userId,
@@ -56,7 +56,7 @@ function SinglePost() {
         .then((json) => json)
         .catch((err) => console.log(err));
     } else {
-      fetch(`https://www.pharmapoolserver.com/api/feed/post/${_id}/like`, {
+      fetch(`http://127.0.0.1:8000/api/feed/post/${_id}/like`, {
         method: "POST",
         body: JSON.stringify({
           userId,
@@ -70,7 +70,7 @@ function SinglePost() {
   };
 
   const handleComment = () => {
-    fetch(`https://www.pharmapoolserver.com/api/feed/post/${_id}/comment`, {
+    fetch(`http://127.0.0.1:8000/api/feed/post/${_id}/comment`, {
       method: "POST",
       body: JSON.stringify({
         content: addComment,
