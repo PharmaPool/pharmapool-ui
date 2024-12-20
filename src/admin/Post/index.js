@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function AdminPost() {
   const [posts, setPosts] = useState([]);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/admin/posts", {
@@ -17,7 +17,7 @@ function AdminPost() {
       .then((response) => response.json())
       .then((json) => {
         if (json.error) {
-          navigate("/admin/auth")
+          navigate("/admin/auth");
         }
         const reversePosts = json.posts.reverse();
         setPosts(reversePosts);

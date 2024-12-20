@@ -62,13 +62,13 @@
 }
 
 .chat_header {
-  padding: 0.5rem 0rem 0.5rem 0rem;
+  padding: 0.5rem 8rem 0rem;
   display: grid;
-  grid-template-columns: 2% 5% 65% 10%;
+  grid-template-columns: 2% 88% 10%;
   position: fixed;
-  width: 100%;
   height: fit-content;
-  background-color: #fff;
+  background-color: #abb8b8;
+  width: 100%;
 }
 
 .chat_header h3 {
@@ -77,32 +77,36 @@
 
 .chat_input {
   position: fixed;
-  height: 60px;
+  /* height: 60px; */
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 10%;
+  grid-template-columns: 1fr 5%;
   padding: 0.5rem 8rem;
 }
 
 .chat_input textarea {
   border: #004d40 1px solid;
-  border-radius: 5rem;
+  /* border-radius: 5rem; */
   padding: 0.5rem 1rem;
   outline: #004d40;
   scrollbar-width: none;
   vertical-align: middle;
+  background-color: #abb8b8;
+}
+
+.chat_input div {
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .chat_input button {
   align-items: center;
   appearance: none;
-  background-color: var(--text);
+  background-color: #fff;
   border-radius: 24px;
   border-style: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
-    rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
   box-sizing: border-box;
-  color: #fff;
+  color: #004d40;
   cursor: pointer;
   display: inline-flex;
   fill: currentcolor;
@@ -112,10 +116,9 @@
   justify-content: center;
   letter-spacing: 0.25px;
   line-height: normal;
-  margin: 0rem 0.5rem;
   max-width: 100%;
   overflow: visible;
-  padding: 2px 20px;
+  padding: 2px;
   position: relative;
   text-align: center;
   text-transform: none;
@@ -127,6 +130,26 @@
   /* width: 40%; */
   will-change: transform, opacity;
   z-index: 0;
+}
+
+.chat_imag {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.5rem;
+  margin-right: 0.5rem;
+  overflow: hidden;
+}
+
+.chat_imag img {
+  width: 100%;
+  height: 100%;
+}
+
+.chat_itm {
+  display: grid;
+  grid-template-columns: 5.5% 1fr;
+  padding: 0.5rem 0.9rem 0.5rem 0rem;
+  cursor: pointer;
 }
 
 .friend_image img {
@@ -207,10 +230,10 @@
   .chat_header {
     padding: 0rem 0rem 0.5rem 0rem;
     display: grid;
-    grid-template-columns: 9% 10% 65% 1fr;
+    grid-template-columns: 9% 1fr 15%;
     width: 100%;
     height: fit-content;
-    background-color: #fff;
+    background-color: #abb8b8;
   }
 
   .chat_header div {
@@ -224,53 +247,24 @@
 
   .chat_input {
     position: fixed;
-    height: 60px;
     width: 100%;
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 90% 10%;
     padding: 0.5rem;
   }
 
-  .chat_input input {
-    border: #004d40 1px solid;
-    border-radius: 5rem;
-    padding: 0rem 1rem;
-    outline: #004d40;
+  .chat_imag {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 1.5rem;
+    margin-right: 0.5rem;
+    overflow: hidden;
   }
 
-  .chat_input button {
-    align-items: center;
-    appearance: none;
-    background-color: var(--text);
-    border-radius: 24px;
-    border-style: none;
-    box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px -1px,
-      rgba(0, 0, 0, 0.14) 0 6px 10px 0, rgba(0, 0, 0, 0.12) 0 1px 18px 0;
-    box-sizing: border-box;
-    color: #fff;
+  .chat_itm {
+    display: grid;
+    grid-template-columns: 12% 1fr;
+    padding: 0.5rem 0.9rem 0.5rem 0rem;
     cursor: pointer;
-    display: inline-flex;
-    fill: currentcolor;
-    font-size: larger;
-    font-weight: bolder;
-    height: 48px;
-    justify-content: center;
-    letter-spacing: 0.25px;
-    line-height: normal;
-    margin: 0rem 0rem;
-    max-width: 100%;
-    overflow: visible;
-    padding: 2px 20px;
-    position: relative;
-    text-align: center;
-    text-transform: none;
-    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1),
-      opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    /* width: 40%; */
-    will-change: transform, opacity;
-    z-index: 0;
   }
 }

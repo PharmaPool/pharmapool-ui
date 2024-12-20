@@ -16,11 +16,17 @@ function PrivateBusiness() {
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
   const location = useLocation();
-  const { businesses, setBusinesses, tokenChecker } = useContext(ValueContext);
+  const { businesses, setBusinesses, tokenChecker, setAlert } =
+    useContext(ValueContext);
   const token = localStorage.getItem("token");
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
+    setAlert(
+      true,
+      "ALL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL TO AVOID SCAM. ALL FINANCIAL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL ACCOUNT FOR SECURITY REASONS",
+      "Warning"
+    );
     const login = jwtDecode(token);
     if (!login.user.loggedIn) {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);

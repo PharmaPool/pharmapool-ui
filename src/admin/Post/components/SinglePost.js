@@ -13,7 +13,7 @@ function SinglePost({ posts }) {
   const [open, setOpen] = useState(false);
   const [delet, setDelete] = useState(false);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const deletePost = () => {
     fetch(`http://127.0.0.1:8000/api/admin/post/${posts._id}`, {
@@ -51,11 +51,18 @@ function SinglePost({ posts }) {
             )}
             {open && delet && (
               <div class="admin_single_business_delete">
-                <button className="not_interest" onClick={() => {
-                  setOpen(false)
-                  setDelete(false)
-                }}>No</button>
-                <button className="interest" onClick={deletePost}>Yes</button>
+                <button
+                  className="not_interest"
+                  onClick={() => {
+                    setOpen(false);
+                    setDelete(false);
+                  }}
+                >
+                  No
+                </button>
+                <button className="interest" onClick={deletePost}>
+                  Yes
+                </button>
                 <p>Are you sure?</p>
               </div>
             )}

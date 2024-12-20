@@ -36,7 +36,7 @@ ul {
   font-style: italic;
 }
 
-.username{
+.username {
   text-transform: capitalize;
 }
 
@@ -71,6 +71,16 @@ ul {
 
 .business_content h5 {
   padding: 0rem 2rem;
+}
+
+.business_content pre {
+  font-family: "Poppins", sans-serif;
+  font-size: medium;
+  font-style: normal;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
 }
 
 .business_deadline {
@@ -363,7 +373,7 @@ td {
   text-transform: capitalize;
 }
 
-.table_below{
+.table_below {
   width: 100%;
   height: max-content;
   display: flex;

@@ -32,6 +32,9 @@ export class Context extends Component {
     adminUserId: "",
     adminWalletId: "",
     approval: false,
+    alert_show: false,
+    alert_message: "",
+    alert_type: "",
   };
 
   componentDidMount() {
@@ -80,6 +83,11 @@ export class Context extends Component {
       return false;
     }
   };
+
+  setAlert = (alert_show, alert_message, alert_type) =>
+    this.setState({ alert_show, alert_message, alert_type });
+
+  resetAlert = () => this.setState({ alert_type: false });
 
   logOut = () => this.setState({ login: false });
 
@@ -169,6 +177,8 @@ export class Context extends Component {
           setAdminWalletId: this.setAdminWalletId,
           setApproval: this.setApproval,
           resetApproval: this.resetApproval,
+          setAlert: this.setAlert,
+          resetAlert: this.resetAlert,
         }}
       >
         {this.props.children}

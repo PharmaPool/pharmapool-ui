@@ -3,6 +3,7 @@ import moment from "moment";
 
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import CloseIcon from "@mui/icons-material/Close";
 
 import Comments from "./components/Comments";
 import PrivateHeader from "../../components/PrivateHeader";
@@ -114,9 +115,9 @@ function SinglePost() {
               </div>
             </div>
             <div className="post">
-              <div className="post_content">
-                <p>{posts.content}</p>
-              </div>
+              <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                {posts.content}
+              </pre>
               <div className="post_image">
                 {posts.postImage ? (
                   <img src={posts.postImage.imageUrl} alt="post_iamge" />
@@ -141,17 +142,19 @@ function SinglePost() {
             </div>
             {comment && (
               <div className="add_comment">
-                <input
-                  type="text"
-                  placeholder="type comment"
-                  value={addComment}
-                  onChange={(e) => setAddComment(e.target.value)}
-                />
-                <button className="interest" onClick={handleComment}>
-                  comment
-                </button>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="type comment"
+                    value={addComment}
+                    onChange={(e) => setAddComment(e.target.value)}
+                  />
+                  <button className="interest" onClick={handleComment}>
+                    comment
+                  </button>
+                </div>
                 <button className="x" onClick={() => setComment(false)}>
-                  x
+                  <CloseIcon />
                 </button>
               </div>
             )}

@@ -17,10 +17,15 @@ function Chats() {
   const [chats, setChats] = useState([]);
   const _id = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  const { tokenChecker } = useContext(ValueContext);
+  const { tokenChecker, setAlert } = useContext(ValueContext);
   const location = useLocation();
 
   useEffect(() => {
+    setAlert(
+      true,
+      "ALL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL TO AVOID SCAM. ALL FINANCIAL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL ACCOUNT FOR SECURITY REASONS",
+      "Warning"
+    );
     fetch(`http://127.0.0.1:8000/api/user/messages/${_id}`, {
       headers: {
         Authorization: token,

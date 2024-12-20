@@ -10,7 +10,7 @@ function SingleBusiness({ business }) {
   const [delet, setDelet] = useState(false);
   const [close, setClose] = useState(false);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const deleteApproval = () => {
     deleteBusiness();

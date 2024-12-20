@@ -61,12 +61,12 @@ function SingleBusiness({ business, loggedIn }) {
         <h5 style={{ textAlign: "center", textTransform: "uppercase" }}>
           {business.business}
         </h5>
-        <div
-          className="business_description"
+        <pre
+          style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
           onClick={() => navigate(`/business/${business._id}`)}
         >
-          <p>{business.content}</p>
-        </div>
+          {business.content}
+        </pre>
         <div
           className="business_deadline"
           onClick={() => navigate(`/business/${business._id}`)}

@@ -122,9 +122,9 @@ function Business() {
               <h5 style={{ textAlign: "center", textTransform: "uppercase" }}>
                 {business.business}
               </h5>
-              <div className="business_description">
-                <p>{business.content}</p>
-              </div>
+              <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}>
+                {business.content}
+              </pre>
               <div className="business_deadline">
                 <h5>Deadline: {business.deadline}</h5>
                 <h5>

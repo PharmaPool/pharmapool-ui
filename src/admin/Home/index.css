@@ -44,7 +44,7 @@
   grid-gap: 2rem;
 }
 
-ul {
+.overview_box_body ul {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,7 +108,7 @@ ul {
     width: 100%;
   }
 
-  ul {
+  .overview_box_body ul {
     display: flex;
     flex-direction: column;
     align-items: center;

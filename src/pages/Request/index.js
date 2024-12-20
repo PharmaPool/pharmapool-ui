@@ -76,7 +76,8 @@ function Request() {
           <h5>Partner Requests</h5>
           <div>
             <button>
-              Clear all <DeleteForeverIcon />
+              Clear all
+              <DeleteForeverIcon />
             </button>
           </div>
         </div>

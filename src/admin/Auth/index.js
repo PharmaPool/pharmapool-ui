@@ -49,7 +49,7 @@ function Signin() {
   const handlePasskey = () => {
     setOpen(true);
     if (password === "") {
-      alert("Invalid passkey")
+      alert("Invalid passkey");
     }
     fetch("http://127.0.0.1:8000/api/auth/admin/passkey", {
       method: "POST",

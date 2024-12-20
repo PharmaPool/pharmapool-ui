@@ -9,19 +9,14 @@ function ChatRoomItem({ chatroom }) {
       className="chat_item"
       onClick={() => navigate(`/chatroom/${chatroom._id}`)}
     >
-      <div className="chat_image">
-        <img
-          src="https://res.cloudinary.com/dex0mkckw/image/upload/v1713481897/92325970043_hzkfkj.png"
-          alt=""
-        />
-      </div>
+      <div className="chat_image"></div>
       <div
         className="chat_title"
         style={{
           overflow: "hidden",
         }}
       >
-        <h5
+        <h6
           style={{
             wordBreak: "break-word",
             lineClamp: "1",
@@ -31,7 +26,7 @@ function ChatRoomItem({ chatroom }) {
           }}
         >
           {chatroom.title}
-        </h5>
+        </h6>
         {chatroom.messages.length > 0 ? (
           <p
             style={{

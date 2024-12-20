@@ -44,10 +44,25 @@ function UserDetails() {
     }
   }, [adminUserId]);
 
+  const handle_delete_user = () => {
+    fetch(`http://127.0.0.1:8000/api/admin/user/${user._id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => window.location.reload())
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       {user._id !== undefined ? (
         <div className="user_details">
+          <div class="delete_button">
+            <button onClick={handle_delete_user}>Delete user</button>
+          </div>
           <div class="user_details_banner">
             <div class="user_details_banner_img">
               <img src={user.profileImage.imageUrl} alt="" />

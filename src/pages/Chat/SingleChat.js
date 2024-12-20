@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 // import PrivateHeader from "../components/PrivateHeader";
 import Chat from "./components/Chat";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import TelegramIcon from "@mui/icons-material/Telegram";
 import useWindowDimensions from "../../components/useWindowDimensions";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ValueContext } from "../../Context";
@@ -74,64 +75,45 @@ function SingleChat() {
     socket.emit("chat", { userId: _id, message, friendId });
   };
 
-  const handleKeydown = (e) => {
-    if (e.key === "Enter") {
-      handleMessage();
-    }
-  };
+  // const handleKeydown = (e) => {
+  //   if (e.key === "Enter") {
+  //     handleMessage();
+  //   }
+  // };
   return (
     <>
-      <div className="single_chat" style={{ height: `${height - 60}px` }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div className="chat_header">
-            <div className="back" onClick={() => history(-1)}>
-              <ArrowBackIcon />
-            </div>
-            <div>
+      <div className="chat_header">
+        <div className="back" onClick={() => history("/chats")}>
+          <ArrowBackIcon />
+        </div>
+        {/* <div>
               <div className="chat_user_image">
                 <img src={profileImage} alt="" />
               </div>
-            </div>
-            <div
-              className="chat_titl"
-              style={{
-                overflow: "hidden",
-              }}
-            >
-              <h5
-                style={{
-                  wordBreak: "break-word",
-                  lineClamp: "1",
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {title}
-              </h5>
-            </div>
-            <div className="chat_profile">
-              <ChatProfile users={users} title={title} id={id} />
-            </div>
-          </div>
-          <div
+            </div> */}
+        <div
+          className="chat_titl"
+          style={{
+            overflow: "hidden",
+          }}
+        >
+          <h5
             style={{
-              position: "relative",
-              top: "3.5rem",
-              textAlign: "center",
-              width: "100%",
+              wordBreak: "break-word",
+              lineClamp: "1",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
-            <p
-              style={{ fontWeight: "bold", textAlign: "center", width: "100%" }}
-            >
-              ALL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL TO AVOID SCAM{" "}
-              <br />
-              ALL FINANCIAL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL
-              ACCOUNT FOR SECURITY REASONS
-            </p>
-          </div>
+            {title}
+          </h5>
         </div>
+        <div className="chat_profile">
+          <ChatProfile users={users} title={title} id={id} />
+        </div>
+      </div>
+      <div className="single_chat" style={{ height: `${height - 105}px` }}>
         <Chat chat={chat} />
         <div ref={divReff}></div>
       </div>
@@ -141,10 +123,14 @@ function SingleChat() {
           placeholder="Type a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeydown}
           autoFocus
+          rows={3}
         />
-        <button onClick={handleMessage}>Send</button>
+        <div>
+          <button onClick={handleMessage}>
+            <TelegramIcon fontSize="large" />
+          </button>
+        </div>
       </div>
     </>
   );

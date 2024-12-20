@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function WalletList() {
   const [wallets, setWallets] = useState([]);
   const token = localStorage.getItem("token");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/admin/wallets", {
@@ -17,7 +17,7 @@ function WalletList() {
       .then((res) => res.json())
       .then((json) => {
         if (json.error) {
-          navigate("/admin/auth")
+          navigate("/admin/auth");
         }
         const walletReverse = json.wallets;
         setWallets(walletReverse);

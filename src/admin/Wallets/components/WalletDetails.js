@@ -9,7 +9,7 @@ function WalletDetails() {
   const [wallet, setWallet] = useState({});
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [supplier, setSupplier] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   console.log(adminWalletId);
 
@@ -23,7 +23,7 @@ function WalletDetails() {
         .then((response) => response.json())
         .then((json) => {
           if (json.error) {
-            navigate("/admin/auth")
+            navigate("/admin/auth");
           }
           setSupplier(json.wallet.supplier);
           setPaymentComplete(json.wallet.paymentComplete);

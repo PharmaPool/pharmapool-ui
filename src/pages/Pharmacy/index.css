@@ -313,12 +313,12 @@ th {
   font-weight: bolder;
 }
 
-.brands {
+.brand {
   display: flex;
   padding-left: 1rem;
 }
 
-.brands li {
+.brand li {
   align-items: center;
   appearance: none;
   background-color: #fff;
@@ -674,7 +674,7 @@ th {
       rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
       rgba(0, 0, 0, 0.09) 0px 32px 16px;
     padding: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -771,6 +771,12 @@ th {
     z-index: 0;
   }
 
+  .brand{
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .gallery_logo {
     height: 6rem;
     width: 6rem;
@@ -826,11 +832,11 @@ th {
   }
 
   .transaction_table table {
-  display: block;
-}
-.product_name{
-  width: 80%;
-  display: flex;
-  justify-content: center;
-}
+    display: block;
+  }
+  .product_name {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+  }
 }

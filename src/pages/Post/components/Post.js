@@ -72,10 +72,20 @@ function Post({ post }) {
           </p>
         </div>
       </div>
-      <div className="post" onClick={() => navigate(`/post/${post._id}`)}>
-        <div className="post_content">
-          <p>{post.content}</p>
-        </div>
+      <div
+        className="post single_pos"
+        onClick={() => navigate(`/post/${post._id}`)}
+      >
+        <pre
+          style={{
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {post.content}
+        </pre>
         <div className="post_image">
           {post.postImage ? (
             <img src={post.postImage.imageUrl} alt="post_iamge" />

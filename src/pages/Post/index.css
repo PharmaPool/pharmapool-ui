@@ -4,13 +4,31 @@
 }
 
 .post {
-  padding: 2rem 0rem;
+  padding: 1rem 0rem 0rem;
   border-bottom: #e5e9e9 solid 0.1px;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 
 .post_content {
   padding-left: 2rem;
+}
+
+.post pre {
+  font-family: "Poppins", sans-serif;
+  font-size: medium;
+  font-style: normal;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  padding: 15px 15px 0px;
+  border-radius: 5px;
+}
+
+.single_pos pre {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 8;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post_interactions {
@@ -94,7 +112,7 @@
 }
 
 .add_comment {
-  padding-top: 1rem;
+  padding: 1rem 0rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,7 +121,7 @@
 .add_comment input {
   border: none;
   border-bottom: #004d40 2px solid;
-  width: 30%;
+  width: 100%;
   padding: 0.5rem;
   outline: none;
 }
@@ -169,7 +187,7 @@ p {
 .add_reply input {
   border: none;
   border-bottom: #004d40 2px solid;
-  width: 30%;
+  width: 50%;
   padding: 0.5rem;
   outline: none;
   font-size: small;
@@ -263,6 +281,21 @@ p {
     padding: 2rem 1rem;
   }
 
+  .add_comment {
+    padding: 1rem 0rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .add_comment input {
+    border: none;
+    border-bottom: #004d40 2px solid;
+    width: 100%;
+    padding: 0.5rem;
+    outline: none;
+  }
+
   .comment_shade {
     background-color: #eceff1;
     width: fit-content;
@@ -276,7 +309,6 @@ p {
   }
 
   .comment_image {
-    background-color: #004d40;
     width: 2rem;
     height: 2rem;
     border-radius: 1rem;
@@ -304,6 +336,15 @@ p {
     padding-left: 3rem;
   }
 
+  .add_reply input {
+    border: none;
+    border-bottom: #004d40 2px solid;
+    width: 100%;
+    padding: 0.5rem;
+    outline: none;
+    font-size: small;
+  }
+
   .reply_comment {
     display: flex;
     font-size: small;
@@ -315,7 +356,7 @@ p {
   }
 
   .replies {
-    padding-left: 3rem;
+    padding-left: 1.5rem;
   }
 
   .view_replies div,

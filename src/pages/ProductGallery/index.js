@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Data from "../../data/productGalleryData";
 import images from "../../data/images";
+import Surveys from "../../components/Surveys";
 
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -27,6 +28,7 @@ function ProductGallery() {
         </div>
         <h1>Product Gallery</h1>
         <h5>List of available drug brands</h5>
+        {/* <Surveys /> */}
       </div>
       <div className="gallery_products">
         {Data.map((drugClass, i) => (
@@ -57,7 +59,7 @@ function ProductGallery() {
               {drugClass.drugs.map((drug, i) => (
                 <ul className="drug">
                   <h5>{drug.drug}</h5>
-                  <ul className="brands">
+                  <ul className="brand">
                     {drug.brands.map((brand, i) => (
                       <li>{brand}</li>
                     ))}

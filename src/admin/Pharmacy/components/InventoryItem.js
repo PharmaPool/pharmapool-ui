@@ -12,16 +12,15 @@ function InventoryItem() {
   const token = localStorage.getItem("token");
   const { width } = useWindowDimensions();
 
-  
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/api/admin/inventory/${id}`, {
       headers: {
         Authorization: token,
       },
     })
-    .then((response) => response.json())
-    .then((json) => {
-        console.log(json)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
         setInventory(json.inventory);
         setInvent(json.inventory.inventory);
       })

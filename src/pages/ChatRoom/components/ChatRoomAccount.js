@@ -543,7 +543,7 @@ export default function ChatRoomAccount({ id }) {
             <div style={{ margin: "1rem 0px" }}>
               <button
                 className="new_chatroom_button"
-                onClick={()=>setShow(false)}
+                onClick={() => setShow(false)}
               >
                 Request another wallet
               </button>

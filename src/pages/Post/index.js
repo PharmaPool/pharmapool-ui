@@ -45,7 +45,7 @@ function Posts() {
         <div className="create_business">
           <PostModal />
         </div>
-        {allPosts ? (
+        {allPosts.length > 0 ? (
           <div className="post_body">
             {allPosts.map((post, i) => (
               <Post key={i} post={post} />

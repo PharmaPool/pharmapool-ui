@@ -3,6 +3,10 @@
   padding: 4rem 18rem 0rem;
 }
 
+.chat {
+  margin-top: 1rem;
+}
+
 .chat p {
   font-size: small;
 }
@@ -12,11 +16,12 @@
 }
 
 .chat_image {
-  width: 3rem;
-  height: 3rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: 1.5rem;
   margin-right: 0.5rem;
   overflow: hidden;
+  background-color: #004d40;
 }
 
 .chat_image img {
@@ -25,31 +30,35 @@
 }
 
 .chat_item {
-  display: grid;
-  grid-template-columns: 3.5rem 1fr;
+  display: flex;
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
 
 .chat_title {
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.chat_title h5,
-p {
+.chat_title h6 {
   margin: 0rem;
+  text-transform: capitalize;
 }
 
 .chat_title p {
   font-size: small;
+  margin: 0px;
 }
 
 .single_chat {
-  padding: 0rem 7rem 1rem;
+  padding: 0rem 7rem 0rem;
   /* height: 91vh; */
   overflow-y: auto;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .single_chat::-webkit-scrollbar {
@@ -63,10 +72,9 @@ p {
 }
 
 .current_room_user {
-  display: flex;
-  flex-direction: row-reverse;
-  margin: 0rem 0rem;
-  padding-left: 40%;
+  display: grid;
+  grid-template-columns: 2% 1fr;
+  padding-left: 1rem;
 }
 
 .room_user_image {
@@ -92,20 +100,25 @@ p {
 }
 
 .room_user_body {
-  background-color: #fff;
-  color: #004d40;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  padding: 0.3rem 1rem 0.5rem;
-  border-radius: 1rem 0rem 1rem 1rem;
-  margin-top: 0.5rem;
-  width: fit-content;
+  padding: 0rem 1rem;
+  margin: 0rem;
 }
 
 .room_user_body h6 {
-  display: flex;
-  flex-direction: row-reverse;
-  padding-right: 0.5rem;
+  text-transform: capitalize;
+  margin-bottom: 0rem;
+  margin-right: 1rem;
+}
+
+.room_user_body p{
+  margin-bottom: 5px;
+}
+
+.room_user_body pre {
+  font-family: "Poppins", sans-serif;
+  font-size: medium;
+  font-style: normal;
+  line-height: 1.6;
 }
 
 .new_chatroom_button {
@@ -148,6 +161,8 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   /* width: 100%; */
+  padding: 0.5rem 0.5rem;
+  background-color: #abb8b8;
 }
 
 .chatroom_form input {
@@ -312,16 +327,17 @@ th {
   }
 
   .chat_image {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 1.5rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.5rem;
     margin-right: 0.5rem;
     overflow: hidden;
+    background-color: #004d40;
   }
 
   .chat_item {
     display: grid;
-    grid-template-columns: 3.5rem 1fr;
+    grid-template-columns: 5% 1fr;
     padding: 0.5rem 0.9rem 0.5rem 0rem;
     cursor: pointer;
   }
@@ -337,7 +353,7 @@ th {
   }
 
   .single_chat {
-    padding: 0rem 0rem 1rem;
+    padding: 0rem;
     overflow-y: auto;
     -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none;
@@ -360,17 +376,15 @@ th {
   }
 
   .current_room_user {
-    display: flex;
-    margin: 0.1rem 0rem 0rem;
-    font-size: small;
-    padding: 0rem 0.5rem;
+    display: grid;
+    grid-template-columns: 5% 1fr;
   }
 
   .room_user_image {
-    background-color: #004d40;
     height: 2rem;
     width: 2rem;
     border-radius: 1rem;
+    overflow: hidden;
   }
 
   .room_chat_body {
@@ -385,20 +399,20 @@ th {
   }
 
   .room_user_body {
-    background-color: #fff;
-    color: #004d40;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-      rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    padding: 0.5rem;
-    border-radius: 0.5rem 0rem 0.5rem 0.5rem;
-    margin-top: 0.2rem;
+    padding: 0rem 1rem;
+    margin: 0rem;
   }
 
-  .room_chat_body h6 {
-    padding-right: 0rem;
-    width: max-content;
+  .room_user_body h6 {
+    text-transform: capitalize;
+    margin-right: 1rem;
+  }
+
+  .room_user_body pre {
+    font-family: "Poppins", sans-serif;
     font-size: medium;
-    font-weight: normal;
+    font-style: normal;
+    line-height: 1.6;
   }
 
   .add_friend {

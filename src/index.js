@@ -4,10 +4,12 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Context from "./Context";
+import AlertVariousStates from "./components/Alert";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Context>
+    <AlertVariousStates />
     <App />
   </Context>
 );

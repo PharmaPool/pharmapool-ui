@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Reply({ comment, postId }) {
   const [reply, setReply] = useState(false);
@@ -107,7 +108,7 @@ function Reply({ comment, postId }) {
             reply
           </button>
           <button className="x" onClick={() => setReply(false)}>
-            x
+            <CloseIcon />
           </button>
         </div>
       )}
