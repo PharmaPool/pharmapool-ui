@@ -26,7 +26,7 @@ function Notification() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch(`http://127.0.0.1:8000/api/feed/notifications/${_id}`, {
+    fetch(`http://127.0.0.1:8000/api/feed/notifications`, {
       headers: {
         Authorization: token,
       },
@@ -41,6 +41,30 @@ function Notification() {
       })
       .catch((err) => console.log(err));
   }, [_id, navigate, tokenChecker]);
+
+  const clearNotifications = () => {
+    const login = jwtDecode(token);
+    if (!login.user.loggedIn) {
+      navigate(`/verify/signin?redirectTo=${location.pathname}`);
+      return;
+    }
+    fetch(`http://127.0.0.1:8000/api/feed/notifications`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.error) {
+          navigate(`/verify/signin?redirectTo=${location.pathname}`);
+          return;
+        }
+        setNotifications(json.notifications.content);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       {width > 1000 ? <PrivateHeader /> : <MediaHeader />}
@@ -48,7 +72,7 @@ function Notification() {
         <div class="notifications_header">
           <h5>Notifications</h5>
           <div>
-            <button>
+            <button onClick={clearNotifications}>
               Clear all <DeleteForeverIcon />
             </button>
           </div>

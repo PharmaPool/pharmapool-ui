@@ -1,6 +1,7 @@
 import React from "react";
 
 import images from "../../../data/images";
+import banner from "./banner.png";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -53,7 +54,7 @@ function Banner() {
         </div>
         <div className="banner_display">
           <div className="banner_display_image">
-            <img src={images.homepage} alt="pharmapool_logo" />
+            <img src={banner} alt="pharmapool_logo" />
           </div>
         </div>
       </div>
