@@ -21,7 +21,7 @@ function SingleBusiness({ business }) {
   };
 
   const deleteBusiness = async () => {
-    fetch(`http://127.0.0.1:8000/api/admin/business/${business._id}`, {
+    fetch(`https://pharmapoolserver.com/api/admin/business/${business._id}`, {
       method: "DELETE",
       body: JSON.stringify({
         _id: business.creator._id,
@@ -38,7 +38,7 @@ function SingleBusiness({ business }) {
   };
 
   const closeBusiness = () => {
-    fetch(`http://127.0.0.1:8000/api/admin/business/${business._id}`, {
+    fetch(`https://pharmapoolserver.com/api/admin/business/${business._id}`, {
       method: "POST",
       headers: {
         Authorization: token,

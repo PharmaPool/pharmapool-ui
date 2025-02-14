@@ -26,7 +26,7 @@ function Notification() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch(`http://127.0.0.1:8000/api/feed/notifications`, {
+    fetch(`https://pharmapoolserver.com/api/feed/notifications`, {
       headers: {
         Authorization: token,
       },
@@ -48,7 +48,7 @@ function Notification() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch(`http://127.0.0.1:8000/api/feed/notifications`, {
+    fetch(`https://pharmapoolserver.com/api/feed/notifications`, {
       method: "DELETE",
       headers: {
         Authorization: token,

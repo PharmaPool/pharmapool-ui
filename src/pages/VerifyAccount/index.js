@@ -14,7 +14,7 @@ function Login() {
 
   const handleSubmit = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/auth/verify/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/auth/verify/${_id}`, {
       method: "POST",
       body: JSON.stringify({
         code,

@@ -20,7 +20,7 @@ function Home() {
 
   useEffect(() => {
     setTarget(100);
-    fetch("http://127.0.0.1:8000/api/admin/users", {
+    fetch("https://pharmapoolserver.com/api/admin/users", {
       headers: {
         Authorization: token,
       },
@@ -31,7 +31,7 @@ function Home() {
       )
       .catch((err) => console.log(err));
 
-    fetch("http://127.0.0.1:8000/api/admin/posts", {
+    fetch("https://pharmapoolserver.com/api/admin/posts", {
       headers: {
         Authorization: token,
       },
@@ -42,7 +42,7 @@ function Home() {
       )
       .catch((err) => console.log(err));
 
-    fetch("http://127.0.0.1:8000/api/admin/business", {
+    fetch("https://pharmapoolserver.com/api/admin/business", {
       headers: {
         Authorization: token,
       },
@@ -51,7 +51,7 @@ function Home() {
       .then((json) => setBusinesses(json.businesses.length))
       .catch((err) => console.log(err));
 
-    fetch("http://127.0.0.1:8000/api/admin/wallets", {
+    fetch("https://pharmapoolserver.com/api/admin/wallets", {
       headers: {
         Authorization: token,
       },
@@ -60,7 +60,7 @@ function Home() {
       .then((json) => setWallets(json.wallets.length))
       .catch((err) => console.log(err));
 
-    fetch("http://127.0.0.1:8000/api/admin/transactions", {
+    fetch("https://pharmapoolserver.com/api/admin/transactions", {
       headers: {
         Authorization: token,
       },
@@ -69,7 +69,7 @@ function Home() {
       .then((json) => setTransaction(json.allTransactions.length))
       .catch((err) => console.log(err));
 
-    fetch("http://127.0.0.1:8000/api/admin/pharmacies", {
+    fetch("https://pharmapoolserver.com/api/admin/pharmacies", {
       headers: {
         Authorization: token,
       },
@@ -78,7 +78,7 @@ function Home() {
       .then((json) => setPharmacies(json.pharmacies.length))
       .catch((err) => console.log(err));
 
-    fetch("http://127.0.0.1:8000/api/admin/inventories", {
+    fetch("https://pharmapoolserver.com/api/admin/inventories", {
       headers: {
         Authorization: token,
       },

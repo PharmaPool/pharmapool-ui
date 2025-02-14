@@ -18,7 +18,7 @@ function SingleRequest({ request }) {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/api/user/accept-request", {
+    fetch("https://pharmapoolserver.com/api/user/accept-request", {
       method: "POST",
       body: JSON.stringify({
         friendId: request.user._id,
@@ -44,7 +44,7 @@ function SingleRequest({ request }) {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/api/user/decline-request", {
+    fetch("https://pharmapoolserver.com/api/user/decline-request", {
       method: "POST",
       body: JSON.stringify({
         requestId: request._id,

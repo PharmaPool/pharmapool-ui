@@ -30,7 +30,7 @@ function Profile() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch(`http://127.0.0.1:8000/api/user/profile/${_id}`, {
+    fetch(`https://pharmapoolserver.com/api/user/profile/${_id}`, {
       headers: {
         Authorization: token,
       },

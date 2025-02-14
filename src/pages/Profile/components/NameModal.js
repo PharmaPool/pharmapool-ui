@@ -30,7 +30,7 @@ export default function NameModal() {
   const token = localStorage.getItem("token");
 
   let url;
-  url = `http://127.0.0.1:8000/profile/details/${_id}/fullname`;
+  url = `https://pharmapoolserver.com/profile/details/${_id}/fullname`;
 
   const handleClickOpen = () => {
     setOpen(true);

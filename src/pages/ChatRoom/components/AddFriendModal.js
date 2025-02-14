@@ -47,7 +47,7 @@ export default function AddFriendModal({ id, users }) {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("http://127.0.0.1:8000/api/user/chatroom/add", {
+    fetch("https://pharmapoolserver.com/api/user/chatroom/add", {
       method: "POST",
       body: JSON.stringify({
         chatId: id,

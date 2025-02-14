@@ -41,7 +41,7 @@ function SingleChat() {
       history(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch(`http://127.0.0.1:8000/api/user/singlechat/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/user/singlechat/${id}`, {
       method: "POST",
       headers: {
         Authorization: token,

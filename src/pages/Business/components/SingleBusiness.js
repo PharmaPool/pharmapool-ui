@@ -21,7 +21,7 @@ function SingleBusiness({ business, loggedIn }) {
       return;
     }
     setClicked(!clicked);
-    fetch(`http://127.0.0.1:8000/api/business/user/${business._id}`, {
+    fetch(`https://pharmapoolserver.com/api/business/user/${business._id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,

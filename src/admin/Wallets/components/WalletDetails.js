@@ -15,7 +15,7 @@ function WalletDetails() {
 
   useEffect(() => {
     if (adminWalletId !== "") {
-      fetch(`http://127.0.0.1:8000/api/admin/wallet/${adminWalletId}`, {
+      fetch(`https://pharmapoolserver.com/api/admin/wallet/${adminWalletId}`, {
         headers: {
           Authorization: token,
         },

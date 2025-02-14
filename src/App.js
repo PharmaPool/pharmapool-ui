@@ -27,6 +27,7 @@ import ResetPassword from "./pages/ForgotPassword/ResetPassword";
 import ProductGallery from "./pages/ProductGallery";
 import VerifyLogin from "./pages/Login/VerifyLogin";
 import MedicineRequest from "./pages/MedicineRequest";
+import Donation from "./pages/Donation";
 
 import AdminAuth from "./admin/Auth";
 import AdminHome from "./admin/Home";
@@ -89,6 +90,7 @@ function App() {
           <Route exact path="/pharmacy/:id/inventory" element={<Inventory />} />
           <Route exact path="/product-gallery" element={<ProductGallery />} />
           <Route exact path="/medicine_request" element={<MedicineRequest />} />
+          <Route exact path="/donation" element={<Donation />} />
 
           <Route exact path="/admin/auth" element={<AdminAuth />} />
           <Route exact path="/admin/overview" element={<AdminHome />} />

@@ -20,7 +20,7 @@ function Signup() {
 
   const handleSubmit = () => {
     setShow(true);
-    fetch("http://127.0.0.1:8000/api/auth/signup", {
+    fetch("https://pharmapoolserver.com/api/auth/signup", {
       method: "POST",
       body: JSON.stringify({
         firstName: firstname,

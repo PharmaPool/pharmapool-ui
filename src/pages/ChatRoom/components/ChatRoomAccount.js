@@ -55,7 +55,7 @@ export default function ChatRoomAccount({ id }) {
   };
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/wallet/chatroom/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/wallet/chatroom/${id}`, {
       headers: {
         authorization: token,
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export default function ChatRoomAccount({ id }) {
       return;
     }
 
-    fetch(`http://127.0.0.1:8000/api/wallet/chatroom/${id}`, {
+    fetch(`https://pharmapoolserver.com/api/wallet/chatroom/${id}`, {
       method: "POST",
       body: JSON.stringify({
         amount,
@@ -146,11 +146,11 @@ export default function ChatRoomAccount({ id }) {
     }
 
     const partners_amount = Number(wallet.unitPrice) * Number(quantity);
-    const partner_amount = partners_amount * 0.01 + partners_amount;
+    const partner_amount = partners_amount * 0.035 + partners_amount;
     localStorage.setItem("amount", partner_amount.toString());
 
     fetch(
-      `http://127.0.0.1:8000/api/wallet/payment/accept/${wallet.walletAddress}`,
+      `https://pharmapoolserver.com/api/wallet/payment/accept/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -197,7 +197,7 @@ export default function ChatRoomAccount({ id }) {
     const paid_amount = localStorage.getItem("amount");
 
     fetch(
-      `http://127.0.0.1:8000/api/wallet/payment/verify/chatroom/${wallet.walletAddress}`,
+      `https://pharmapoolserver.com/api/wallet/payment/verify/chatroom/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -257,17 +257,20 @@ export default function ChatRoomAccount({ id }) {
       setAcctType("partner");
     }
 
-    fetch(`http://127.0.0.1:8000/api/wallet/receipt/acknowledge/chatroom`, {
-      method: "POST",
-      body: JSON.stringify({
-        chatroomId: id,
-        acctType,
-      }),
-      headers: {
-        authorization: token,
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://pharmapoolserver.com/api/wallet/receipt/acknowledge/chatroom`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          chatroomId: id,
+          acctType,
+        }),
+        headers: {
+          authorization: token,
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((json) => {
         setLoad(false);

@@ -9,7 +9,7 @@ function UsersList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/admin/users", {
+    fetch("https://pharmapoolserver.com/api/admin/users", {
       headers: {
         Authorization: token,
       },

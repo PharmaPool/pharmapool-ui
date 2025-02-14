@@ -14,7 +14,7 @@ function AdminBusiness() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/admin/business", {
+    fetch("https://pharmapoolserver.com/api/admin/business", {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

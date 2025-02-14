@@ -13,7 +13,7 @@ function PharmacyLogin() {
   const [pharmacy, setPharmacy] = useState([]);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/admin/pharmacies`, {
+    fetch(`https://pharmapoolserver.com/api/admin/pharmacies`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

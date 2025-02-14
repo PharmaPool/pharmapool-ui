@@ -44,7 +44,7 @@ export default function PostModal() {
   const token = localStorage.getItem("token");
 
   let url, file, business;
-  url = `http://127.0.0.1:8000/api/business/${_id}`;
+  url = `https://pharmapoolserver.com/api/business/${_id}`;
   if (bt1) {
     business = "demand";
   } else if (bt2) {

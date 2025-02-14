@@ -11,7 +11,7 @@ function AdminPost() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/admin/posts", {
+    fetch("https://pharmapoolserver.com/api/admin/posts", {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

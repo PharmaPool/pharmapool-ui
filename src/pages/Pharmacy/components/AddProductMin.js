@@ -16,19 +16,22 @@ function AddProductMin({ id }) {
   const token = localStorage.getItem("token");
 
   const handleSubmit = () => {
-    fetch(`http://127.0.0.1:8000/api/business/inventory/addproduct/${id}`, {
-      method: "POST",
-      body: JSON.stringify({
-        product: products,
-        brand,
-        strength,
-        manufacturer,
-        dateIn,
-        expiryDate,
-        quantity,
-      }),
-      headers: { Authorization: token, "Content-Type": "application/json" },
-    })
+    fetch(
+      `https://pharmapoolserver.com/api/business/inventory/addproduct/${id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          product: products,
+          brand,
+          strength,
+          manufacturer,
+          dateIn,
+          expiryDate,
+          quantity,
+        }),
+        headers: { Authorization: token, "Content-Type": "application/json" },
+      }
+    )
       .then((response) => response.json())
       .then((json) => window.location.reload())
       .catch((err) => console.log(err));
