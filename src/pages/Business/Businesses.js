@@ -12,7 +12,7 @@ function Business() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    fetch("https://pharmapoolserver.com/api/auth/", {
+    fetch("http://127.0.0.1:8000/api/auth/", {
       Authorization: token,
     })
       .then((response) => response.json())

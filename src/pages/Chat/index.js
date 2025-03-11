@@ -26,7 +26,7 @@ function Chats() {
       "ALL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL TO AVOID SCAM. ALL FINANCIAL TRANSACTIONS SHOULD BE DONE THROUGH PHARMAPOOL ACCOUNT FOR SECURITY REASONS",
       "Warning"
     );
-    fetch(`https://pharmapoolserver.com/api/user/messages/${_id}`, {
+    fetch(`http://127.0.0.1:8000/api/user/messages/${_id}`, {
       headers: {
         Authorization: token,
       },

@@ -14,21 +14,18 @@ function Reply({ comment, postId }) {
   // console.log(comment);
 
   const handleReply = () => {
-    fetch(
-      `https://pharmapoolserver.com/api/feed/post/${postId}/comment/reply`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          content: addReply,
-          userId,
-          commentId: comment._id,
-        }),
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/feed/post/${postId}/comment/reply`, {
+      method: "POST",
+      body: JSON.stringify({
+        content: addReply,
+        userId,
+        commentId: comment._id,
+      }),
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         setAddReply("");
@@ -39,38 +36,32 @@ function Reply({ comment, postId }) {
 
   const handleLike = () => {
     if (clicked === true) {
-      fetch(
-        `https://pharmapoolserver.com/api/feed/post/${postId}/comment/like`,
-        {
-          method: "DELETE",
-          body: JSON.stringify({
-            userId,
-            commentId: comment._id,
-          }),
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/feed/post/${postId}/comment/like`, {
+        method: "DELETE",
+        body: JSON.stringify({
+          userId,
+          commentId: comment._id,
+        }),
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      })
         .then((res) => res.json())
         .then((json) => json)
         .catch((err) => console.log(err));
     } else {
-      fetch(
-        `https://pharmapoolserver.com/api/feed/post/${postId}/comment/like`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            userId,
-            commentId: comment._id,
-          }),
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      fetch(`http://127.0.0.1:8000/api/feed/post/${postId}/comment/like`, {
+        method: "POST",
+        body: JSON.stringify({
+          userId,
+          commentId: comment._id,
+        }),
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+      })
         .then((res) => res.json())
         .then((json) => json)
         .catch((err) => console.log(err));

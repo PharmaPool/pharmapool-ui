@@ -16,7 +16,7 @@ function SinglePost({ posts }) {
   const navigate = useNavigate();
 
   const deletePost = () => {
-    fetch(`https://pharmapoolserver.com/api/admin/post/${posts._id}`, {
+    fetch(`http://127.0.0.1:8000/api/admin/post/${posts._id}`, {
       method: "DELETE",
       body: JSON.stringify({
         _id: posts.creator._id,

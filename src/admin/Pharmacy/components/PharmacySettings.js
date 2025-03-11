@@ -43,7 +43,7 @@ export default function PharmacySettings({ pharmacyInfo }) {
   const locations = useLocation();
 
   let url, file;
-  url = `https://pharmapoolserver.com/api/business/pharmacy/${pharmacy._id}`;
+  url = `http://127.0.0.1:8000/api/business/pharmacy/${pharmacy._id}`;
 
   const handleClickOpen = () => {
     setOpen(true);

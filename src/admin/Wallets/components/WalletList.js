@@ -9,7 +9,7 @@ function WalletList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://pharmapoolserver.com/api/admin/wallets", {
+    fetch("http://127.0.0.1:8000/api/admin/wallets", {
       headers: {
         Authorization: token,
       },

@@ -13,21 +13,18 @@ function Reply({ comment, postId }) {
   console.log(comment);
 
   const handleReply = () => {
-    fetch(
-      `https://pharmapoolserver.com/api/feed/post/${postId}/comment/reply`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          content: addReply,
-          userId,
-          commentId: comment._id,
-        }),
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/feed/post/${postId}/comment/reply`, {
+      method: "POST",
+      body: JSON.stringify({
+        content: addReply,
+        userId,
+        commentId: comment._id,
+      }),
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         setAddReply("");

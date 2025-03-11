@@ -55,7 +55,7 @@ export default function ChatRoomAccount({ id }) {
   };
 
   useEffect(() => {
-    fetch(`https://pharmapoolserver.com/api/wallet/chatroom/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/wallet/chatroom/${id}`, {
       headers: {
         authorization: token,
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export default function ChatRoomAccount({ id }) {
       return;
     }
 
-    fetch(`https://pharmapoolserver.com/api/wallet/chatroom/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/wallet/chatroom/${id}`, {
       method: "POST",
       body: JSON.stringify({
         amount,
@@ -150,7 +150,7 @@ export default function ChatRoomAccount({ id }) {
     localStorage.setItem("amount", partner_amount.toString());
 
     fetch(
-      `https://pharmapoolserver.com/api/wallet/payment/accept/${wallet.walletAddress}`,
+      `http://127.0.0.1:8000/api/wallet/payment/accept/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -197,7 +197,7 @@ export default function ChatRoomAccount({ id }) {
     const paid_amount = localStorage.getItem("amount");
 
     fetch(
-      `https://pharmapoolserver.com/api/wallet/payment/verify/chatroom/${wallet.walletAddress}`,
+      `http://127.0.0.1:8000/api/wallet/payment/verify/chatroom/${wallet.walletAddress}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -257,20 +257,17 @@ export default function ChatRoomAccount({ id }) {
       setAcctType("partner");
     }
 
-    fetch(
-      `https://pharmapoolserver.com/api/wallet/receipt/acknowledge/chatroom`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          chatroomId: id,
-          acctType,
-        }),
-        headers: {
-          authorization: token,
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:8000/api/wallet/receipt/acknowledge/chatroom`, {
+      method: "POST",
+      body: JSON.stringify({
+        chatroomId: id,
+        acctType,
+      }),
+      headers: {
+        authorization: token,
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((json) => {
         setLoad(false);

@@ -51,6 +51,10 @@ function Banner() {
           >
             Request Medicine Now!
           </button>
+          <br />
+          <button class="business_button" onClick={() => navigate("/donation")}>
+            Donate to Pharmapool
+          </button>
         </div>
         <div className="banner_display">
           <div className="banner_display_image">

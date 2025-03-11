@@ -36,7 +36,7 @@ function Profile() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(`https://pharmapoolserver.com/api/user/profile/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/user/profile/${id}`, {
       headers: {
         Authorization: token,
       },
@@ -62,7 +62,7 @@ function Profile() {
       })
       .catch((err) => console.log(err));
 
-    fetch(`https://pharmapoolserver.com/api/user/profile/${currentUser}`, {
+    fetch(`http://127.0.0.1:8000/api/user/profile/${currentUser}`, {
       headers: {
         Authorization: token,
       },
@@ -90,7 +90,7 @@ function Profile() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("https://pharmapoolserver.com/api/user/friend-request", {
+    fetch("http://127.0.0.1:8000/api/user/friend-request", {
       method: "POST",
       body: JSON.stringify({
         userId: currentUser,
@@ -115,7 +115,7 @@ function Profile() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("https://pharmapoolserver.com/api/user/chat", {
+    fetch("http://127.0.0.1:8000/api/user/chat", {
       method: "POST",
       body: JSON.stringify({
         userId: currentUser,
@@ -139,7 +139,7 @@ function Profile() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("https://pharmapoolserver.com/api/user/accept-request", {
+    fetch("http://127.0.0.1:8000/api/user/accept-request", {
       method: "POST",
       body: JSON.stringify({
         friendId: id,

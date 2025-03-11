@@ -18,7 +18,7 @@ function UserDetails() {
 
   useEffect(() => {
     if (adminUserId !== "") {
-      fetch(`https://pharmapoolserver.com/api/user/profile/${adminUserId}`, {
+      fetch(`http://127.0.0.1:8000/api/user/profile/${adminUserId}`, {
         headers: {
           Authorization: token,
         },
@@ -33,7 +33,7 @@ function UserDetails() {
         })
         .catch((err) => console.log(err));
 
-      fetch("https://pharmapoolserver.com/api/admin/business", {
+      fetch("http://127.0.0.1:8000/api/admin/business", {
         headers: {
           Authorization: token,
         },
@@ -45,7 +45,7 @@ function UserDetails() {
   }, [adminUserId]);
 
   const handle_delete_user = () => {
-    fetch(`https://pharmapoolserver.com/api/admin/user/${user._id}`, {
+    fetch(`http://127.0.0.1:8000/api/admin/user/${user._id}`, {
       method: "DELETE",
       headers: {
         Authorization: token,

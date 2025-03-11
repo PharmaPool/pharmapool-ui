@@ -45,7 +45,7 @@ export default function ChatroomProfile({ title, users, id, admin }) {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch("https://pharmapoolserver.com/api/user/chatroom/leave", {
+    fetch("http://127.0.0.1:8000/api/user/chatroom/leave", {
       method: "DELETE",
       body: JSON.stringify({
         chatId: id,

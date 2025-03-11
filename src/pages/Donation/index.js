@@ -12,6 +12,7 @@ function Donation() {
     amount: "",
   });
   const [loading, setLoading] = useState(false);
+  const [thankYouMessage, setThankYouMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +21,8 @@ function Donation() {
 
   const handle_wallet_request = () => {
     setLoading(true);
-    fetch(`https://pharmapoolserver.com/api/donor/register`, {
+    setThankYouMessage("");
+    fetch(`http://127.0.0.1:8000/api/donor/register`, {
       method: "POST",
       body: JSON.stringify({
         name: donation.name,
@@ -36,7 +38,7 @@ function Donation() {
       .then((json) => {
         if (json.success === true) {
           fetch(
-            `https://pharmapoolserver.com/api/donor/donate/${json.wallet.walletAddress}`,
+            `http://127.0.0.1:8000/api/donor/donate/${json.wallet.walletAddress}`,
             {
               method: "POST",
               body: JSON.stringify({
@@ -52,6 +54,7 @@ function Donation() {
             .then((json) => {
               popup.resumeTransaction(json.result.data.access_code);
               setLoading(false);
+              setThankYouMessage("Thank you for your generous donation!");
             })
             .catch((err) => {
               console.log(err);
@@ -81,7 +84,9 @@ function Donation() {
       <h2>Donations</h2>
       <p>
         Your donation will help us to continue to provide free and open access
-        to our data and tools. We are grateful for your support.
+        to our data and tools. Your support will also enable us expand our
+        network of medicine suppliers and facilitate our timely interventions to
+        save lives. We are grateful for your support.
       </p>
       <div className="donations_form">
         <input
@@ -112,6 +117,7 @@ function Donation() {
           {loading ? "Processing..." : "Donate"}
         </button>
       </div>
+      {thankYouMessage && <p className="thank-you">{thankYouMessage}</p>}
     </div>
   );
 }

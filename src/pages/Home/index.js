@@ -70,6 +70,13 @@ function Homepage() {
           Request Medicine Now
         </button>
       </div>
+      <div class="medicine_request">
+        <h2>DONATE TO PHARMAPOOL</h2>
+        <br />
+        <button class="button-1" onClick={() => navigate("/donation")}>
+          Donate
+        </button>
+      </div>
       <Reason />
       <MoreInfo />
       <div className="join_us">
@@ -89,8 +96,16 @@ function Homepage() {
         <img src={images.certified} alt="certified" width={100} />
         <h1>CAC CERTIFIED</h1>
       </div>
+
       <ExtraInfo />
       <Emailjs />
+      <div class="medicine_request">
+        <h2>DONATE TO PHARMAPOOL</h2>
+        <br />
+        <button class="button-1" onClick={() => navigate("/donation")}>
+          Donate
+        </button>
+      </div>
       <QuickLinks />
       <Footer />
     </div>

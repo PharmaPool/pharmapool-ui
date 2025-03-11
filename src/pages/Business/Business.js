@@ -34,7 +34,7 @@ function Business() {
       navigate(`/verify/signin?redirectTo=${location.pathname}`);
       return;
     }
-    fetch(`https://pharmapoolserver.com/api/business/group/${business._id}`, {
+    fetch(`http://127.0.0.1:8000/api/business/group/${business._id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
@@ -57,7 +57,7 @@ function Business() {
       return;
     }
     setClicked(!clicked);
-    fetch(`https://pharmapoolserver.com/api/business/user/${business._id}`, {
+    fetch(`http://127.0.0.1:8000/api/business/user/${business._id}`, {
       method: "POST",
       body: JSON.stringify({
         userId: _id,
@@ -77,7 +77,7 @@ function Business() {
       return;
       setShow(true);
     }
-    fetch(`https://pharmapoolserver.com/api/business/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/business/${id}`, {
       headers: {
         Authorization: token,
       },

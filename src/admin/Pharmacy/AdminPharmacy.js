@@ -17,7 +17,7 @@ function AdminPharmacy() {
   const [inventory, setInventory] = useState([]);
 
   useEffect(() => {
-    fetch(`https://pharmapoolserver.com/api/admin/pharmacy/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/admin/pharmacy/${id}`, {
       headers: { Authorization: token },
     })
       .then((response) => response.json())

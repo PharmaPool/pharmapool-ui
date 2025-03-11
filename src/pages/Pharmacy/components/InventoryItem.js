@@ -19,7 +19,7 @@ function InventoryItem() {
   const { width } = useWindowDimensions();
 
   useEffect(() => {
-    fetch(`https://pharmapoolserver.com/api/business/inventory/${id}`, {
+    fetch(`http://127.0.0.1:8000/api/business/inventory/${id}`, {
       headers: {
         Authorization: token,
       },
